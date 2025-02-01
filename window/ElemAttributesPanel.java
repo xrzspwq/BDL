@@ -31,7 +31,7 @@ public class ElemAttributesPanel
         attributesGrid.setHgap(8.0);
         attributesGrid.setVgap(5.0);
 
-        setPanel(new GraphicElem(new Circuit("gros prout")));
+        setPanel(new GraphicElem(new Circuit("test")));
 
         panel.getChildren().addAll(name,attributesGrid);
     }   
