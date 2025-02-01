@@ -1,0 +1,25 @@
+.leftPanel
+{
+    -fx-background-color: white; 
+    -fx-border-color:red ;
+    -fx-border-width: 10 ; 
+    -fx-border-style: solid inside ;
+
+}
+
+
+.toolBar
+{  
+    -fx-background-color: rgb(31, 31, 31);
+    -fx-spacing: 35px;
+}
+
+.toolBarIcon
+{  
+    -fx-background-color: rgb(131, 134, 134);
+}
+
+.toolBarIcon:hover
+{  
+    -fx-background-color : rgb(215, 215, 215);
+}
