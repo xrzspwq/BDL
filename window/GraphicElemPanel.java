@@ -5,13 +5,13 @@ import javafx.scene.input.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.GridPane;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.event.EventHandler;
 import java.util.*;
+import javafx.geometry.Insets;
+
 import javafx.scene.layout.*;
 import javafx.scene.shape.*;
 import javafx.scene.paint.Color;
@@ -25,11 +25,19 @@ public class GraphicElemPanel
     public GraphicElemPanel(int height)
     {
         panel = new VBox();
+        panel.setSpacing(5.0);
         panel.setPrefHeight(height);
+        boolean firstLoop = true;
 
         for (GraphicElem component : GraphicElemInfo.getComponents()) 
         {
             panel.getChildren().add(component.getShape());
+
+            if (firstLoop) 
+            {
+                VBox.setMargin(component.getShape(),new Insets(5.0,0.0,0.0,0.0));
+            }
+
             component.getShape().setOnDragDetected(new EventHandler<MouseEvent>() 
             {
                 @Override public void handle(MouseEvent event) 
@@ -50,6 +58,8 @@ public class GraphicElemPanel
                     event.consume();
                 }
             });
+
+            firstLoop = false;
         }
 
         //Circle circle = new Circle(20.0f);

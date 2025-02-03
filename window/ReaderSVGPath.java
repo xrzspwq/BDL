@@ -7,8 +7,7 @@ import java.util.Scanner;
 public class ReaderSVGPath
 {
     final private String path;
-
-
+    
     public ReaderSVGPath(String filePath) throws FileNotFoundException,IllegalArgumentException
     {
         try 

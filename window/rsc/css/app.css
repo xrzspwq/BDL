@@ -23,3 +23,18 @@
 {  
     -fx-background-color : rgb(215, 215, 215);
 }
+
+.whiteBoardElem
+{
+    -fx-fill: rgb(0, 0, 0);  
+    -fx-stroke: black;    
+    -fx-stroke-width: 3;  
+
+}
+
+.whiteBoardElem:hover
+{
+    -fx-fill: rgb(23, 87, 170);  
+    -fx-stroke:  rgb(23, 87, 170);
+    -fx-stroke-width: 3;  
+}

@@ -32,21 +32,21 @@ public class GraphicElemInfo
         switch (elem.name) {
 
             case "And Gate":
-                res = new Circle(10);  
+                res = new Circle(20);  
             return res;
 
             case "Or Gate" : 
                 Polygon polygon = new Polygon();
                 polygon.getPoints().addAll(new Double[]{
-                    10.0,10.0,
+                    40.0,0.0, 
                     0.0,0.0,
-                    20.0,0.0 });
+                    20.0,20.0, });
                 res = polygon;
             return res;
 
         
             default: //circuit
-                res = new Rectangle(20,20);
+                res = new Rectangle(30,30);
             return res;
         }
     }

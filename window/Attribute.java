@@ -16,4 +16,10 @@ public class Attribute<T>
     public T getValue() {
         return attribute.getValue();
     }
+
+    /*
+    public setValue(T value) {
+        attribute.setValue(value);
+    }
+    */
 }
