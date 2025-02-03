@@ -1,1 +1,2 @@
-window/.class
+window/*.class
+.gitignore
