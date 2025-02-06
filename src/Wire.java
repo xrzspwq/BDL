@@ -1,6 +1,7 @@
 package src;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Wire extends Elem{    
     private Pairs<ElemLogique,Integer> entry;
@@ -21,7 +22,7 @@ public class Wire extends Elem{
 
     public ArrayList<Pairs<ElemLogique, Integer>> getExit(){return exit;}
 
-    public void ChangeEntry(ElemLogique e1, int indexIn){
+    public void changeEntry(ElemLogique e1, int indexIn){
     /**
      * Change the entry of the wire to a new logical element.
      * The current entry is added to the exit list before updating.
@@ -33,7 +34,23 @@ public class Wire extends Elem{
         output=e1.evaluate();
     }
 
-    public void addExit(ElemLogique elem1, Integer int1){exit.add(new Pairs<>(elem1,int1));}
+    
+
+    public boolean connect(ElemLogique elem, Integer int1){
+        exit.add(new Pairs<>(elem,int1));
+        if(output==null){ 
+            output=entry.getElem1().evaluate();
+        }
+        
+        Iterator<ArrayList<EnumBool>> i = output.iterator();
+        ArrayList<EnumBool> a= i.next();
+        return elem.In.add(a);
+    }
+
+    public boolean disconnect(Pairs<ElemLogique,Integer> p){
+        
+        return exit.remove(p);
+    }   
 
     @Override
     public ArrayList<ArrayList<EnumBool>> evaluate(){
