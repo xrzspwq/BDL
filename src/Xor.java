@@ -2,13 +2,13 @@ package src;
 
 import java.util.ArrayList;
 
-public class Or extends ElemLogique{
+public class Xor extends ElemLogique{
     
-    private Or(int NbBusIn, int NbBusOut, ArrayList<Integer> TailleBusIn, ArrayList<Integer> TailleBusOut) {
+    private Xor(int NbBusIn, int NbBusOut, ArrayList<Integer> TailleBusIn, ArrayList<Integer> TailleBusOut) {
         super(NbBusIn, NbBusOut, TailleBusIn, TailleBusOut); 
     }
 
-    public Or(int NbBusIn, ArrayList<Integer> TailleBusIn){
+    public Xor(int NbBusIn, ArrayList<Integer> TailleBusIn){
         super(NbBusIn, 1, TailleBusIn, TailleBusIn);
 
     }
@@ -17,7 +17,7 @@ public class Or extends ElemLogique{
     public ArrayList<ArrayList<EnumBool>> evaluate() {
         ArrayList<EnumBool> output = new ArrayList<EnumBool>();
         output.add(EnumBool.ERR);
-        if(In.size()>2){
+        if(In.size()>2 ){
             Out.add(output);
             return Out;
         }
@@ -27,7 +27,11 @@ public class Or extends ElemLogique{
             if(In.get(0).get(i) == EnumBool.ERR || In.get(1).get(i) == EnumBool.ERR ||In.get(0).get(i) == EnumBool.NOTHING || In.get(1).get(i) == EnumBool.NOTHING){
                 output.add(EnumBool.ERR);
             }
+
             if(In.get(0).get(i) == EnumBool.FALSE && In.get(1).get(i) == EnumBool.FALSE){
+                output.add(EnumBool.FALSE);
+            }
+            else if(In.get(0).get(i) == EnumBool.TRUE && In.get(1).get(i) == EnumBool.TRUE){
                 output.add(EnumBool.FALSE);
             }
             else if(In.get(0).get(i) == EnumBool.TRUE || In.get(1).get(i) == EnumBool.TRUE){
