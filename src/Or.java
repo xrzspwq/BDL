@@ -16,8 +16,8 @@ public class Or extends ElemLogique{
     @Override
     public ArrayList<ArrayList<EnumBool>> evaluate() {
         ArrayList<EnumBool> output = new ArrayList<EnumBool>();
-        output.add(EnumBool.ERR);
         if(In.size()>2){
+            output.add(EnumBool.ERR);
             Out.add(output);
             return Out;
         }
