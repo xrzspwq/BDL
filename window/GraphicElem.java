@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.shape.*;
 
-public class GraphicElem extends Shape implements Cloneable
+public class GraphicElem
 {
     static int idCount=0;
     private final int id;
+    private Elem elem;
     private List<Object> attributes;
     private Shape shape;
-    private Elem elem;
 
+    
     public GraphicElem(Elem elem)
     {
         id = idCount++;
@@ -29,7 +30,7 @@ public class GraphicElem extends Shape implements Cloneable
         this.attributes = new ArrayList<>(attributes.size());
     }
 
-    public int getElemId() {
+    public int getId() {
         return id;
     }
 

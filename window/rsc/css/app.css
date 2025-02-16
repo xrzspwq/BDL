@@ -38,3 +38,19 @@
     -fx-stroke:  rgb(23, 87, 170);
     -fx-stroke-width: 3;  
 }
+
+.selectionSquare
+{
+    -fx-fill: rgba(144, 213, 255,0.5);  
+    -fx-stroke:  rgba(144, 213, 255,0.5);
+    -fx-stroke-width: 3; 
+    -fx-background-color: rgba(144, 213, 255,0.5);
+    
+}
+
+.recSelection
+{
+    -fx-fill: rgb(95, 169, 254);  
+    -fx-stroke:  rgb(95, 169, 254);
+    -fx-background-color: rgb(95, 169, 254);
+}
