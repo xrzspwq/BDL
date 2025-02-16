@@ -8,16 +8,19 @@ public class Xor extends ElemLogique{
         super(NbBusIn, NbBusOut, TailleBusIn, TailleBusOut); 
     }
 
-    public Xor(int NbBusIn, ArrayList<Integer> TailleBusIn){
-        super(NbBusIn, 1, TailleBusIn, TailleBusIn);
-
+    public Xor(int NbBusIn, int TailleIn) {
+        super(NbBusIn, 1, new ArrayList<Integer>(), new ArrayList<Integer>());
+        for (int i = 0; i < NbBusIn; i++) {
+            TailleBusIn.add(TailleIn);
+        } 
+        TailleBusOut.add(TailleIn);
     }
 
     @Override
     public ArrayList<ArrayList<EnumBool>> evaluate() {
         ArrayList<EnumBool> output = new ArrayList<EnumBool>();
-        output.add(EnumBool.ERR);
         if(In.size()>2 ){
+            output.add(EnumBool.ERR);
             Out.add(output);
             return Out;
         }

@@ -8,9 +8,12 @@ public class Or extends ElemLogique{
         super(NbBusIn, NbBusOut, TailleBusIn, TailleBusOut); 
     }
 
-    public Or(int NbBusIn, ArrayList<Integer> TailleBusIn){
-        super(NbBusIn, 1, TailleBusIn, TailleBusIn);
-
+    public Or(int NbBusIn, int TailleIn) {
+        super(NbBusIn, 1, new ArrayList<Integer>(), new ArrayList<Integer>());
+        for (int i = 0; i < NbBusIn; i++) {
+            TailleBusIn.add(TailleIn);
+        } 
+        TailleBusOut.add(TailleIn);
     }
 
     @Override
