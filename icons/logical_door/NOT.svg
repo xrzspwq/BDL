@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://web.resource.org/cc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" id="svg2" viewBox="0 0 42 23.7" version="1.0">
+    <g id="layer1" stroke="#000" fill="none" transform="translate(-15.5 -17.594)">
+  
+        <path id="path12162" stroke-linecap="square" d="m48.5 29.50c0 1.11-0.896 2-2 2s-2-0.89-2-2c0-1.1 0.896-2 2-2s2 0.9 2 2zm-23.5 11v-22l18.986 11-18.986 11zm23.5-11h9m-41.5 0h9"/>
+
+        <!--SEPARATION DU FICHIER SVG PAR ETUDIANT DU GROUPE BDL -->
+    </g>
+    <metadata>
+        <rdf:RDF>
+          <cc:Work>
+            <dc:format>image/svg+xml</dc:format>
+            <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+            <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+            <dc:publisher>
+              <cc:Agent rdf:about="http://openclipart.org/">
+                <dc:title>Openclipart</dc:title>
+              </cc:Agent>
+            </dc:publisher>
+            <dc:title>Digital logic gates</dc:title>
+            <dc:date>2008-02-05T18:37:38</dc:date>
+            <dc:description>A collection of gates for digital circuits designed according to the official IEEE Std 91-1984, Appendix A guidelines.</dc:description>
+            <dc:source>http://openclipart.org/detail/12885/digital-logic-gates-by-nobody</dc:source>
+            <dc:creator>
+              <cc:Agent>
+                <dc:title>nobody</dc:title>
+              </cc:Agent>
+            </dc:creator>
+            <dc:subject>
+              <rdf:Bag>
+                <rdf:li>clip art</rdf:li>
+                <rdf:li>clipart</rdf:li>
+                <rdf:li>digital</rdf:li>
+                <rdf:li>gates</rdf:li>
+                <rdf:li>image</rdf:li>
+                <rdf:li>inverter</rdf:li>
+                <rdf:li>logic</rdf:li>
+                <rdf:li>media</rdf:li>
+                <rdf:li>nand</rdf:li>
+                <rdf:li>nor</rdf:li>
+                <rdf:li>public domain</rdf:li>
+                <rdf:li>svg</rdf:li>
+                <rdf:li>xnor</rdf:li>
+                <rdf:li>xor</rdf:li>
+              </rdf:Bag>
+            </dc:subject>
+          </cc:Work>
+          <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+            <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+            <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+            <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+          </cc:License>
+        </rdf:RDF>
+    </metadata>
+</svg>
