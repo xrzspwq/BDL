@@ -51,7 +51,7 @@ public class Whiteboard
     private boolean firstMove = false;
     private Double zoomMultiplicator = 1.025;
     private Double mousePos [];
-    private Double lastMousePos [] = null;
+    private Double lastMoudeDelta [] = null; 
     private BoundingBox selectionBounds;
     private Rectangle selectionRec;
     private ArrayList<Integer> selectedElemsId;
@@ -66,8 +66,7 @@ public class Whiteboard
         panel = new Pane();
         circuitComponents = new HashMap<>();
         selectedElemsId = new ArrayList<>();
-
-        lastMousePos = new Double[] {0.0,0.0};
+        lastMoudeDelta = new Double[] {0.0,0.0};
 
         panel.setOnDragOver(new EventHandler<DragEvent>() 
         {
@@ -166,51 +165,19 @@ public class Whiteboard
                 if (!cursorSelectionMode) //hand mode 
                 {
                     Double deltaMousePos [] = new Double[2];
+                    deltaMousePos[0] =  (event.getX() - mousePos[0]) + lastMoudeDelta[0];
+                    deltaMousePos[1] =  (event.getY() - mousePos[1]) + lastMoudeDelta[1];
 
-                    if (firstMove && lastMousePos!=null) 
+                    for (Node elem : panel.getChildren()) 
                     {
-                        deltaMousePos[0] =  event.getX() - lastMousePos[0];
-                        deltaMousePos[1] =  event.getY() - lastMousePos[1];
-                        firstMove = false;
-                        System.out.println("deltaMousePosX : " + deltaMousePos[0]);
-                        System.out.println("deltaMousePosY : " + deltaMousePos[1]);
-
-
-                        for (Node elem : panel.getChildren()) 
-                        {
-                            //elem.setTranslateX(elem.getTranslateX()+deltaMousePos[0]);
-                            //elem.setTranslateY(elem.getTranslateY()+deltaMousePos[1]);
-                            //
-                            //System.out.println("FIRST) elem.getBoundsInParent().getMinX() : " + elem.getBoundsInParent().getMinX() + 
-                            //"\nelem.getBoundsInParent().getMinY() : " + elem.getBoundsInParent().getMinY() + "\n\n");
-
-
-                            System.out.println("FIRST elem.getTranslateX() : " + elem.getTranslateX() + "\nelem.getTranslateX() : " + elem.getTranslateX()  + "\n\n");
-
-                        }
-                    }
-
-                    else
-                    {
-                        deltaMousePos[0] =  event.getX() - mousePos[0];
-                        deltaMousePos[1] =  event.getY() - mousePos[1];
-
-                        for (Node elem : panel.getChildren()) 
-                        {
-                            elem.setTranslateX(deltaMousePos[0]);
-                            elem.setTranslateY(deltaMousePos[1]);
-
-                            //elem.relocate(deltaMousePos[0],deltaMousePos[1]);
-
-                           // System.out.println("elem.getBoundsInParent().getMinX() : " + elem.getBoundsInParent().getMinX() + 
-                           // "\nelem.getBoundsInParent().getMinY() : " + elem.getBoundsInParent().getMinY() + "\n\n");
-                           
-                            System.out.println("elem.getTranslateX() : " + elem.getTranslateX() + "\nelem.getTranslateX() : " + elem.getTranslateX()  + "\n\n");
-
-                        }
-                    }
-                    
-                  
+                        elem.setTranslateX(deltaMousePos[0]);
+                        elem.setTranslateY(deltaMousePos[1]);
+                        //elem.relocate(deltaMousePos[0],deltaMousePos[1]);
+                       // System.out.println("elem.getBoundsInParent().getMinX() : " + elem.getBoundsInParent().getMinX() + 
+                       // "\nelem.getBoundsInParent().getMinY() : " + elem.getBoundsInParent().getMinY() + "\n\n");
+                       
+                        System.out.println("elem.getTranslateX() : " + elem.getTranslateX() + "\nelem.getTranslateX() : " + elem.getTranslateX()  + "\n\n");
+                    }                     
                 }
 
                 else //selection mode 
@@ -257,15 +224,14 @@ public class Whiteboard
             @Override
             public void handle(MouseEvent event) 
             {
-                if (!cursorSelectionMode) 
+               if (!cursorSelectionMode) 
                 {
                     App.setCursor(Cursor.OPEN_HAND);
                     mouseTranslation = false;
                     firstMove = true;
 
-                    lastMousePos = new Double[2];
-                    lastMousePos[0] = event.getX();
-                    lastMousePos[1] = event.getY();
+                    lastMoudeDelta[0] = event.getX() - mousePos[0];
+                    lastMoudeDelta[1] = event.getY() - mousePos[1];
                 }
 
                 else   
