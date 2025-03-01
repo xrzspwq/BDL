@@ -73,14 +73,14 @@ public class CircuitSaver
         ArrayNode arrayBusOut = mapper.createArrayNode();
 
 
-        for(Integer integ : elem.getTailleBusIn().toArray())
+        for(Integer integ : elem.getTailleBusIn())
         {
             arrayBusIn.add(integ);
         }
 
         node.set("TailleBusIn",arrayBusIn);
 
-        for(Integer integ2 : elem.getTailleBusOut().toArray())
+        for(Integer integ2 : elem.getTailleBusOut())
         {
             arrayBusOut.add(integ2);
         }
