@@ -20,6 +20,7 @@ public class And extends ElemLogique {
     @Override
     public ArrayList<ArrayList<EnumBool>> evaluate() {
         ArrayList<EnumBool> output = new ArrayList<EnumBool>();
+        Out.clear();
         if (In.size() > 2) {
             output.add(EnumBool.ERR);
             Out.add(output);
@@ -41,6 +42,7 @@ public class And extends ElemLogique {
             }
         }
         Out.add(output);
+        
         return Out;
 
     }

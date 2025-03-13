@@ -29,6 +29,10 @@ public ArrayList<ArrayList<EnumBool>> getIn(){return In;}
 
 public ArrayList<ArrayList<EnumBool>> getOut(){return Out;}
 
+public void clearIn(){In.clear();}
+public void clearOut(){Out.clear();}
+
+
 public int getNbBusIn(){return NbBusIn;}
 
 public int getNbBusOut(){return NbBusOut;}

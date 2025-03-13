@@ -18,6 +18,8 @@ public class Not extends ElemLogique{
 
     @Override
     public ArrayList<ArrayList<EnumBool>> evaluate() {
+        Out.clear();
+
         ArrayList<EnumBool> output = new ArrayList<EnumBool>();
         if(In.size()>1){
             output.add(EnumBool.ERR);

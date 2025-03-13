@@ -21,6 +21,8 @@ public class Input extends ElemLogique{
 
     @Override
     public ArrayList<ArrayList<EnumBool>> evaluate() {
+        Out.clear();
+
         ArrayList<EnumBool> bus = new ArrayList<>();
         bus.add(output);
         Out.add(bus);
