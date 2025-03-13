@@ -59,8 +59,8 @@ public class Wire extends Elem {
     }
 
     public boolean disconnect(Pairs<ElemLogique, Integer> p) {
-
-        return exit.remove(p);
+        //p.getElem1().removeIn(p.getElem2());
+        return  exit.remove(p);
     }
 
     public void setPosEnd(Point2D pos) {

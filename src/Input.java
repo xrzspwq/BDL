@@ -17,17 +17,19 @@ public class Input extends ElemLogique{
 
     public void toggle(){
         output = (output == EnumBool.FALSE) ? EnumBool.TRUE : EnumBool.FALSE;
+        this.evaluate();
     }
 
     @Override
     public ArrayList<ArrayList<EnumBool>> evaluate() {
         Out.clear();
+        NbBusOut=0;
 
         ArrayList<EnumBool> bus = new ArrayList<>();
         bus.add(output);
+
         Out.add(bus);
         NbBusOut+=1;
-        TailleBusOut.add(1);
         return Out;
     }
 

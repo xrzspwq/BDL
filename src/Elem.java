@@ -30,6 +30,8 @@ public ArrayList<ArrayList<EnumBool>> getIn(){return In;}
 public ArrayList<ArrayList<EnumBool>> getOut(){return Out;}
 
 public void clearIn(){In.clear();}
+
+public void removeIn(int i){In.remove(i);}
 public void clearOut(){Out.clear();}
 
 
