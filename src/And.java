@@ -15,8 +15,6 @@ public class And extends ElemLogique {
             TailleBusIn.add(TailleIn);
         } 
         TailleBusOut.add(TailleIn);
-
-
     }
 
     @Override

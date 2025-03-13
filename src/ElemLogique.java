@@ -13,6 +13,6 @@ public abstract class ElemLogique extends Elem{
 
     public Wire CreateWire(){
         int index=0; // temporaire, probablement quand on aura fait le lien entre l'interface et le code
-        return new Wire(NbBusOut, TailleBusOut, this, index);
+        return new Wire(NbBusOut, TailleBusOut, this, index,null);
     }
 }
