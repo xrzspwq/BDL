@@ -1,7 +1,11 @@
 package src;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
 import java.awt.geom.Point2D;
 import java.awt.geom.Path2D;
 
@@ -63,13 +67,19 @@ public class Wire extends Elem {
         this.posEnd = pos;
     }
 
-    public void CheminLPC() {
-        ArrayList<Point2D> stack = new ArrayList<Point2D>();
-        stack.add(posStart);
-        while (!stack.contains(posEnd)) {
-            
+    public void CheminLPC(List<List<boolean>> M) {
+
+        Stack<Point2D> stack = new Stack<Point2D>();
+        stack.push(posStart);
+        Queue<Point2D> F = new LinkedList<>(stack);
+        ArrayList<Point2D> V = new ArrayList<>();
+        while (F.size() != 0) {
+            Point2D Head = F.remove();
         }
     }
+
+
+    
 
     @Override
     public ArrayList<ArrayList<EnumBool>> evaluate() {
