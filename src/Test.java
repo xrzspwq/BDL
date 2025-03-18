@@ -5,12 +5,10 @@ import java.util.ArrayList;
 
 class Test {
  public static void main(String[] args) {
-    ArrayList<Integer> TailleBus = new ArrayList<>();
     ArrayList<ArrayList<EnumBool>> out = new ArrayList<>();
-    TailleBus.add(1);
     
     //And andtest = new And(1, 1);
-    Or andtest = new Or(1, 1);
+    Or andtest = new Or();
 
     Input intest1 = new Input();
     Input intest2 = new Input();

@@ -23,7 +23,7 @@ public class Not extends ElemLogique{
         }
         int i;
         
-        for(i = 0 ; i<In.size(); i++){
+        for(i = 0 ; i<In.get(0).size(); i++){
             if(In.get(0).get(i).equals(EnumBool.FALSE)){
                 output.add(EnumBool.TRUE);
             }

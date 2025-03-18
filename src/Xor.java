@@ -23,7 +23,7 @@ public class Xor extends ElemLogique{
         int i;
 
         
-        for(i = 0 ; i<In.size(); i++){
+        for(i = 0 ; i<In.get(0).size(); i++){
             if(In.get(0).get(i) == EnumBool.ERR || In.get(1).get(i) == EnumBool.ERR ||In.get(0).get(i) == EnumBool.NOTHING || In.get(1).get(i) == EnumBool.NOTHING){
                 output.add(EnumBool.ERR);
             }
