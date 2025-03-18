@@ -4,16 +4,10 @@ import java.util.ArrayList;
 
 public class Or extends ElemLogique{
     
-    private Or(int NbBusIn, int NbBusOut, ArrayList<Integer> TailleBusIn, ArrayList<Integer> TailleBusOut) {
-        super(NbBusIn, NbBusOut, TailleBusIn, TailleBusOut); 
-    }
+    
 
     public Or(int NbBusIn, int TailleIn) {
-        super(NbBusIn, 1, new ArrayList<Integer>(), new ArrayList<Integer>());
-        for (int i = 0; i < NbBusIn; i++) {
-            TailleBusIn.add(TailleIn);
-        } 
-        TailleBusOut.add(TailleIn);
+        super();
     }
 
     @Override
@@ -28,7 +22,7 @@ public class Or extends ElemLogique{
         }
         int i;
         
-        for(i = 0 ; i<NbBusIn; i++){
+        for(i = 0 ; i<In.size(); i++){
             if(In.get(0).get(i) == EnumBool.ERR || In.get(1).get(i) == EnumBool.ERR ||In.get(0).get(i) == EnumBool.NOTHING || In.get(1).get(i) == EnumBool.NOTHING){
                 output.add(EnumBool.ERR);
             }

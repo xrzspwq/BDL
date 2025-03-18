@@ -1,10 +1,10 @@
 package src;
 
-public class Pairs<E,T> {
+public class Pair<E,T> {
     private E elem1;
     private T elem2;
 
-    public Pairs(E elem, T elem2) {
+    public Pair(E elem, T elem2) {
         this.elem1 = elem;
         this.elem2 = elem2;
     }
@@ -30,7 +30,7 @@ public class Pairs<E,T> {
         return "(" + elem1 + ", " + elem2 + ")";
     }
     
-    public static <E, T> Pairs<E, T> empty() {
-        return new Pairs<>(null, null);
+    public static <E, T> Pair<E, T> empty() {
+        return new Pair<>(null, null);
     }
 }

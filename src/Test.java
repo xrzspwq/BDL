@@ -9,13 +9,15 @@ class Test {
     ArrayList<ArrayList<EnumBool>> out = new ArrayList<>();
     TailleBus.add(1);
     
-    And andtest = new And(1, 1);
-    Input intest1 = new Input(1, TailleBus);
-    Input intest2 = new Input(1, TailleBus);
+    //And andtest = new And(1, 1);
+    Or andtest = new Or(1, 1);
+
+    Input intest1 = new Input();
+    Input intest2 = new Input();
 
    
-    Wire lien1 = new Wire(1, TailleBus, intest1, 1, null);
-    Wire lien2 = new Wire(1, TailleBus, intest2, 1, null);
+    Wire lien1 = new Wire(intest1, 1, null);
+    Wire lien2 = new Wire(intest2, 1, null);
     
     
     ////////////////////////////////////////
