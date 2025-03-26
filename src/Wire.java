@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 import java.awt.geom.Point2D;
+import java.awt.Point;
 import java.awt.geom.Path2D;
 
 public class Wire extends Elem {
@@ -67,17 +68,39 @@ public class Wire extends Elem {
         this.posEnd = pos;
     }
 
-    public void CheminLPC(List<List<boolean>> M) {
+    public  Stack<Point2D> CheminLPC(List<List<Integer>> M) throws AucunChemin {
 
-        Stack<Point2D> stack = new Stack<Point2D>();
-        stack.push(posStart);
-        Queue<Point2D> F = new LinkedList<>(stack);
+        Stack<Point2D> c = new Stack<Point2D>();
+        c.push(posStart);
+        Queue<Point2D> F = new LinkedList<>(c);
         ArrayList<Point2D> V = new ArrayList<>();
+
         while (F.size() != 0) {
             Point2D Head = F.remove();
-        }
-    }
+            if (Head == posEnd ) return c;
 
+            else{
+              if ( Head.getX() < 0 || Head.getX() >= M.size()  || Head.getY() < 0 || Head.getY() >= M.size() ) {
+                    Head.setLocation(F.peek().getX(), F.peek().getY());
+              }
+                if ( M.get((int) Head.getX()).get((int) Head.getY()) == 1 ) 
+                  if( V.contains(Head)){ 
+                    V.add(Head);  
+                    Stack<Point2D> c1 = c, c2=c, c3 =c , c4 = c; 
+
+                    c1.push(new  Point2D.Double(Head.getX()+ 1 ,  Head.getY()));
+                    c2.push(new  Point2D.Double(Head.getX() - 1 , Head.getY()));
+                    c3.push(new  Point2D.Double(Head.getX(), Head.getY() + 1));
+                    c4.push(new  Point2D.Double(Head.getX() + 1 , Head.getY()-1));
+                    F.addAll(c1);
+                    F.addAll(c2);
+                    F.addAll(c3);
+                    F.addAll(c4);
+                  }
+            }
+        }
+        throw new AucunChemin(); // le point d'arrivée n'est pas trouvé
+    }
 
     
 
