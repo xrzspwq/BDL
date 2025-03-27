@@ -5,6 +5,7 @@ public abstract class Elem {
     protected ArrayList<ArrayList<EnumBool>> In;  
     protected ArrayList<ArrayList<EnumBool>> Out;   
     protected String name;
+    protected Integer TailleBus;
     //protected int NbBusIn;
     //protected int NbBusOut;
     //protected ArrayList<Integer> TailleBusIn;
@@ -18,6 +19,7 @@ public Elem() {
     //this.NbBusOut = NbFluxOut;
     //this.TailleBusIn = new ArrayList<Integer>(TailleBusIn);
     //this.TailleBusOut = new ArrayList<Integer>(TailleBusOut);
+    this.TailleBus=1;
 }
 
 public void setName(String name) {

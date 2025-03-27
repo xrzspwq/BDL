@@ -22,6 +22,7 @@ public class Or extends ElemLogique{
         }
         int i;
         
+        
         for(i = 0 ; i<In.get(0).size(); i++){
             if(In.get(0).get(i) == EnumBool.ERR || In.get(1).get(i) == EnumBool.ERR ||In.get(0).get(i) == EnumBool.NOTHING || In.get(1).get(i) == EnumBool.NOTHING){
                 output.add(EnumBool.ERR);
@@ -37,6 +38,7 @@ public class Or extends ElemLogique{
             }
         }        
         Out.add(output);
+        output.clear();
         return Out;
 
     }

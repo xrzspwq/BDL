@@ -12,8 +12,8 @@ class Test {
     table[0] = new String[] {"Input","Output"}; 
 
     Or ortest = new Or();
-    And andtest = new And(1,1);
-    Xor xortest = new Xor(1, 1);
+    And andtest = new And();
+    Xor xortest = new Xor();
     Not nottest = new Not(1, 1);
 
     Input intest1 = new Input();

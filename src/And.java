@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class And extends ElemLogique {
 
   
-    public And(int NbBusIn, int TailleIn) {
+    public And() {
         super();
     }
 
@@ -21,6 +21,7 @@ public class And extends ElemLogique {
         }
         int i;
 
+        
         for (i = 0; i < In.get(0).size(); i++) {
             if (In.get(0).get(i) == EnumBool.ERR || In.get(1).get(i) == EnumBool.ERR
                     || In.get(0).get(i) == EnumBool.NOTHING || In.get(1).get(i) == EnumBool.NOTHING) {

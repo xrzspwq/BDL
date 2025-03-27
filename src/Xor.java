@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Xor extends ElemLogique{
     
    
-    public Xor(int NbBusIn, int TailleIn) {
+    public Xor() {
         super();
         
     }
@@ -22,7 +22,7 @@ public class Xor extends ElemLogique{
         }
         int i;
 
-        
+
         for(i = 0 ; i<In.get(0).size(); i++){
             if(In.get(0).get(i) == EnumBool.ERR || In.get(1).get(i) == EnumBool.ERR ||In.get(0).get(i) == EnumBool.NOTHING || In.get(1).get(i) == EnumBool.NOTHING){
                 output.add(EnumBool.ERR);

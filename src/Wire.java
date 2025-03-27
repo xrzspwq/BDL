@@ -7,36 +7,38 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 import java.awt.geom.Point2D;
-import java.awt.Point;
-import java.awt.geom.Path2D;
+
 
 public class Wire extends Elem {
-    private Pair<ElemLogique, Integer> entry;
-    private ArrayList<Pair<ElemLogique, Integer>> exit;
+    private Pair<Elem, Integer> entry;
+    private ArrayList<Pair<Elem, Integer>> exit;
     private ArrayList<ArrayList<EnumBool>> output;
     private Point2D posStart;
     private Point2D posEnd;
-
+    private Boolean state;
     
 
-    public Wire( ElemLogique elem1, int indexEntry, Point2D start) {
+    public Wire(Elem elem1, int indexEntry, Point2D start) {
         super();
         this.entry = new Pair<>(elem1, indexEntry);
         this.exit = new ArrayList<>();
         this.posStart = start;
+        this.state = true;
         // Si le point de départ du cable est un autre cable, il faut connecter le point
         // de départ avec celui du cable déja en place.
     }
 
-    public Pair<ElemLogique, Integer> getEntry() {
+    public Pair<Elem, Integer> getEntry() {
         return entry;
     }
 
-    public ArrayList<Pair<ElemLogique, Integer>> getExit() {
+    public ArrayList<Pair<Elem, Integer>> getExit() {
         return exit;
     }
 
-    public void changeEntry(ElemLogique e1, int indexIn) {
+    public boolean getState(){return state;}
+
+    public void changeEntry(Elem e1, int indexIn) {
         /**
          * Change the entry of the wire to a new logical element.
          * The current entry is added to the exit list before updating.
@@ -48,7 +50,7 @@ public class Wire extends Elem {
         output = e1.evaluate();
     }
 
-    public boolean connect(ElemLogique elem, Integer int1) {
+    public boolean connect(Elem elem, Integer int1) {
         exit.add(new Pair<>(elem, int1));
         if (output == null) {
             output = entry.getElem1().evaluate();
@@ -59,7 +61,7 @@ public class Wire extends Elem {
         return elem.In.add(a);
     }
 
-    public boolean disconnect(Pair<ElemLogique, Integer> p) {
+    public boolean disconnect(Pair<Elem, Integer> p) {
         //p.getElem1().removeIn(p.getElem2());
         return  exit.remove(p);
     }
@@ -68,7 +70,12 @@ public class Wire extends Elem {
         this.posEnd = pos;
     }
 
-    public  Stack<Point2D> CheminLPC(List<List<Integer>> M) throws AucunChemin {
+    public void setPosStart(Point2D pos) {
+        this.posStart = pos;
+    }
+
+
+    public Stack<Point2D> CheminLPC(List<List<Integer>> M) throws AucunChemin {
 
         Stack<Point2D> c = new Stack<Point2D>();
         c.push(posStart);
@@ -106,11 +113,22 @@ public class Wire extends Elem {
 
     @Override
     public ArrayList<ArrayList<EnumBool>> evaluate() {
+        state=true;
         if (output != null) {
             return output;
         }
         output = entry.getElem1().evaluate();
-        
+
+        for(int i=0;i<output.size();i++) {
+            if(output.get(i).contains(EnumBool.ERR)){
+                state=false;
+            }
+        } 
+        for(int i=0;i<exit.size();i++) {
+            if(entry.getElem1().TailleBus!=exit.get(i).getElem1().TailleBus){
+                state=false;
+            }
+        }
         return output;
     }
 
