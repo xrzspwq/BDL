@@ -20,6 +20,7 @@ public class Wire extends Elem {
 
     public Wire(Elem elem1, int indexEntry, Point2D start) {
         super();
+        name = "Wire";
         this.entry = new Pair<>(elem1, indexEntry);
         this.exit = new ArrayList<>();
         this.posStart = start;

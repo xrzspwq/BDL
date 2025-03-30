@@ -5,16 +5,18 @@ import java.util.ArrayList;
 
 public class And extends ElemLogique {
 
-  
     public And() {
         super();
+        NbBusIn = 2;
+        NbBusOut = 1;
+        name = "And Gate";
     }
 
     @Override
     public ArrayList<ArrayList<EnumBool>> evaluate() {
         ArrayList<EnumBool> output = new ArrayList<EnumBool>();
         Out.clear();
-        if (In.size() > 2) {
+        if (In.size() < 2) {
             output.add(EnumBool.ERR);
             Out.add(output);
             return Out;

@@ -6,8 +6,8 @@ public abstract class Elem {
     protected ArrayList<ArrayList<EnumBool>> Out;   
     protected String name;
     protected Integer TailleBus;
-    //protected int NbBusIn;
-    //protected int NbBusOut;
+    protected int NbBusIn;
+    protected int NbBusOut;
     //protected ArrayList<Integer> TailleBusIn;
     //protected ArrayList<Integer> TailleBusOut;
 
@@ -25,11 +25,15 @@ public Elem() {
 public void setName(String name) {
     this.name = name;
 }
+
 public String getName() {return this.name;}
     
 public ArrayList<ArrayList<EnumBool>> getIn(){return In;}
 
 public ArrayList<ArrayList<EnumBool>> getOut(){return Out;}
+
+public int getInputNb(){return NbBusIn;}
+public int getOutputNb(){return NbBusOut;}
 
 public void clearIn(){In.clear();}
 

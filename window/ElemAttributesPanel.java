@@ -1,5 +1,7 @@
 package window;
 
+import src.*;
+
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
@@ -20,7 +22,7 @@ public class ElemAttributesPanel
         panel.setPrefHeight(height);
         panel.setSpacing(3.0);
         
-        name = new Label(elem.getElem().name);
+        name = new Label(elem.getElem().getName());
         VBox.setVgrow(name, Priority.ALWAYS);
         name.setFont(new Font(30));
         name.setPrefHeight(height/4);
@@ -38,7 +40,7 @@ public class ElemAttributesPanel
     
     public void setPanel(GraphicElem elem)
     {
-        name.setText(elem.getElem().name);
+        name.setText(elem.getElem().getName());
 
         attributesGrid.getChildren().clear();
 

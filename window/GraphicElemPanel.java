@@ -47,7 +47,7 @@ public class GraphicElemPanel
 
                     if (component.getShape() instanceof Rectangle)
                         content.putString("rectangle");
-
+                        
                     if (component.getShape() instanceof Circle)
                         content.putString("circle");
 

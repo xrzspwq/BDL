@@ -8,6 +8,7 @@ public class Or extends ElemLogique{
 
     public Or() {
         super();
+        name = "Or Gate";
     }
 
     @Override

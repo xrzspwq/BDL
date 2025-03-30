@@ -7,7 +7,7 @@ public class Xor extends ElemLogique{
    
     public Xor() {
         super();
-        
+        name = "Xor Gate";        
     }
 
     @Override
