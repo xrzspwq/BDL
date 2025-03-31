@@ -1,5 +1,6 @@
 package window;
 
+import src.*;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
@@ -63,7 +64,7 @@ public class App extends Application
         menubar = new AppMenuBar();
         toolbar = new AppToolBar(300);
         graphicElemPanel = new GraphicElemPanel(200);
-        elemAttributesPanel = new ElemAttributesPanel(new GraphicElem(new AndGate()),200);
+        elemAttributesPanel = new ElemAttributesPanel(new GraphicElem(new And()),200);
         whiteBoard = new Whiteboard();
 
         HBox leftPanel = new HBox(toolbar.getPanel(),new VBox(graphicElemPanel.getPanel(),elemAttributesPanel.getPanel()));

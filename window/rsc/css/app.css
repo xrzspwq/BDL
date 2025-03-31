@@ -7,7 +7,6 @@
 
 }
 
-
 .toolBar
 {  
     -fx-background-color: rgb(31, 31, 31);
@@ -53,4 +52,26 @@
     -fx-fill: rgb(95, 169, 254);  
     -fx-stroke:  rgb(95, 169, 254);
     -fx-background-color: rgb(95, 169, 254);
+}
+
+.recSelectedElem
+{
+    -fx-fill: rgba(0,0,0,0);  
+    -fx-stroke:  rgb(2, 120, 255);
+    -fx-stroke-width: 3; 
+}
+
+.inputCircle
+{
+    -fx-fill: rgb(40,40, 255);  
+    -fx-stroke: rgb(40,40, 255);
+    -fx-stroke-width: 3;
+}
+
+
+.inputCircle:hover
+{
+    -fx-fill: green;  
+    -fx-stroke:  green;
+    -fx-stroke-width: 3;  
 }

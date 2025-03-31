@@ -1,5 +1,6 @@
 package window;
 
+import src.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,9 +16,9 @@ public class GraphicElemInfo
     static private final List<Integer> NbInputsOptions = Arrays.asList(1,2,3,4,5,6,16);
     static private final List<String>  LabelFontOptions = Arrays.asList("Times","Impact");
     static private final List<GraphicElem> components = Collections.unmodifiableList(new ArrayList<GraphicElem>(){
-        {   add(new GraphicElem(new AndGate()));
-            add(new GraphicElem(new OrGate()));
-            add(new GraphicElem(new Circuit("Project")));
+        {   add(new GraphicElem(new And()));
+            add(new GraphicElem(new Or()));
+            add(new GraphicElem(new Circuit()));
         }});
 
     static public final List<GraphicElem> getComponents()
@@ -29,10 +30,16 @@ public class GraphicElemInfo
     {
         final Shape res;
 
-        switch (elem.name) {
+        switch (elem.getName()) {
 
             case "And Gate":
-                res = new Circle(20);  
+                res = new Circle(20); 
+                //SVGPath svg = new SVGPath();
+                //String svgPath = null;
+                //try {svgPath = new ReaderSVGPath("window/rsc/img/elems/AND.svg").getPath();}  
+                //catch (Exception e) {System.err.println("ERROR : AND svg file not found");}
+                //svg.setContent(svgPath);
+                //res = svg;
             return res;
 
             case "Or Gate" : 
@@ -43,8 +50,7 @@ public class GraphicElemInfo
                     20.0,20.0, });
                 res = polygon;
             return res;
-
-        
+            
             default: //circuit
                 res = new Rectangle(30,30);
             return res;
@@ -54,7 +60,7 @@ public class GraphicElemInfo
     static public final List<Object> getAttributes(Elem elem)
     {
         final List<Object> res;
-        switch (elem.name) {
+        switch (elem.getName()) {
             case "And Gate":
             case "Or Gate" :
             res = Collections.unmodifiableList(new ArrayList<Object>(){

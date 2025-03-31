@@ -1,0 +1,4 @@
+*.class
+window/dependencies/*
+!window/dependencies/.gitkeep
+

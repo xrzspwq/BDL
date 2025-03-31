@@ -5,37 +5,49 @@ public abstract class Elem {
     protected ArrayList<ArrayList<EnumBool>> In;  
     protected ArrayList<ArrayList<EnumBool>> Out;   
     protected String name;
+    protected Integer TailleBus;
     protected int NbBusIn;
     protected int NbBusOut;
-    protected ArrayList<Integer> TailleBusIn;
-    protected ArrayList<Integer> TailleBusOut;
+    //protected ArrayList<Integer> TailleBusIn;
+    //protected ArrayList<Integer> TailleBusOut;
 
 
-public Elem( int NbFluxIn, int NbFluxOut, ArrayList<Integer> TailleBusIn, ArrayList<Integer> TailleBusOut) {
+public Elem() {
     this.In = new ArrayList<ArrayList<EnumBool>>();
     this.Out = new ArrayList<ArrayList<EnumBool>>();
-    this.NbBusIn = NbFluxIn;
-    this.NbBusOut = NbFluxOut;
-    this.TailleBusIn = new ArrayList<Integer>(TailleBusIn);
-    this.TailleBusOut = new ArrayList<Integer>(TailleBusOut);
+    //this.NbBusIn = NbFluxIn;
+    //this.NbBusOut = NbFluxOut;
+    //this.TailleBusIn = new ArrayList<Integer>(TailleBusIn);
+    //this.TailleBusOut = new ArrayList<Integer>(TailleBusOut);
+    this.TailleBus=1;
 }
 
 public void setName(String name) {
     this.name = name;
 }
+
 public String getName() {return this.name;}
     
 public ArrayList<ArrayList<EnumBool>> getIn(){return In;}
 
 public ArrayList<ArrayList<EnumBool>> getOut(){return Out;}
 
-public int getNbBusIn(){return NbBusIn;}
+public int getInputNb(){return NbBusIn;}
+public int getOutputNb(){return NbBusOut;}
 
-public int getNbBusOut(){return NbBusOut;}
+public void clearIn(){In.clear();}
 
-public ArrayList<Integer> getTailleBusIn(){return TailleBusIn;}
+public void removeIn(int i){In.remove(i);}
+public void clearOut(){Out.clear();}
 
-public ArrayList<Integer> getTailleBusOut(){return TailleBusOut;}
+
+//public int getNbBusIn(){return NbBusIn;}
+
+//public int getNbBusOut(){return NbBusOut;}
+
+//public ArrayList<Integer> getTailleBusIn(){return TailleBusIn;}
+
+//public ArrayList<Integer> getTailleBusOut(){return TailleBusOut;}
 
 public abstract ArrayList<ArrayList<EnumBool>> evaluate();
 

@@ -32,7 +32,7 @@ public class ReaderSVGPath
     
                reader.next();
                     
-                reader.useDelimiter("d\\s*=\\s*\"");
+                reader.useDelimiter(" d\\s*=\\s*\"");
                 if (!reader.hasNext())
                 {
                     reader.close();
@@ -59,7 +59,7 @@ public class ReaderSVGPath
         } catch(FileNotFoundException | IllegalArgumentException e) {throw(e);}
 
     } 
-
+    
     public String getPath() {
         return path;
     } 
