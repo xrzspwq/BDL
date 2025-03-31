@@ -1,4 +1,4 @@
-package FileManager;
+package filemanager;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -58,7 +58,7 @@ public class CircuitSaver
         }
     }
 
-    public ObjectNode elemToObjectNode(Elem elem)
+    static public ObjectNode elemToObjectNode(Elem elem)
     {
         if(elem == null)
             throw new NullPointerException("Elem is null");
@@ -90,12 +90,12 @@ public class CircuitSaver
         return node;
     }
 
-    public String elemToJson(Elem elem)
+    static public String elemToJson(Elem elem)
     {
         return new ObjectMapper().writeValueAsString(elemToObjectNode(elem));
     }
 
-    public ObjectNode attributeToObjectNode(Attribute<?> attribute)
+    static public ObjectNode attributeToObjectNode(Attribute<?> attribute)
     {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode node = mapper.createObjectNode();
@@ -107,12 +107,12 @@ public class CircuitSaver
         return node;
         
     }
-    public String attributeToJson(Attribute<?> attribute)
+    static public String attributeToJson(Attribute<?> attribute)
     {
         return new ObjectMapper().writeValueAsString(attributeToObjectNode(attribute)); 
     }
 
-    public ObjectNode allAttributesToObjectNode(List<Object> attributes)
+    static public ObjectNode allAttributesToObjectNode(List<Object> attributes)
     {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode parent = mapper.createObjectNode();
@@ -128,8 +128,18 @@ public class CircuitSaver
         return parent;
     }
 
-    public String allAttributesToJson(List<Object> attributes)
+    static public String allAttributesToJson(List<Object> attributes)
     {
         return new ObjectMapper().writeValueAsString(allAttributesToObjectNode(attributes));
+    }
+
+    static public String graphicElemToJson(GraphicElem graphElem)
+    {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.createObjectNode();
+        node.put("Elem",elemToObjectNode(graphElem.getElem()));
+        node.put("Attributes",allAttributesToObjectNode(graphElem.getAttributes()));
+        
+        return mapper.writeValueAsString(node);
     }
 }
