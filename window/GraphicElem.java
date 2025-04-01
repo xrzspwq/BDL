@@ -5,6 +5,8 @@ import src.Elem;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import src.*;
 import javafx.scene.shape.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.Point2D.Double;
@@ -36,6 +38,7 @@ public class GraphicElem
     private Line inputsLine = null; 
     private Point2D pos; //elem position in whiteBoard
     private Orientation orientation;
+    
     
     
     public GraphicElem(ElemLogique elem)
