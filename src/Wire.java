@@ -18,7 +18,7 @@ public class Wire extends Elem {
     private Boolean state;
     
 
-    public Wire(Elem elem1, int indexEntry, Point2D start) {
+    public Wire(Elem elem1, int indexEntry, Point2D start) {//check
         super();
         name = "Wire";
         this.entry = new Pair<>(elem1, indexEntry);
@@ -29,17 +29,17 @@ public class Wire extends Elem {
         // de départ avec celui du cable déja en place.
     }
 
-    public Pair<Elem, Integer> getEntry() {
+    public Pair<Elem, Integer> getEntry() {//check
         return entry;
     }
 
-    public ArrayList<Pair<Elem, Integer>> getExit() {
+    public ArrayList<Pair<Elem, Integer>> getExit() {//check
         return exit;
     }
+ 
+    public boolean getState(){return state;}//check
 
-    public boolean getState(){return state;}
-
-    public void changeEntry(Elem e1, int indexIn) {
+    public void changeEntry(Elem e1, int indexIn) {//check
         /**
          * Change the entry of the wire to a new logical element.
          * The current entry is added to the exit list before updating.
@@ -51,7 +51,7 @@ public class Wire extends Elem {
         output = e1.evaluate();
     }
 
-    public boolean connect(Elem elem, Integer int1) {
+    public boolean connect(Elem elem, Integer int1) {//check
         exit.add(new Pair<>(elem, int1));
         if (output == null) {
             output = entry.getElem1().evaluate();
@@ -62,7 +62,7 @@ public class Wire extends Elem {
         return elem.In.add(a);
     }
 
-    public boolean disconnect(Pair<Elem, Integer> p) {
+    public boolean disconnect(Pair<Elem, Integer> p) {//check
         //p.getElem1().removeIn(p.getElem2());
         return  exit.remove(p);
     }

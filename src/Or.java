@@ -9,16 +9,6 @@ public class Or extends ElemLogique{
         name = "Or Gate";
     }
 
-    /**
-     * This function evaluates the logical OR operation on the inputs provided.
-     * It takes no parameters as the inputs are assumed to be stored in the 'In' ArrayList.
-     *
-     * @return An ArrayList of ArrayLists of EnumBool. The outer ArrayList representing the output bus.
-     *         The inner ArrayList contains the evaluated values for each bit of the output bus.
-     *         - If the inputs are valid, the result will be either EnumBool.TRUE, EnumBool.FALSE, or EnumBool.ERR.
-     *         - If the inputs are invalid (more than 2 inputs or any input is EnumBool.ERR or EnumBool.NOTHING),
-     *           the result will be a single EnumBool.ERR.
-     */
     @Override
     public ArrayList<ArrayList<EnumBool>> evaluate() {
         Out.clear();
@@ -30,7 +20,8 @@ public class Or extends ElemLogique{
             return Out;
         }
         int i;
-
+        
+        
         for(i = 0 ; i<In.get(0).size(); i++){
             if(In.get(0).get(i) == EnumBool.ERR || In.get(1).get(i) == EnumBool.ERR ||In.get(0).get(i) == EnumBool.NOTHING || In.get(1).get(i) == EnumBool.NOTHING){
                 output.add(EnumBool.ERR);
@@ -48,9 +39,8 @@ public class Or extends ElemLogique{
         Out.add(output);
         output.clear();
         return Out;
+
     }
-
-
     
     
 }
