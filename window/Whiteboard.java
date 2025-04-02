@@ -2,6 +2,8 @@ package window;
 
 //import java.nio.file.Path;
 import src.*;
+import testfiles.Matrice;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -59,7 +61,6 @@ public class Whiteboard
     private HashMap<Integer,double[]> selectedElemTransValue;
     private ArrayList<Integer> selectedElemsId; 
     private ArrayList<ArrayList<Integer>> grid; //true for something present, false otherwise
-
     private int gridLineNb = 0;
     private int gridColNb = 0;
     private double gridRatio = 40.0; //double unit*gridRatio = height/width of a cell of the grid 
@@ -218,12 +219,12 @@ public class Whiteboard
 
     public void setGridSize(int lineNb,int colNb)
     {
-        System.out.println("lineNb : " + lineNb + " gridLineNb : " + gridLineNb);
-        System.out.println("\n colNb : " + colNb + " gridColNb : " + gridColNb + "\n\n");
-
+        //System.out.println("lineNb : " + lineNb + " gridLineNb : " + gridLineNb);
+        //System.out.println("\n colNb : " + colNb + " gridColNb : " + gridColNb + "\n\n");
+        new Matrice(grid, 0, 0);
         if(lineNb < gridLineNb)
         {
-            for(int i = lineNb; i < gridLineNb-1; ++i)
+            for(int i = gridLineNb-1; i > lineNb ; --i)
             {
                 grid.remove(i);
             }
@@ -234,8 +235,9 @@ public class Whiteboard
         {
             for(int i = 0; i < gridLineNb; ++i)
             {
-                for (int j = colNb; j < gridColNb-1; ++j) 
-                {
+                for (int j = gridColNb-1 ; j > colNb ; --j) 
+                {   
+                    
                     grid.get(i).remove(j);                    
                 }
                 grid.get(i).trimToSize();
@@ -395,6 +397,7 @@ public class Whiteboard
         {
             for(int col = gridStart[1]; col < gridEnd[1]; ++col)
             {
+                System.err.println("[-1-]");
                 grid.get(line).set(col,1);
             }
         }
