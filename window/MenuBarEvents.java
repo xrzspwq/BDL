@@ -2,7 +2,7 @@ package window;
 
 import java.util.ArrayList;
 
-import FileManager.*;
+import filemanager.*;
 import src.*;
 import window.App;
 import window.GraphicElem;
