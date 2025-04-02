@@ -3,6 +3,7 @@ package window;
 import src.*;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.HashMap;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -22,7 +23,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCode;
 import javafx.event.EventHandler;
-
+import javafx.beans.value.*;
 
 public class App extends Application 
 {
@@ -41,6 +42,16 @@ public class App extends Application
     public final static GraphicElemPanel getGraphicElemPanel() 
     {
         return graphicElemPanel;
+    }
+
+    public final static Circuit getCircuit() 
+    {
+        return whiteBoard.circuit;
+    }
+
+    public final static HashMap<Integer,GraphicElem>  getHashMap() 
+    {
+        return whiteBoard.getHashMap();
     }
 
 
@@ -76,8 +87,9 @@ public class App extends Application
         root.setLeft(leftPanel);
         leftPanel.setPrefWidth(screenRes.width / 4);
 
-        mainScene = new Scene(root,screenRes.width/1.2,screenRes.height/1.2);
+        mainScene = new Scene(root,screenRes.width/1.2,screenRes.height/1.2,true);
         mainScene.getStylesheets().add("window/rsc/css/app.css");
+
 
         mainScene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() 
         {
@@ -94,6 +106,34 @@ public class App extends Application
                 }
             }
         });
+
+
+        whiteBoard.getPanel().widthProperty().addListener(new ChangeListener<Number>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable,Number oldValue,Number newValue) 
+            {  
+                //System.err.println("whiteBoard new width : " + newValue + "\n");
+                whiteBoard.setBackground();
+                System.err.println("whiteBoard width : " + newValue);
+                Double colNb = (Double) newValue / whiteBoard.getGridRatio();
+                whiteBoard.setGridSize(whiteBoard.getGridLineNb(),colNb.intValue());
+            }
+        });
+
+        whiteBoard.getPanel().heightProperty().addListener(new ChangeListener<Number>()
+        {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable,Number oldValue,Number newValue) 
+            {  
+                //System.err.println("whiteBoard new height : " + newValue + "\n");
+                whiteBoard.setBackground();
+                System.err.println("whiteBoard height : " + newValue);
+                Double linNb = (Double) newValue / whiteBoard.getGridRatio();
+                whiteBoard.setGridSize(linNb.intValue(),whiteBoard.getGridColNb());
+            }
+        });
+
 
         primaryStage.setScene(mainScene);
         primaryStage.show();
