@@ -1,6 +1,7 @@
 package window;
 
 
+import java.io.FileNotFoundException;
 import javafx.scene.input.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
@@ -15,7 +16,14 @@ import javafx.geometry.Insets;
 import javafx.scene.layout.*;
 import javafx.scene.shape.*;
 import javafx.scene.paint.Color;
+import javafx.scene.control.Button;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
+import javafx.scene.Node;
 
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.File;
 
 public class GraphicElemPanel 
 {
@@ -69,6 +77,41 @@ public class GraphicElemPanel
 
     public VBox getPanel() {
         return panel;
+    }
+
+    public boolean setDirectories()
+    {
+        try {
+            FileReader libpaths = new FileReader("../libpaths.txt");
+            BufferedReader buffRead = new BufferedReader(libpaths);
+            String line = buffRead.readLine();   
+            do
+            {   
+                File file = new File(line);
+                TreeItem<Label> treeRoot = new TreeItem<>(new Label(file.getName()));
+                treeRoot.setExpanded(false);
+
+                TreeView<Label> view = new TreeView<>(treeRoot);
+
+                    treeRoot.getGraphic().setOnMousePressed(new EventHandler<MouseEvent>(){
+
+                    @Override
+                    public void handle(MouseEvent event)
+                    {
+                        
+                    }
+                });
+
+                panel.getChildren().addAll(view);
+                line = buffRead.readLine(); 
+
+            }while(line != null);
+
+            return true;
+        } 
+        catch (Exception e) {
+            return false;
+        }   
     }
 
 
