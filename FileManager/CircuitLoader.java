@@ -17,6 +17,20 @@ public class CircuitLoader{
     
     private File file;
 
+    /*
+     * Nouvelle instance de CircuitLoader
+     * 
+     * @param filePath  Chemin du fichier de sauvegarde
+     * 
+     * @requires    filePath != null
+     * @requires    !filePath.isBlank()
+     * @ensures     file.exists()
+     * @ensures     file.canRead()
+     * 
+     * @throws IOException  Si le fichier ne peut pas etre lu
+     * @throws IllegalArgumentException Si le fichier de sauvegarde n'existe pas ou le filePath est vide
+     * @throws NullPointerException Si le filePath est null
+     */
     public CircuitLoader(String filePath) throws IOException
     {
         if(filePath == null)
@@ -32,6 +46,17 @@ public class CircuitLoader{
             throw new IOException("Can't read file");
     }
 
+    /*
+     * Nouvelle instance de CircuitLoader
+     * 
+     * @param file  Fichier de sauvegarde
+     * 
+     * @requires     file.exists()
+     * @requires     file.canRead()
+     * 
+     * @throws IOException  Si le fichier ne peut pas etre lu
+     * @throws IllegalArgumentException Si le fichier de sauvegarde n'existe pas
+     */
     public CircuitLoader(File file) throws IOException
     {
         if(!file.exists())
@@ -42,6 +67,17 @@ public class CircuitLoader{
         this.file = file;
     }
 
+
+    /*
+     * Charge tout le circuit sous forme de Hashmap de GraphicElem depuis le fichier
+     * 
+     * @param file  Fichier de sauvegarde
+     * 
+     * @ensures     file.exists()
+     * @ensures     file.canRead()
+     * 
+     * @throws IOException  Si le circuit ne peut pas etre charge
+     */
     public HashMap<Integer,GraphicElem> loadCircuit(File file) throws IOException
     {
         ObjectMapper mapper = new ObjectMapper();
@@ -67,6 +103,17 @@ public class CircuitLoader{
         }
     }
 
+
+    /*
+     * Lis source ecrit en JSON et le parse en instance de GraphicElem
+     * 
+     * @param source  Texte en format JSON
+     * 
+     * @requires    !source.isBlank()
+     * @requires    source != null
+     * 
+     * @throws IOException  Si l'element ne pas etre charge
+     */
     public GraphicElem loadGraphicElem(String source) throws IOException
     {
         ObjectMapper mapper = new ObjectMapper();
@@ -85,6 +132,17 @@ public class CircuitLoader{
         
     }
 
+
+    /*
+     * Lis source ecrit en JSON et le parse en instance d'Elem
+     * 
+     * @param source  Texte en format JSON
+     * 
+     * @requires    !source.isBlank()
+     * @requires    source != null
+     * 
+     * @throws IOException  Si l'element ne pas etre charge
+     */
     public Elem loadElem(String source)
     {
         ObjectMapper mapper = new ObjectMapper();
@@ -118,6 +176,16 @@ public class CircuitLoader{
     }
     
 
+    /*
+     * Lis source ecrit en JSON et le parse en une instance d'Attribute
+     * 
+     * @param source  Texte en format JSON
+     * 
+     * @requires    !source.isBlank()
+     * @requires    source != null
+     * 
+     * @throws IOException  Si l'element ne pas etre charge
+     */
     public Attribute<?> loadAttribute(String source) throws IOException
     {
         ObjectMapper mapper = new ObjectMapper();
@@ -146,6 +214,16 @@ public class CircuitLoader{
         }
     }
 
+    /*
+     * Lis source ecrit en JSON et le parse en instance d'une liste d'Attributes
+     * 
+     * @param source  Texte en format JSON
+     * 
+     * @requires    !source.isBlank()
+     * @requires    source != null
+     * 
+     * @throws IOException  Si l'element ne pas etre charge
+     */
     public List<Object> loadAllAttributes(JsonNode node) throws IOException
     {
         

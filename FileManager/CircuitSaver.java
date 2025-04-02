@@ -17,6 +17,21 @@ public class CircuitSaver
 {
     private File file;
 
+    /*
+     * Nouvelle instance de CircuitSaver
+     * 
+     * @param filePath  Chemin du fichier de sauvegarde
+     * 
+     * @requires    filePath != null
+     * @requires    !filePath.isBlank()
+     * @ensures     file.exists()
+     * @ensures     file.canRead()
+     * @ensures     file.canWrite()
+     * 
+     * @throws IOException  Si le fichier renvoie une erreur
+     * @throws IllegalArgumentException Si le fichier de sauvegarde n'existe pas ou le filePath est vide
+     * @throws NullPointerException Si le filePath est null
+     */
     public CircuitSaver(String filePath) throws IOException
     {
         if(filePath == null)
@@ -37,6 +52,17 @@ public class CircuitSaver
         file.setReadable(true);
     }
 
+    /*
+     * Sauvegarder le circuit en parametre dans le fichier
+     * 
+     * @param circuit  Circuit a sauvegarder
+     * 
+     * @requires    circuit != null
+     * @requires    circuit.isEmpty()
+     * 
+     * @returns boolean     Renvoie toujours true
+     * @throws IOException  Erreur au niveau de l'ecriture sur le fichier
+     */
     public boolean saveCircuit(List<GraphicElem> circuit) throws IOException
     {
         ObjectMapper mapper = new ObjectMapper();
@@ -58,6 +84,16 @@ public class CircuitSaver
         }
     }
 
+    /*
+     * Convertir une instance d'Elem en ObjectNode
+     * 
+     * @param elem  L'Elem a convertir
+     * 
+     * @requires    elem != null
+     * 
+     * @returns ObjectNode  
+     * @throws NullPointerException  Si Elem est null
+     */
     static public ObjectNode elemToObjectNode(Elem elem)
     {
         if(elem == null)
@@ -90,11 +126,29 @@ public class CircuitSaver
         return node;
     }
 
+    /*
+     * Convertir une instance d'Elem en chaine de caracteres au format JSON
+     * 
+     * @param elem  L'Elem a convertir
+     * 
+     * @requires    elem != null
+     * 
+     * @returns String  L'Elem "stringified" en format JSON
+     */
     static public String elemToJson(Elem elem)
     {
         return new ObjectMapper().writeValueAsString(elemToObjectNode(elem));
     }
 
+    /*
+     * Convertir une instance dun Attribute en ObjectNode
+     * 
+     * @param attribute L'Attribute a convertir
+     * 
+     * @requires    attribute != null
+     * 
+     * @returns ObjectNode  
+     */
     static public ObjectNode attributeToObjectNode(Attribute<?> attribute)
     {
         ObjectMapper mapper = new ObjectMapper();
@@ -104,14 +158,33 @@ public class CircuitSaver
         node.put("Value",attribute.getValue());
         node.put("ValueClass",attribute.getValue().getClass().getSimpleName());
 
-        return node;
-        
+        return node;    
     }
+
+    /*
+     * Convertir une instance d'un Attribute en chaine de caracteres au format JSON
+     * 
+     * @param attribute L'Attribute a convertir
+     * 
+     * @requires    attribute != null
+     * 
+     * @returns String  L'Attribute "stringified" en format JSON
+     */
     static public String attributeToJson(Attribute<?> attribute)
     {
         return new ObjectMapper().writeValueAsString(attributeToObjectNode(attribute)); 
     }
 
+    /*
+     * Convertir une instance d'une liste d'Attribute en ObjectNode
+     * 
+     * @param attributes La liste d'Attribute a convertir
+     * 
+     * @requires    attributes != null
+     * @requires    !attributes.isEmpty()
+     * 
+     * @returns ObjectNode  
+     */
     static public ObjectNode allAttributesToObjectNode(List<Object> attributes)
     {
         ObjectMapper mapper = new ObjectMapper();
@@ -128,11 +201,30 @@ public class CircuitSaver
         return parent;
     }
 
+    /*
+     * Convertir une instance d'une liste d'Attribute en chaine de caractere au format JSON
+     * 
+     * @param attributes La liste d'Attribute a convertir
+     * 
+     * @requires    attributes != null
+     * @requires    !attributes.isEmpty()
+     * 
+     * @returns String  La liste d'Attribute en format JSON  
+     */
     static public String allAttributesToJson(List<Object> attributes)
     {
         return new ObjectMapper().writeValueAsString(allAttributesToObjectNode(attributes));
     }
 
+    /*
+     * Convertir une instance de GraphicElem en chaine de caractere au format JSON
+     * 
+     * @param graphElem Le GraphicElem a convertir
+     * 
+     * @requires    graphElem != null
+     * 
+     * @returns String  Le GraphicElem en format JSON  
+     */
     static public String graphicElemToJson(GraphicElem graphElem)
     {
         ObjectMapper mapper = new ObjectMapper();
