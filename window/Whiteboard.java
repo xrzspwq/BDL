@@ -58,7 +58,7 @@ public class Whiteboard
     private double[] selectedElemRecTransValue = null; 
     private HashMap<Integer,double[]> selectedElemTransValue;
     private ArrayList<Integer> selectedElemsId; 
-    private ArrayList<ArrayList<Boolean>> grid; //true for something present, false otherwise
+    private ArrayList<ArrayList<Integer>> grid; //true for something present, false otherwise
     private int gridLineNb = 0;
     private int gridColNb = 0;
     private double gridRatio = 40.0; //double unit*gridRatio = height/width of a cell of the grid 
@@ -252,7 +252,7 @@ public class Whiteboard
                 
                 for (int col = 0; col < gridColNb; ++col) 
                 {
-                    grid.get(line+gridLineNb).add(false);
+                    grid.get(line+gridLineNb).add(0);
                 }
             }
             setGrid(); 
@@ -266,7 +266,7 @@ public class Whiteboard
 
                 for (int col = 0; col < colNb-gridColNb; ++col) 
                 {
-                    grid.get(line).add(false);
+                    grid.get(line).add(0);
                 }
             }
            setGrid(); 
@@ -306,7 +306,7 @@ public class Whiteboard
             {
                 for(int col = gridStart[1]; col < gridEnd[1]; ++col)
                 {
-                    grid.get(line).set(col,true);
+                    grid.get(line).set(col,1);
                 }
             }
         }
@@ -394,10 +394,10 @@ public class Whiteboard
         {
             for(int col = gridStart[1]; col < gridEnd[1]; ++col)
             {
-                grid.get(line).set(col,true);
+                grid.get(line).set(col,1);
             }
         }
-        
+
         System.err.println("\nelem.getBoundsInParent().getMinX() : " + elem.getShape().getBoundsInParent().getMinX() 
         + " elem.getBoundsInParent().getMinY() : " + elem.getShape().getBoundsInParent().getMinY()  );
 
