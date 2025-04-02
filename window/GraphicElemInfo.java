@@ -18,7 +18,7 @@ public class GraphicElemInfo
     static private final List<GraphicElem> components = Collections.unmodifiableList(new ArrayList<GraphicElem>(){
         {   add(new GraphicElem(new And()));
             add(new GraphicElem(new Or()));
-            add(new GraphicElem(new Circuit()));
+            add(new GraphicElem(new Circuit("")));
         }});
 
     static public final List<GraphicElem> getComponents()
