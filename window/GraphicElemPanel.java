@@ -10,7 +10,12 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.event.EventHandler;
+
+import java.lang.reflect.Array;
 import java.util.*;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
+import javafx.scene.control.Label;
 import javafx.geometry.Insets;
 
 import javafx.scene.layout.*;
@@ -74,6 +79,28 @@ public class GraphicElemPanel
         //panel.getChildren().addAll(circle);
     }
 
+    private List<TreeItem<String>> setDirectoryElems(List<GraphicElem> elems)
+    {
+        ArrayList<TreeItem<String>> items = new ArrayList<>();
+
+        for (GraphicElem elem : elems) 
+        {
+            TreeItem<String> item = new TreeItem("",new Label(elem.getElem().getName())); 
+            
+            item.getGraphic().setOnMousePressed(new EventHandler<MouseEvent>() 
+            {
+                @Override
+                public void handle(MouseEvent event) 
+                {
+                    App.setAttributesPanel(elem);
+                }
+            });
+
+            items.add(item);
+        }
+        return items;
+    }
+    
 
     public VBox getPanel() {
         return panel;

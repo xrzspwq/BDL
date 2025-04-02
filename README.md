@@ -17,6 +17,6 @@ Puis placer tout le dossier dans BDL/window/dependencies
 ## Compiler/Executer
 Depuis le dossier /BDL faites : 
 
-javac --module-path "window/dependencies/javafx-sdk-21.0.6/lib;filemanager/lib" --add-modules javafx.controls,javafx.fxml,jackson.databind window/*.java
+javac --module-path "window/dependencies/javafx-sdk-21.0.6/lib" --add-modules javafx.controls,javafx.fxml window/*.java
 
-java --module-path "window/dependencies/javafx-sdk-21.0.6/lib;filemanager/lib" --add-modules javafx.controls,javafx.fxml,jackson.databind window.App
+java --module-path "window/dependencies/javafx-sdk-21.0.6/lib" --add-modules javafx.controls,javafx.fxml window.App
