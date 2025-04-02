@@ -38,6 +38,7 @@ public class App extends Application
     {
         elemAttributesPanel.setPanel(elem);
     }
+    
 
     public final static GraphicElemPanel getGraphicElemPanel() 
     {

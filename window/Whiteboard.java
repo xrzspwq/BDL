@@ -59,6 +59,7 @@ public class Whiteboard
     private HashMap<Integer,double[]> selectedElemTransValue;
     private ArrayList<Integer> selectedElemsId; 
     private ArrayList<ArrayList<Integer>> grid; //true for something present, false otherwise
+
     private int gridLineNb = 0;
     private int gridColNb = 0;
     private double gridRatio = 40.0; //double unit*gridRatio = height/width of a cell of the grid 
