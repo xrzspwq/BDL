@@ -60,6 +60,12 @@ public abstract class Elem {
         return Out;
     }
 
+    
+    public void setNbBusIn(int NbBusIn) {this.NbBusIn = NbBusIn;}
+
+    public void setNbBusOut(int NbBusOut) {this.NbBusOut = NbBusOut;}
+
+
     /**
      * Retrieves the number of input connections for the element.
      *

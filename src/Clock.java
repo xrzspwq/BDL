@@ -41,8 +41,3 @@ public class Clock extends Elem{
     }
 }
 
-/* 
-public void setNbBusIn(int NbBusIn) {this.NbBusIn = NbBusIn;}
-
-public void setNbBusOut(int NbBusOut) {this.NbBusOut = NbBusOut;}
-*/
