@@ -61,7 +61,7 @@ public class Whiteboard
     private ArrayList<ArrayList<Boolean>> grid; //true for something present, false otherwise
     private int gridLineNb = 0;
     private int gridColNb = 0;
-    private double gridRatio = 20.0; //double unit*gridRatio = height/width of a cell of the grid 
+    private double gridRatio = 40.0; //double unit*gridRatio = height/width of a cell of the grid 
     private final static double backgroundDotRadius = 0.05; 
 
     public Whiteboard()
@@ -217,9 +217,12 @@ public class Whiteboard
 
     public void setGridSize(int lineNb,int colNb)
     {
+        System.err.println("lineNb : " + lineNb + " gridLineNb : " + gridLineNb);
+        System.err.println("\n colNb : " + colNb + " gridColNb : " + gridColNb + "\n\n");
+
         if(lineNb < gridLineNb)
         {
-            for(int i = lineNb-1; i < gridLineNb; ++i)
+            for(int i = lineNb; i < gridLineNb-1; ++i)
             {
                 grid.remove(i);
             }
@@ -228,9 +231,9 @@ public class Whiteboard
 
         if(colNb < gridColNb)
         {
-            for(int i = 0; i < gridColNb; ++i)
+            for(int i = 0; i < gridLineNb; ++i)
             {
-                for (int j = colNb-1; j < gridColNb; ++j) 
+                for (int j = colNb; j < gridColNb-1; ++j) 
                 {
                     grid.get(i).remove(j);                    
                 }
@@ -252,8 +255,6 @@ public class Whiteboard
                     grid.get(line+gridLineNb).add(false);
                 }
             }
-            gridLineNb = lineNb;
-
             setGrid(); 
         }
 
@@ -270,10 +271,14 @@ public class Whiteboard
             }
            setGrid(); 
         }
+
+        gridLineNb = lineNb;
+        gridColNb = colNb;
     }
 
     private void setGrid()
     {
+
         for(GraphicElem elem : circuitComponents.values())
         {
             Bounds elemBounds = elem.getShape().getBoundsInParent();
@@ -376,6 +381,7 @@ public class Whiteboard
         
         setInOut(elem);
 
+         
         //add to the grid 
         int[] gridStart = new int[2];
         int[] gridEnd = new int[2];
@@ -391,8 +397,7 @@ public class Whiteboard
                 grid.get(line).set(col,true);
             }
         }
-
-
+        
         System.err.println("\nelem.getBoundsInParent().getMinX() : " + elem.getShape().getBoundsInParent().getMinX() 
         + " elem.getBoundsInParent().getMinY() : " + elem.getShape().getBoundsInParent().getMinY()  );
 
@@ -560,6 +565,9 @@ public class Whiteboard
 
             else
             {
+                if(initMousePos == null)
+                    return;
+
                 double xMin;
                 double yMin;
 

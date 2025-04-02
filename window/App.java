@@ -115,8 +115,9 @@ public class App extends Application
             {  
                 //System.err.println("whiteBoard new width : " + newValue + "\n");
                 whiteBoard.setBackground();
-                Double lineNb = (Double) newValue / whiteBoard.getGridRatio();
-                whiteBoard.setGridSize(lineNb.intValue(),whiteBoard.getGridColNb());
+                System.err.println("whiteBoard width : " + newValue);
+                Double colNb = (Double) newValue / whiteBoard.getGridRatio();
+                whiteBoard.setGridSize(whiteBoard.getGridLineNb(),colNb.intValue());
             }
         });
 
@@ -127,8 +128,9 @@ public class App extends Application
             {  
                 //System.err.println("whiteBoard new height : " + newValue + "\n");
                 whiteBoard.setBackground();
-                Double colNb = (Double) newValue / whiteBoard.getGridRatio();
-                whiteBoard.setGridSize(whiteBoard.getGridLineNb(),colNb.intValue());
+                System.err.println("whiteBoard height : " + newValue);
+                Double linNb = (Double) newValue / whiteBoard.getGridRatio();
+                whiteBoard.setGridSize(linNb.intValue(),whiteBoard.getGridColNb());
             }
         });
 

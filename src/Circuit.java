@@ -15,6 +15,12 @@ public class Circuit extends ElemLogique {
         this.wires = new ArrayList<>();
     }
 
+    public Circuit() {
+        this.name = "circuit";
+        this.elements = new ArrayList<>();
+        this.wires = new ArrayList<>();
+    }
+
     public String getName() {
         return name;
     }
