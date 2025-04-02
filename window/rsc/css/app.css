@@ -75,3 +75,10 @@
     -fx-stroke:  green;
     -fx-stroke-width: 3;  
 }
+
+.whiteBoardBackgroundDot
+{
+    -fx-fill: rgb(119,119, 119);  
+    -fx-stroke: rgb(119,119, 119);
+    -fx-stroke-width: 3;
+}
