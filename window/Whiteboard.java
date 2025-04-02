@@ -60,7 +60,7 @@ public class Whiteboard
     private double[] selectedElemRecTransValue = null; 
     private HashMap<Integer,double[]> selectedElemTransValue;
     private ArrayList<Integer> selectedElemsId; 
-    private ArrayList<ArrayList<Integer>> grid; //true for something present, false otherwise
+    private ArrayList<ArrayList<Integer>> grid; //1 for something present, 0 otherwise
     private int gridLineNb = 0;
     private int gridColNb = 0;
     private double gridRatio = 40.0; //double unit*gridRatio = height/width of a cell of the grid 
@@ -293,23 +293,31 @@ public class Whiteboard
                 elemBounds.getMaxY() < 0 )
                 continue;
             
-            
             int[] gridStart = new int[2];
             int[] gridEnd = new int[2];
+    
+            gridStart[0] = ((int) (elem.getShape().getBoundsInParent().getMinY() / gridRatio))-1;
+            gridStart[1] = ((int) (elem.getShape().getBoundsInParent().getMinX() / gridRatio))-1;
+            gridEnd[0] =  gridStart[0] + ((int)(elem.getShape().getBoundsInParent().getHeight() / gridRatio))-1;
+            gridEnd[1] =  gridStart[1] + ((int)(elem.getShape().getBoundsInParent().getWidth() / gridRatio))-1;
+            
+            gridStart[0] = (gridStart[0] < 0)? 0 : gridStart[0];
+            gridStart[1] = (gridStart[1] < 0)? 0 : gridStart[1];
+            gridStart[0] = (gridStart[0] > gridLineNb)? gridLineNb : gridStart[0];
+            gridStart[1] = (gridStart[1] > gridColNb)? gridColNb : gridStart[1];
+            gridEnd[0] = (gridEnd[0] < 0)? 0 : gridEnd[0];
+            gridEnd[1] = (gridEnd[1] < 0)? 0 : gridEnd[1];
+            gridEnd[0] = (gridEnd[0] > gridLineNb)? gridLineNb : gridEnd[0];
+            gridEnd[1] = (gridEnd[1] > gridColNb)? gridColNb : gridEnd[1];
 
-            gridStart[0] = (int) (elemBounds.getMinX() / gridRatio);
-            gridStart[1] = (int) (elemBounds.getMinY() / gridRatio);
-
-            //gridEnd[0] = gridStart[0] + ((int) Math.floor(Math.abs(elemBounds.getMaxX() - elemBounds.getMinX()) / gridRatio));
-            //gridEnd[1] = gridStart[1] + ((int) Math.floor(Math.abs(elemBounds.getMaxY() - elemBounds.getMinY()) / gridRatio));
-
-            //for(int line = gridStart[0]; line < gridEnd[0]; ++line )
-            //{
-            //    for(int col = gridStart[1]; col < gridEnd[1]; ++col)
-            //    {
-            //        grid.get(line).set(col,1);
-            //    }
-            //}
+            for(int line = gridStart[0]; line <= gridEnd[0]; ++line )
+            {
+                for(int col = gridStart[1]; col <= gridEnd[1]; ++col)
+                {
+                    System.out.println("[-1-]");
+                    grid.get(line).set(col,1);
+                }     
+            }   
         }
     }
 
@@ -384,7 +392,6 @@ public class Whiteboard
         //shape.setScaleY(scaleFactor);
         
         setInOut(elem);
-
          
         //add to the grid 
         int[] gridStart = new int[2];
@@ -451,15 +458,28 @@ public class Whiteboard
         });
     }
 
-    private void remove() //remove all currenly selected elem
+    public void remove() //remove all currenly selected elem
     {
-        if(selectedElemsId == null)
+        if(selectedElemsId == null && !selectedElemsId.isEmpty()) 
             return; 
 
         for(int id : selectedElemsId)
         {
+            GraphicElem elem = circuitComponents.get(id);
+            panel.getChildren().removeAll(elem.getShape());
 
+            if (elem.getInputs()!= null && !elem.getInputs().isEmpty()) 
+                panel.getChildren().removeAll(elem.getInputs());
+
+            if (elem.getInputsLine()!=null) 
+                panel.getChildren().removeAll(elem.getInputsLine());
+            
+            circuitComponents.remove(id);
         }
+
+        panel.getChildren().removeAll(selectedElemRec);
+        selectedElemsId.clear();
+        selectedElemRec = null;
 
     }
     
@@ -526,6 +546,7 @@ public class Whiteboard
                 {
                     panel.getChildren().removeAll(selectedElemRec);
                     selectedElemRec = null;
+                    selectedElemsId.clear();
                 }
             }
         }

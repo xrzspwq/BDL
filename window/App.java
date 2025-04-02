@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.HashMap;
 
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -102,6 +103,19 @@ public class App extends Application
                     {
                         whiteBoard.changeCursorSelectionMode();                        
                     }     
+                    event.consume();
+                }
+            }
+        });
+
+        mainScene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() 
+        {
+
+            public void handle(KeyEvent event) 
+            {
+                if (event.getCode().equals(KeyCode.BACK_SPACE)) 
+                {
+                    whiteBoard.remove();
                     event.consume();
                 }
             }
