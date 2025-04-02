@@ -9,6 +9,7 @@ public class Circuit extends ElemLogique {
     private ArrayList<Wire> wires;
 
     public Circuit() {
+        setName("Circuit");
         this.elements = new ArrayList<>();
         this.wires = new ArrayList<>();
     }
