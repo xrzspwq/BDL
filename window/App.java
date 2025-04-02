@@ -34,8 +34,15 @@ public class App extends Application
     static private ElemAttributesPanel elemAttributesPanel;
     static private Whiteboard whiteBoard;
     static private Scene mainScene;
+    static private BorderPane root;
         
-    static public void setAttributesPanel(GraphicElem elem)
+    public static void setWhiteBoard(Whiteboard whiteboard)
+    {
+        root.setCenter(whiteboard.getPanel());
+        elemAttributesPanel.clearPanel();
+    }
+
+    public static void setAttributesPanel(GraphicElem elem)
     {
         elemAttributesPanel.setPanel(elem);
     }
@@ -83,7 +90,7 @@ public class App extends Application
         leftPanel.setSpacing(10.0);
         leftPanel.getStyleClass().add("leftPanel");
 
-        BorderPane root = new BorderPane(whiteBoard.getPanel());
+        root = new BorderPane(whiteBoard.getPanel());
         root.setTop(menubar.getPanel());
         root.setLeft(leftPanel);
         leftPanel.setPrefWidth(screenRes.width / 4);

@@ -16,6 +16,13 @@ public class ElemAttributesPanel
     private Label name;
     private GridPane attributesGrid;
 
+    public ElemAttributesPanel(int height)
+    {
+        panel = new VBox();
+        panel.setPrefHeight(height);
+        panel.setSpacing(3.0);
+    }
+
     public ElemAttributesPanel(GraphicElem elem,int height)
     {
         panel = new VBox();
@@ -61,6 +68,11 @@ public class ElemAttributesPanel
             attributesGrid.add(new Label(attribute.getName()),0,i);
             attributesGrid.add(choiceBox,1,i);   
         }
+    }
+
+    public void clearPanel()
+    {
+        panel.getChildren().clear();
     }
 
     public VBox getPanel() {

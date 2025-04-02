@@ -41,6 +41,14 @@ public class GraphicElem
     private int sizeMultiplicator = 1;
     
     
+    public GraphicElem(Elem elem)
+    {
+        id = idCount++;
+        this.elem = elem;
+        attributes = GraphicElemInfo.getAttributes(elem);
+        shape = GraphicElemInfo.getShape(elem);
+        inputs = new ArrayList<>(); 
+    }
     
     public GraphicElem(ElemLogique elem)
     {
