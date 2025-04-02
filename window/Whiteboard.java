@@ -300,16 +300,16 @@ public class Whiteboard
             gridStart[0] = (int) (elemBounds.getMinX() / gridRatio);
             gridStart[1] = (int) (elemBounds.getMinY() / gridRatio);
 
-            gridEnd[0] = gridStart[0] + ((int) Math.floor(Math.abs(elemBounds.getMaxX() - elemBounds.getMinX()) / gridRatio));
-            gridEnd[1] = gridStart[1] + ((int) Math.floor(Math.abs(elemBounds.getMaxY() - elemBounds.getMinY()) / gridRatio));
+            //gridEnd[0] = gridStart[0] + ((int) Math.floor(Math.abs(elemBounds.getMaxX() - elemBounds.getMinX()) / gridRatio));
+            //gridEnd[1] = gridStart[1] + ((int) Math.floor(Math.abs(elemBounds.getMaxY() - elemBounds.getMinY()) / gridRatio));
 
-            for(int line = gridStart[0]; line < gridEnd[0]; ++line )
-            {
-                for(int col = gridStart[1]; col < gridEnd[1]; ++col)
-                {
-                    grid.get(line).set(col,1);
-                }
-            }
+            //for(int line = gridStart[0]; line < gridEnd[0]; ++line )
+            //{
+            //    for(int col = gridStart[1]; col < gridEnd[1]; ++col)
+            //    {
+            //        grid.get(line).set(col,1);
+            //    }
+            //}
         }
     }
 
@@ -390,18 +390,34 @@ public class Whiteboard
         int[] gridStart = new int[2];
         int[] gridEnd = new int[2];
 
-        gridStart[0] = (int) (shape.getBoundsInParent().getMinX() / gridRatio);
-        gridStart[1] = (int) (shape.getBoundsInParent().getMinY() / gridRatio);
-        gridEnd[0] = gridStart[0] + ((int) Math.floor(Math.abs(shape.getBoundsInParent().getMaxX() - shape.getBoundsInParent().getMinX()) / gridRatio));
-        gridEnd[1] = gridStart[1] + ((int) Math.floor(Math.abs(shape.getBoundsInParent().getMaxY() - shape.getBoundsInParent().getMinY()) / gridRatio));
-        for(int line = gridStart[0]; line < gridEnd[0]; ++line )
+        gridStart[0] = ((int) (shape.getBoundsInParent().getMinY() / gridRatio))-1;
+        gridStart[1] = ((int) (shape.getBoundsInParent().getMinX() / gridRatio))-1;
+        gridEnd[0] =  gridStart[0] + ((int)(shape.getBoundsInParent().getHeight() / gridRatio))-1;
+        gridEnd[1] =  gridStart[1] + ((int)(shape.getBoundsInParent().getWidth() / gridRatio))-1;
+        
+        gridStart[0] = (gridStart[0] < 0)? 0 : gridStart[0];
+        gridStart[1] = (gridStart[1] < 0)? 0 : gridStart[1];
+        gridStart[0] = (gridStart[0] > gridLineNb)? gridLineNb : gridStart[0];
+        gridStart[1] = (gridStart[1] > gridColNb)? gridColNb : gridStart[1];
+        gridEnd[0] = (gridEnd[0] < 0)? 0 : gridEnd[0];
+        gridEnd[1] = (gridEnd[1] < 0)? 0 : gridEnd[1];
+        gridEnd[0] = (gridEnd[0] > gridLineNb)? gridLineNb : gridEnd[0];
+        gridEnd[1] = (gridEnd[1] > gridColNb)? gridColNb : gridEnd[1];
+        
+        System.out.println("gridEnd[0] : " + gridEnd[0] + " gridEnd[1] : " + gridEnd[1] +"\n");
+        grid.get(gridEnd[0]).set(gridEnd[1] ,1);
+        
+        
+        for(int line = gridStart[0]; line <= gridEnd[0]; ++line )
         {
-            for(int col = gridStart[1]; col < gridEnd[1]; ++col)
+            for(int col = gridStart[1]; col <= gridEnd[1]; ++col)
             {
                 System.out.println("[-1-]");
                 grid.get(line).set(col,1);
-            }
-        }
+            }     
+        }   
+
+        new Matrice(grid,gridLineNb,gridColNb);
 
         //System.out.println("\nelem.getBoundsInParent().getMinX() : " + elem.getShape().getBoundsInParent().getMinX() 
         //+ " elem.getBoundsInParent().getMinY() : " + elem.getShape().getBoundsInParent().getMinY()  );
