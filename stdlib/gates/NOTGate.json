@@ -1,0 +1,13 @@
+{
+    "Name" : "NOT",
+    "Type" : "Gate",
+    "Attributes" : [ 
+        {"Facing" : "East"},
+        {"Data bits" : 1 },
+        {"Gate Size" : "Wide"},
+        {"Output value" : "0/1"},
+        {"Label" : ""},
+        {"Label font" : ""}
+    ],
+    "Shape" : "window/rsc/img/NOT.svg"
+}
