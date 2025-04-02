@@ -49,7 +49,7 @@ public class Whiteboard
     public  boolean cursorOverHere = false; //cursor is on the whiteBoard
     private boolean cursorSelectionMode = true; //cursor is in selection mode or either hand mod
     private boolean drawingWire = false;
-    private double zoomMultiplicator = 1.025;
+    //private double zoomMultiplicator = 1.025;
     private double scaleFactor = 1; 
     private double initMousePos []; //initial mouse position when starting mouse dragging 
     private double transValue [] = null; //accumlated translation value of the scene
@@ -218,10 +218,7 @@ public class Whiteboard
     }
 
     public void setGridSize(int lineNb,int colNb)
-    {
-        //System.out.println("lineNb : " + lineNb + " gridLineNb : " + gridLineNb);
-        //System.out.println("\n colNb : " + colNb + " gridColNb : " + gridColNb + "\n\n");
-        new Matrice(grid, 0, 0);
+    {        
         if(lineNb < gridLineNb)
         {
             for(int i = gridLineNb-1; i > lineNb ; --i)
@@ -277,6 +274,7 @@ public class Whiteboard
 
         gridLineNb = lineNb;
         gridColNb = colNb;
+        new Matrice(grid, lineNb, colNb);
     }
 
     private void setGrid()
@@ -373,14 +371,17 @@ public class Whiteboard
     {
         circuitComponents.put(elem.getId(), elem);
         Shape shape = elem.getShape();
+        shape.setScaleX(elem.getShape().getBoundsInLocal().getWidth()/gridRatio*elem.getsizeMultiplicator());
+        shape.setScaleY(elem.getShape().getBoundsInLocal().getHeight()/gridRatio*elem.getsizeMultiplicator());
+        
         elemToAdd.getShape().relocate(xPos,yPos); 
-        elem.setPos(new Point2D.Double(xPos, yPos));
+        elem.setBounds(elem.getShape().getBoundsInParent());
 
         shape.getStyleClass().add("whiteBoardElem");
         panel.getChildren().addAll(shape);  
 
-        shape.setScaleX(scaleFactor);
-        shape.setScaleY(scaleFactor);
+        //shape.setScaleX(scaleFactor);
+        //shape.setScaleY(scaleFactor);
         
         setInOut(elem);
 
@@ -397,20 +398,20 @@ public class Whiteboard
         {
             for(int col = gridStart[1]; col < gridEnd[1]; ++col)
             {
-                System.err.println("[-1-]");
+                System.out.println("[-1-]");
                 grid.get(line).set(col,1);
             }
         }
 
-        System.out.println("\nelem.getBoundsInParent().getMinX() : " + elem.getShape().getBoundsInParent().getMinX() 
-        + " elem.getBoundsInParent().getMinY() : " + elem.getShape().getBoundsInParent().getMinY()  );
+        //System.out.println("\nelem.getBoundsInParent().getMinX() : " + elem.getShape().getBoundsInParent().getMinX() 
+        //+ " elem.getBoundsInParent().getMinY() : " + elem.getShape().getBoundsInParent().getMinY()  );
 
         for(Node ah : panel.getChildren())
         {
             if (ah instanceof Circle) 
             {   
-                System.out.println("getBoundsInParent().getMinX() : " + ah.getBoundsInParent().getMinX() 
-                                    + " getBoundsInParent().getMinY() : " + ah.getBoundsInParent().getMinY()  );
+                //System.out.println("getBoundsInParent().getMinX() : " + ah.getBoundsInParent().getMinX() 
+                //                    + " getBoundsInParent().getMinY() : " + ah.getBoundsInParent().getMinY()  );
             }
         }
 

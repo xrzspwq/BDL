@@ -54,7 +54,6 @@ public class App extends Application
         return whiteBoard.getHashMap();
     }
 
-
     static public void setCursor(Cursor cursor)
     {
         mainScene.setCursor(cursor);
@@ -113,10 +112,10 @@ public class App extends Application
             @Override
             public void changed(ObservableValue<? extends Number> observable,Number oldValue,Number newValue) 
             {  
-                //System.err.println("whiteBoard new width : " + newValue + "\n");
                 whiteBoard.setBackground();
-                System.err.println("whiteBoard width : " + newValue);
                 Double colNb = (Double) newValue / whiteBoard.getGridRatio();
+                System.out.println("whiteBoard width : " + newValue);
+                System.out.println("\ncolNb : " + colNb.intValue());
                 whiteBoard.setGridSize(whiteBoard.getGridLineNb(),colNb.intValue());
             }
         });
@@ -126,10 +125,10 @@ public class App extends Application
             @Override
             public void changed(ObservableValue<? extends Number> observable,Number oldValue,Number newValue) 
             {  
-                //System.err.println("whiteBoard new height : " + newValue + "\n");
                 whiteBoard.setBackground();
-                System.err.println("whiteBoard height : " + newValue);
                 Double linNb = (Double) newValue / whiteBoard.getGridRatio();
+                System.out.println("whiteBoard height : " + newValue);
+                System.out.println("\nlineNb : " + linNb.intValue());
                 whiteBoard.setGridSize(linNb.intValue(),whiteBoard.getGridColNb());
             }
         });

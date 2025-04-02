@@ -36,8 +36,9 @@ public class GraphicElem
     private Shape shape;
     private List<Circle> inputs;
     private Line inputsLine = null; 
-    private Point2D pos; //elem position in whiteBoard
+    private Bounds bounds; //elem position in whiteBoard
     private Orientation orientation;
+    private int sizeMultiplicator = 1;
     
     
     
@@ -152,14 +153,14 @@ public class GraphicElem
         return null;
     }
 
-    public Point2D getPos() 
+    public Bounds getBounds() 
     {
-        return pos;
+        return bounds;
     }
 
-    public void setPos(Point2D position) 
+    public void setBounds(Bounds bounds) 
     {
-        pos = position;
+        this.bounds = bounds;
     }
 
     public Orientation getOrientation() 
@@ -182,4 +183,13 @@ public class GraphicElem
         return inputsLine;
     }
 
+    public int getsizeMultiplicator()
+    {
+        return sizeMultiplicator;
+    }
+
+    public void set(int sizeMultiplicator)
+    {
+        this.sizeMultiplicator = sizeMultiplicator;
+    }
 }
