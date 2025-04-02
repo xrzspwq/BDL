@@ -176,8 +176,8 @@ public class Whiteboard
                     elem.setScaleX(scaleFactor);
                     elem.setScaleY(scaleFactor);
               
-                    System.err.println( "event.getDeltaY() : " + event.getDeltaY() + "event.getMultiplierY() : " + event.getMultiplierY());
-                    System.err.println( "scaleFactor : " + scaleFactor);
+                    System.out.println( "event.getDeltaY() : " + event.getDeltaY() + "event.getMultiplierY() : " + event.getMultiplierY());
+                    System.out.println( "scaleFactor : " + scaleFactor);
                      */
                 }
             }
@@ -217,8 +217,8 @@ public class Whiteboard
 
     public void setGridSize(int lineNb,int colNb)
     {
-        System.err.println("lineNb : " + lineNb + " gridLineNb : " + gridLineNb);
-        System.err.println("\n colNb : " + colNb + " gridColNb : " + gridColNb + "\n\n");
+        System.out.println("lineNb : " + lineNb + " gridLineNb : " + gridLineNb);
+        System.out.println("\n colNb : " + colNb + " gridColNb : " + gridColNb + "\n\n");
 
         if(lineNb < gridLineNb)
         {
@@ -398,14 +398,14 @@ public class Whiteboard
             }
         }
 
-        System.err.println("\nelem.getBoundsInParent().getMinX() : " + elem.getShape().getBoundsInParent().getMinX() 
+        System.out.println("\nelem.getBoundsInParent().getMinX() : " + elem.getShape().getBoundsInParent().getMinX() 
         + " elem.getBoundsInParent().getMinY() : " + elem.getShape().getBoundsInParent().getMinY()  );
 
         for(Node ah : panel.getChildren())
         {
             if (ah instanceof Circle) 
             {   
-                System.err.println("getBoundsInParent().getMinX() : " + ah.getBoundsInParent().getMinX() 
+                System.out.println("getBoundsInParent().getMinX() : " + ah.getBoundsInParent().getMinX() 
                                     + " getBoundsInParent().getMinY() : " + ah.getBoundsInParent().getMinY()  );
             }
         }
@@ -444,7 +444,7 @@ public class Whiteboard
     
     private void setInOut(GraphicElem elem)
     {
-        System.err.println("LIST INPUT SIZE : " + elem.getInputs().size());
+        System.out.println("LIST INPUT SIZE : " + elem.getInputs().size());
         elem.setInOut();
 
         for (Circle inputCircle : elem.getInputs()) 
@@ -512,8 +512,8 @@ public class Whiteboard
         if (!cursorSelectionMode) 
         {
           App.setCursor(Cursor.CLOSED_HAND);    
-          System.err.println("Initial mouseXPos: " + initMousePos[0]);
-          System.err.println("Initial mouseYPos: " + initMousePos[1]);
+          System.out.println("Initial mouseXPos: " + initMousePos[0]);
+          System.out.println("Initial mouseYPos: " + initMousePos[1]);
         }   
 
         else
@@ -709,8 +709,8 @@ public class Whiteboard
             inputCircle.setTranslateY(transVector[1]);
         }
         
-        //System.err.println("transVec[0]: " + transVector[0]  + "transVec[1] : " + transVector[1]);  
-        System.err.println("elemMinX " + elem.getShape().getBoundsInParent().getMinX()  + "elemMinY"  + elem.getShape().getBoundsInParent().getMinY() );      
+        //System.out.println("transVec[0]: " + transVector[0]  + "transVec[1] : " + transVector[1]);  
+        System.out.println("elemMinX " + elem.getShape().getBoundsInParent().getMinX()  + "elemMinY"  + elem.getShape().getBoundsInParent().getMinY() );      
     } 
 
  
