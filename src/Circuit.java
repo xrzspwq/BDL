@@ -7,7 +7,11 @@ public class Circuit extends ElemLogique {
     private String name;
     private ArrayList<Elem> elements;
     private ArrayList<Wire> wires;
-    private int MAX = 100;
+
+    public Circuit() {
+        this.elements = new ArrayList<>();
+        this.wires = new ArrayList<>();
+    }
 
     public Circuit(String name) {
         this.name = name;
@@ -15,38 +19,57 @@ public class Circuit extends ElemLogique {
         this.wires = new ArrayList<>();
     }
 
+    /**
+     * Retrieves the name of the circuit.
+     *
+     * @return The name of the circuit as a String.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Adds a new element to the circuit.
+     * 
+     * @param elem The element to be added to the circuit. This should be an
+     *             instance of the Elem class or its subclasses.
+     */
     public void addElement(Elem elem) {
         elements.add(elem);
     }
 
+    /**
+     * Adds a new wire to the circuit.
+     * 
+     * @param wire The wire to be added to the circuit. This should be an instance
+     *             of the Wire class.
+     */
     public void addWire(Wire wire) {
         wires.add(wire);
     }
 
-    public EnumBool simuler() {
-        /*
-         * initialisation des wires à "I" (vider les wires) // no need for us
-         * for MAX times
-         * -initialize b to true
-         * -evaluate the output of each wire with (wire.evaluate)
-         * the input of each element
-         * -compare evaluated value with the entry of the wire
-         * -if they're the same continu
-         * -else update the wires with the new value and b to false
-         * if b == true we have a fixed point
-         * if we reach the end of MAX iterations without finding a fixed point
-         * return ERR
-         */
-        boolean b;
+    /**
+     * Simulates the circuit by evaluating the state of each wire.
+     *
+     * This method iterates through each wire in the circuit, evaluates its state
+     * using the evaluate() method,
+     * and checks if the result contains any ERR or NOTHING values. If such values
+     * are found, the method returns ERR. Otherwise, it returns ERR as a default
+     * value.
+     * 
+     * @param wires The list of wires to be evaluated.
+     * @return The result of the simulation, which is either ERR or NOTHING
+     */
+    public EnumBool simuler(ArrayList<Wire> wires) {
+        ArrayList<ArrayList<EnumBool>> result;
         for (Wire wire : wires) {
-            b = true;
-            wire.evaluate();
+            result = wire.evaluate();
+            for (int i = 0; i < result.size(); i++) {
+                if (result.get(i).contains(EnumBool.ERR) || result.get(i).contains(EnumBool.NOTHING))
+                    return EnumBool.ERR;
+            }
         }
-        return null;
+        return EnumBool.ERR;
     }
 
     public EnumBool sup(EnumBool a, EnumBool b) {
