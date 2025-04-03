@@ -9,6 +9,7 @@ public abstract class Elem {
     protected Integer TailleBus;
     protected int NbBusIn;
     protected int NbBusOut;
+<<<<<<< Updated upstream
     // protected ArrayList<Integer> TailleBusIn;
     // protected ArrayList<Integer> TailleBusOut;
 
@@ -38,6 +39,15 @@ public abstract class Elem {
     public void setName(String name) {
         this.name = name;
     }
+=======
+
+
+public Elem() {
+    this.In = new ArrayList<ArrayList<EnumBool>>();
+    this.Out = new ArrayList<ArrayList<EnumBool>>();
+    this.TailleBus=1;
+}
+>>>>>>> Stashed changes
 
     /**
      * Retrieves the name of the Elem.
@@ -68,6 +78,7 @@ public abstract class Elem {
         return Out;
     }
 
+<<<<<<< Updated upstream
     /**
      * Retrieves the number of input connections for the element.
      *
@@ -85,6 +96,9 @@ public abstract class Elem {
     public int getOutputNb() {
         return NbBusOut;
     }
+=======
+public void clearIn(){In.clear();}
+>>>>>>> Stashed changes
 
      /**
      * Clears all input connections of the element.
@@ -97,6 +111,7 @@ public abstract class Elem {
         In.clear();
     }
 
+<<<<<<< Updated upstream
     /**
      * Removes the input connection at the specified index from the element.
      *
@@ -127,6 +142,16 @@ public abstract class Elem {
     // public int getNbBusIn(){return NbBusIn;}
 
     // public int getNbBusOut(){return NbBusOut;}
+=======
+public int getNbBusIn(){return NbBusIn;}
+
+public int getNbBusOut(){return NbBusOut;}
+
+public void setNbBusIn(int nbBusIn){this.NbBusIn=nbBusIn;}
+
+public void setNbBusOut(int nbBusOut){this.NbBusOut=nbBusOut;}
+//public ArrayList<Integer> getTailleBusIn(){return TailleBusIn;}
+>>>>>>> Stashed changes
 
     // public ArrayList<Integer> getTailleBusIn(){return TailleBusIn;}
 

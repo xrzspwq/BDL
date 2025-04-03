@@ -86,6 +86,10 @@ public class Circuit extends ElemLogique {
     }
 
     // not used
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     public EnumBool sup(EnumBool a, EnumBool b) {
         if (a == EnumBool.ERR || b == EnumBool.ERR)
             return EnumBool.ERR;

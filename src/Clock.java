@@ -18,6 +18,9 @@ public class Clock extends Elem {
      * The clock's state is then reset to 'true' and the cycle repeats.
      */
     public Clock() {
+        name="clock";
+        NbBusIn=1;
+        NbBusOut=1;
         lastuse = Instant.now();
         duration = Duration.ofMillis(100);
     }

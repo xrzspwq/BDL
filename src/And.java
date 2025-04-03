@@ -32,27 +32,33 @@ public class And extends ElemLogique {
         ArrayList<EnumBool> output = new ArrayList<EnumBool>();
         Out.clear();
         if (In.size() < 2) {
-            output.add(EnumBool.ERR);
+            output.add(EnumBool.NOTHING);
             Out.add(output);
             return Out;
         }
         int i;
 
-        
-        for (i = 0; i < In.get(0).size(); i++) {
-            if (In.get(0).get(i) == EnumBool.ERR || In.get(1).get(i) == EnumBool.ERR
-                    || In.get(0).get(i) == EnumBool.NOTHING || In.get(1).get(i) == EnumBool.NOTHING) {
-                output.add(EnumBool.ERR);
+        ArrayList<EnumBool> entry = In.get(0);
+        ArrayList<EnumBool> result = new ArrayList<EnumBool>();
+
+        for(int j=1; j<In.size();j++){
+            for (i = 0; i < entry.size(); i++) {
+                result.clear();
+                if (entry.get(i) == EnumBool.ERR || In.get(j).get(i) == EnumBool.ERR
+                        || entry.get(i) == EnumBool.NOTHING || In.get(j).get(i) == EnumBool.NOTHING) {
+                    result.add(EnumBool.ERR);
+                }
+                if (entry.get(i) == EnumBool.FALSE || In.get(j).get(i) == EnumBool.FALSE) {
+                    result.add(EnumBool.FALSE);
+                } else if (entry.get(i) == EnumBool.TRUE && In.get(j).get(i) == EnumBool.TRUE) {
+                    result.add(EnumBool.TRUE);
+                } else {
+                    result.add(EnumBool.ERR);
+                }
             }
-            if (In.get(0).get(i) == EnumBool.FALSE || In.get(1).get(i) == EnumBool.FALSE) {
-                output.add(EnumBool.FALSE);
-            } else if (In.get(0).get(i) == EnumBool.TRUE && In.get(1).get(i) == EnumBool.TRUE) {
-                output.add(EnumBool.TRUE);
-            } else {
-                output.add(EnumBool.ERR);
-            }
+            entry=result;
         }
-        Out.add(output);
+        Out.add(entry);
         
         return Out;
 

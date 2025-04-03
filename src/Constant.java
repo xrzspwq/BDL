@@ -2,14 +2,14 @@ package src;
 
 import java.util.ArrayList;
 
-public class Input extends ElemLogique {
+public class Constant extends ElemLogique {
     private EnumBool output;
 
     /*
      * constructor with the base class of ElemLogique
      * and set the output as FALSE
      */
-    public Input() {
+    public Constant() {
         super();
         output = EnumBool.FALSE;
     }

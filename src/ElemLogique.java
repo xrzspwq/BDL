@@ -6,6 +6,8 @@ public abstract class ElemLogique extends Elem {
     // inherit the constructor from the class Elem
     public ElemLogique() {
         super();
+        NbBusIn = 2;
+        NbBusOut = 1;
     }
 
     /**
