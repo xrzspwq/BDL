@@ -12,28 +12,28 @@ all: download extract move compile run clean
 # Download the file
 download:
 ifeq ($(OS), Windows)
-	if not exist "window/dependencies/javafx*" curl -L -o $(ZIP_FILE) $(URLWIN)
+	if not exist "window/dependencies/javafx-sdk-21.0.6" curl -L -o $(ZIP_FILE) $(URLWIN)
 else
-	if [ ! -e "window/dependencies/javafx*" ]; then wget -c $(URLUNIX) -O $(ZIP_FILE) ;fi
+	if [ ! -e "window/dependencies/javafx-sdk-21.0.6" ]; then wget -c $(URLUNIX) -O $(ZIP_FILE) ;fi
 endif
 
 # Extract the file
 extract: 
 ifeq ($(OS), Windows)
-	if not exist "window/dependencies/javafx*" if not exist "$(EXTRACTED_DIR)" mkdir $(EXTRACTED_DIR)
-	if not exist "window/dependencies/javafx*" tar -xf $(ZIP_FILE) -C $(EXTRACTED_DIR)
+	if not exist "window/dependencies/javafx-sdk-21.0.6" if not exist "$(EXTRACTED_DIR)" mkdir $(EXTRACTED_DIR)
+	if not exist "window/dependencies/javafx-sdk-21.0.6" tar -xf $(ZIP_FILE) -C $(EXTRACTED_DIR)
 else
-	if [ ! -e "window/dependencies/javafx*" ]; then mkdir -p $(EXTRACTED_DIR) ;fi
-	if [ ! -e "window/dependencies/javafx*" ]; then unzip -o $(ZIP_FILE) -d $(EXTRACTED_DIR) ;fi
+	if [ ! -e "window/dependencies/javafx-sdk-21.0.6" ]; then mkdir -p $(EXTRACTED_DIR) ;fi
+	if [ ! -e "window/dependencies/javafx-sdk-21.0.6" ]; then unzip -o $(ZIP_FILE) -d $(EXTRACTED_DIR) ;fi
 endif
 
 # Move the extracted contents to the destination folder
 move: extract
 ifeq ($(OS), Windows)
-	if not exist "window/dependencies/javafx*" if not exist "$(DEST_DIR)" mkdir $(DEST_DIR)
-	if not exist "window/dependencies/javafx*" xcopy /E /I /Y "$(EXTRACTED_DIR)\*" "$(DEST_DIR)\"
+	if not exist "window/dependencies/javafx-sdk-21.0.6" if not exist "$(DEST_DIR)" mkdir $(DEST_DIR)
+	if not exist "window/dependencies/javafx-sdk-21.0.6" xcopy /E /I /Y "$(EXTRACTED_DIR)\*" "$(DEST_DIR)\"
 else
-	if [ ! -e "window/dependencies/javafx*" ]; then mkdir -p $(DEST_DIR) ;fi
+	if [ ! -e "window/dependencies/javafx-sdk-21.0.6" ]; then mkdir -p $(DEST_DIR) ;fi
 	if [ ! -e "window/dependencies/javafx-sdk-21.0.6" ]; then mv $(EXTRACTED_DIR)/* $(DEST_DIR)/ ;fi
 endif
 
