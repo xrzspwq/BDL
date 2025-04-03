@@ -78,7 +78,7 @@ public class CircuitLoader{
      * 
      * @throws IOException  Si le circuit ne peut pas etre charge
      */
-    public HashMap<Integer,GraphicElem> loadCircuit(File file) throws IOException
+    public HashMap<Integer,GraphicElem> loadCircuit() throws IOException
     {
         ObjectMapper mapper = new ObjectMapper();
         HashMap<Integer,GraphicElem> res = new HashMap<>();
@@ -90,7 +90,7 @@ public class CircuitLoader{
             for(JsonNode elem : node)
             {
                 GraphicElem gElem = loadGraphicElem(elem.toString());
-                res.put(gElem.getID(),gElem);
+                res.put(gElem.getId(),gElem);
                 ++i;
             }
 
