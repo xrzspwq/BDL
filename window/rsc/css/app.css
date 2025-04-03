@@ -61,7 +61,7 @@
     -fx-stroke-width: 3; 
 }
 
-.inputCircle
+.IOCircles
 {
     -fx-fill: rgb(40,40, 255);  
     -fx-stroke: rgb(40,40, 255);
@@ -69,7 +69,7 @@
 }
 
 
-.inputCircle:hover
+.IOCircles:hover
 {
     -fx-fill: green;  
     -fx-stroke:  green;

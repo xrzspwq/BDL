@@ -46,6 +46,7 @@ public class Whiteboard
     private HashMap<Integer,GraphicElem> circuitComponents;
     public  Circuit circuit;
     private GraphicElem elemToAdd;
+    private GraphicWire wireToAdd;
     public  boolean cursorOverHere = false; //cursor is on the whiteBoard
     private boolean cursorSelectionMode = true; //cursor is in selection mode or either hand mod
     private boolean drawingWire = false;
@@ -64,6 +65,8 @@ public class Whiteboard
     private int gridLineNb = 0;
     private int gridColNb = 0;
     private double gridRatio = 40.0; //double unit*gridRatio = height/width of a cell of the grid 
+    private boolean wireDragging = false;
+    private boolean wireStartIsOutput = false;
     private final static double backgroundDotRadius = 0.05; 
 
     public Whiteboard()
@@ -274,7 +277,7 @@ public class Whiteboard
 
         gridLineNb = lineNb;
         gridColNb = colNb;
-        new Matrice(grid, lineNb, colNb);
+        //new Matrice(grid, lineNb, colNb);
     }
 
     private void setGrid()
@@ -424,7 +427,7 @@ public class Whiteboard
             }     
         }   
 
-        new Matrice(grid,gridLineNb,gridColNb);
+        //new Matrice(grid,gridLineNb,gridColNb);
 
         //System.out.println("\nelem.getBoundsInParent().getMinX() : " + elem.getShape().getBoundsInParent().getMinX() 
         //+ " elem.getBoundsInParent().getMinY() : " + elem.getShape().getBoundsInParent().getMinY()  );
@@ -474,24 +477,23 @@ public class Whiteboard
             if (elem.getInputsLine()!=null) 
                 panel.getChildren().removeAll(elem.getInputsLine());
             
-            circuitComponents.remove(id);
+            circuitComponents.remove(id,elem);
         }
 
         panel.getChildren().removeAll(selectedElemRec);
         selectedElemsId.clear();
         selectedElemRec = null;
-
+        setGrid();
     }
     
     private void setInOut(GraphicElem elem)
     {
-        System.out.println("LIST INPUT SIZE : " + elem.getInputs().size());
         elem.setInOut();
 
-        for (Circle inputCircle : elem.getInputs()) 
-        {
-            panel.getChildren().addAll(inputCircle);  
-        }
+        System.out.println("LIST INPUT SIZE : " + elem.getInputs().size());
+        
+        panel.getChildren().addAll(elem.getInputs());  
+        panel.getChildren().addAll(elem.getOutputs());  
     }
 
     private void dragOverComponentHandler(DragEvent event) //add corresponding elemLogic dragged from graphicElem
@@ -553,21 +555,66 @@ public class Whiteboard
 
         if (!cursorSelectionMode) 
         {
-          App.setCursor(Cursor.CLOSED_HAND);    
-          System.out.println("Initial mouseXPos: " + initMousePos[0]);
-          System.out.println("Initial mouseYPos: " + initMousePos[1]);
+            App.setCursor(Cursor.CLOSED_HAND);    
+            System.out.println("Initial mouseXPos: " + initMousePos[0]);
+            System.out.println("Initial mouseYPos: " + initMousePos[1]);
         }   
 
         else
         { 
-          selectionRec = new Rectangle();
-          selectionRec.getStyleClass().add("selectionSquare");
-          panel.getChildren().addAll(selectionRec);  
+            for (GraphicElem elem : circuitComponents.values()) 
+            {
+                
+                for (int inputIndex = 0; inputIndex < elem.getInputs().size(); ++inputIndex) 
+                {
+                    Circle inputCircle = elem.getInputs().get(inputIndex);
+                    double radius = inputCircle.getRadius();
+
+                    if (inputCircle.getBoundsInParent().contains(event.getX(),event.getY())) 
+                    {
+                        Point2D start = new Point2D.Double(inputCircle.getCenterX() + radius,inputCircle.getCenterY() + radius);
+                        wireToAdd = new GraphicWire(new Wire(start));
+                        wireToAdd.getWire().setExit(new src.Pair<>(elem.getElem(),inputIndex));
+                        wireDragging = true; 
+                        wireStartIsOutput = false;
+                        return;
+                    }
+                }
+
+                for (int outpoutIndex = 0; outpoutIndex < elem.getOutputs().size(); ++outpoutIndex) 
+                {
+                    Circle inputCircle = elem.getOutputs().get(outpoutIndex);
+                    double radius = inputCircle.getRadius();
+
+                    if (inputCircle.getBoundsInParent().contains(event.getX(),event.getY())) 
+                    {
+                        Point2D start = new Point2D.Double(inputCircle.getCenterX() + radius,inputCircle.getCenterY() + radius);
+                        wireToAdd = new GraphicWire(elem.getElem(),outpoutIndex,start);
+                        System.out.println("pos depart fil : " + wireToAdd.getWire().getPosStart());
+                        wireDragging = true; 
+                        wireStartIsOutput = true;
+                        return;
+                    }
+                }
+            }    
+
+            selectionRec = new Rectangle();
+            selectionRec.getStyleClass().add("selectionSquare");
+            panel.getChildren().addAll(selectionRec);  
         }         
     }
     
     private void mouseDraggedHandler(MouseEvent event)
     {
+        if(wireDragging)
+        {
+            Point2D pos = new Point2D.Double(event.getX(),event.getY());
+            wireToAdd.setShape(pos, grid);
+            panel.getChildren().removeAll(wireToAdd.getShape());
+            panel.getChildren().addAll(wireToAdd.getShape());
+            return;
+        }
+
         if (!cursorSelectionMode) //hand mode 
         {
             double deltaMousePos [] = new double[2];
@@ -647,6 +694,43 @@ public class Whiteboard
 
     private void mouseReleasedHandler(MouseEvent event)
     {
+        if (wireDragging) 
+        {
+            for (GraphicElem elem : circuitComponents.values()) 
+            {
+                for (int inputIndex = 0; inputIndex < elem.getInputs().size(); ++inputIndex) 
+                {
+                    Circle inputCircle = elem.getInputs().get(inputIndex);
+
+                    if (inputCircle.getBoundsInParent().contains(event.getX(),event.getY())) 
+                    {
+                        Point2D start = new Point2D.Double(event.getX(),event.getY());
+                        wireDragging = true; 
+                        wireToAdd = new GraphicWire(new Wire(start));
+                        wireToAdd.getWire().setExit(new src.Pair<>(elem.getElem(),inputIndex));
+                        wireStartIsOutput = false;
+                        return;
+                    }
+                }
+
+                for (int outpoutIndex = 0; outpoutIndex < elem.getOutputs().size(); ++outpoutIndex) 
+                {
+                    Circle inputCircle = elem.getOutputs().get(outpoutIndex);
+
+                    if (inputCircle.getBoundsInParent().contains(event.getX(),event.getY())) 
+                    {
+                        Point2D start = new Point2D.Double(event.getX(),event.getY());
+                        wireDragging = true; 
+                        wireToAdd = new GraphicWire(elem.getElem(),outpoutIndex,start);
+                        wireStartIsOutput = true;
+                        return;
+                    }
+                }
+            }    
+
+            wireDragging = false;
+        }
+
         selectedElemTranslationActive = false;
 
         if (!cursorSelectionMode) 

@@ -67,7 +67,6 @@ public class App extends Application
         mainScene.setCursor(cursor);
     }
     
-    
     @Override
     public void start(Stage primaryStage) 
     {

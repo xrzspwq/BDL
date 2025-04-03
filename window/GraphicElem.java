@@ -35,7 +35,9 @@ public class GraphicElem
     private List<Object> attributes;
     private Shape shape;
     private List<Circle> inputs;
+    private List<Circle> outputs;
     private Line inputsLine = null; 
+    private Line outputsLine = null; 
     private Bounds bounds; //elem position in whiteBoard
     private Orientation orientation;
     private int sizeMultiplicator = 1;
@@ -47,7 +49,8 @@ public class GraphicElem
         this.elem = elem;
         attributes = GraphicElemInfo.getAttributes(elem);
         shape = GraphicElemInfo.getShape(elem);
-        inputs = new ArrayList<>(); 
+        inputs = new ArrayList<>(elem.getInputNb()); 
+        outputs = new ArrayList<>(elem.getOutputNb());
     }
     
     public GraphicElem(ElemLogique elem)
@@ -56,7 +59,8 @@ public class GraphicElem
         this.elem = elem;
         attributes = GraphicElemInfo.getAttributes(elem);
         shape = GraphicElemInfo.getShape(elem);
-        inputs = new ArrayList<>(); 
+        inputs = new ArrayList<>(elem.getInputNb()); 
+        outputs = new ArrayList<>(elem.getOutputNb());
     }
 
     public GraphicElem(ElemLogique elem,List<Object> attributes)
@@ -95,7 +99,9 @@ public class GraphicElem
     private void setInOrOut(boolean setIn)
     {
         int inOutNb = setIn ? elem.getInputNb() : elem.getOutputNb();
-        
+        List<Circle> inOrOutInputs = setIn ? inputs : outputs;
+        Line inOrOutInputLine = setIn ? inputsLine : outputsLine;
+
         Bounds elemBound = shape.getBoundsInParent();
         double inputOccupiedSpace = 2*inputMargin + inputSpacing*(inOutNb-1) + inputRadius*2*inOutNb;
 
@@ -112,7 +118,7 @@ public class GraphicElem
         {
             double missingSpace = inputOccupiedSpace-elemBound.getHeight();
 
-            inputsLine = new Line(inputsStartingPos.getX(),elemBound.getMinY()-missingSpace/2,inputsEndPos.getX(),inputsEndPos.getY()+missingSpace/2);
+            inOrOutInputLine = new Line(inputsStartingPos.getX(),elemBound.getMinY()-missingSpace/2,inputsEndPos.getX(),inputsEndPos.getY()+missingSpace/2);
 
             inputsStartingPos.setLocation(inputsStartingPos.getX(),elemBound.getMinY()-missingSpace/2);
             inputsEndPos.setLocation(inputsStartingPos.getX(), inputsEndPos.getY()+missingSpace/2);
@@ -122,7 +128,7 @@ public class GraphicElem
 
         for(int inputNb = 0; inputNb < inOutNb/2; ++inputNb)
         {
-            inputs.add(new Circle(inputsStartingPos.getX()-inputRadius,currStartingPos+inputRadius,inputRadius));
+            inOrOutInputs.add(new Circle(inputsStartingPos.getX()-inputRadius,currStartingPos+inputRadius,inputRadius));
             currStartingPos+=2*inputRadius+inputSpacing;
         }
         firstHalfEndingPos = currStartingPos-inputSpacing;
@@ -130,7 +136,7 @@ public class GraphicElem
         currStartingPos = inputsEndPos.getY();
         for(int inputNb = 0; inputNb < inOutNb/2; ++inputNb)
         {
-            inputs.add(new Circle(inputsStartingPos.getX()-inputRadius,currStartingPos-inputRadius,inputRadius));
+            inOrOutInputs.add(new Circle(inputsStartingPos.getX()-inputRadius,currStartingPos-inputRadius,inputRadius));
             currStartingPos-=2*inputRadius+inputSpacing;
         }
         secondHalfEndingPos = currStartingPos-inputSpacing;
@@ -138,12 +144,12 @@ public class GraphicElem
         if (inOutNb%2!=0)
         {
             double halfWayPos = inputsStartingPos.getY() + Math.abs((firstHalfEndingPos - secondHalfEndingPos) /2);
-            inputs.add(new Circle(inputsStartingPos.getX()-inputRadius,halfWayPos,inputRadius));
+            inOrOutInputs.add(new Circle(inputsStartingPos.getX()-inputRadius,halfWayPos,inputRadius));
         } 
 
-        for(Circle circle : inputs)
+        for(Circle circle : inOrOutInputs)
         {
-            circle.getStyleClass().add("inputCircle");
+            circle.getStyleClass().add("IOCircles");
         }
     }
 
@@ -152,6 +158,11 @@ public class GraphicElem
         return shape;
     }
     
+    public void setShape(Shape shape)
+    {
+        this.shape = shape;
+    }
+
     public Elem getElem() {
         return elem;
     }
@@ -186,9 +197,20 @@ public class GraphicElem
         return inputs;
     }
 
+    public List<Circle> getOutputs()
+    {
+        return outputs;
+    }
+
     public Line getInputsLine() 
     {
         return inputsLine;
+    }
+
+    public Line getOutputsLine()
+    {
+        return outputsLine;
+
     }
 
     public int getsizeMultiplicator()

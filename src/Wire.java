@@ -1,40 +1,58 @@
 package src;
 
-import java.util.List;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
-import java.awt.geom.Point2D;
 
 
 public class Wire extends Elem {
     private Pair<Elem, Integer> entry;
-    private ArrayList<Pair<Elem, Integer>> exit;
+    private Pair<Elem, Integer> exit;
     private ArrayList<ArrayList<EnumBool>> output;
     private Point2D posStart;
     private Point2D posEnd;
     private Boolean state;
-    
 
     public Wire(Elem elem1, int indexEntry, Point2D start) {//check
         super();
         name = "Wire";
         this.entry = new Pair<>(elem1, indexEntry);
-        this.exit = new ArrayList<>();
+        //this.exit = new ArrayList<>();
         this.posStart = start;
         this.state = true;
         // Si le point de départ du cable est un autre cable, il faut connecter le point
         // de départ avec celui du cable déja en place.
     }
 
+    public Wire(Point2D start) {//check
+        super();
+        name = "Wire";
+        //this.entry = new Pair<>(elem1, indexEntry);
+        //this.exit = new ArrayList<>();
+        this.posStart = start;
+        this.state = true;
+        // Si le point de départ du cable est un autre cable, il faut connecter le point
+        // de départ avec celui du cable déja en place.
+    }
+
+    public Point2D getPosStart(){
+        return posStart;
+    }
+
     public Pair<Elem, Integer> getEntry() {//check
         return entry;
     }
 
-    public ArrayList<Pair<Elem, Integer>> getExit() {//check
+    public Pair<Elem, Integer> getExit() {//check
         return exit;
+    }
+
+    public void setExit(Pair<Elem,Integer> exit)
+    {
+        this.exit = exit;
     }
  
     public boolean getState(){return state;}//check
@@ -46,13 +64,15 @@ public class Wire extends Elem {
          *
          * @param e1 the new logical element to set as the entry.
          */
-        exit.add(entry);
+        //exit.add(entry);
         this.entry = new Pair<>(e1, indexIn);
         output = e1.evaluate();
     }
 
-    public boolean connect(Elem elem, Integer int1) {//check
-        exit.add(new Pair<>(elem, int1));
+    public boolean connect(Elem elem, Integer indexExit) {//check
+        
+        this.exit = new Pair<>(elem, indexExit);
+        
         if (output == null) {
             output = entry.getElem1().evaluate();
         }
@@ -62,10 +82,17 @@ public class Wire extends Elem {
         return elem.In.add(a);
     }
 
+    public void disconnect() {//check
+        if (exit!=null) 
+            exit = null;
+    }
+
+    /* 
     public boolean disconnect(Pair<Elem, Integer> p) {//check
         //p.getElem1().removeIn(p.getElem2());
         return  exit.remove(p);
     }
+    */
 
     public void setPosEnd(Point2D pos) {
         this.posEnd = pos;
@@ -76,7 +103,7 @@ public class Wire extends Elem {
     }
 
 
-    public Stack<Point2D> CheminLPC(List<List<Integer>> M) throws AucunChemin {
+    public Stack<Point2D> CheminLPC(ArrayList<ArrayList<Integer>> M) throws AucunChemin {
 
         Stack<Point2D> c = new Stack<Point2D>();
         c.push(posStart);
@@ -107,10 +134,8 @@ public class Wire extends Elem {
                   }
             }
         }
-        throw new AucunChemin(); // le point d'arrivée n'est pas trouvé
+       throw new AucunChemin(); // le point d'arrivée n'est pas trouvé
     }
-
-    
 
     @Override
     public ArrayList<ArrayList<EnumBool>> evaluate() {
@@ -125,11 +150,19 @@ public class Wire extends Elem {
                 state=false;
             }
         } 
+        
+        if(entry.getElem1().TailleBus!=exit.getElem1().TailleBus){
+            state=false;
+        }
+
+        /* 
         for(int i=0;i<exit.size();i++) {
             if(entry.getElem1().TailleBus!=exit.get(i).getElem1().TailleBus){
                 state=false;
             }
         }
+        */
+
         return output;
     }
 
