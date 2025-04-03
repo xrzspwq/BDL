@@ -38,15 +38,45 @@ public class CircuitSaver
             throw new NullPointerException("Null file path");
         if(filePath.isBlank())
             throw new IllegalArgumentException("Blank file path");
-        
+
+        file = new File(filePath);
         try {
-            file = new File(filePath);
+            
             if(!file.exists())
                 file.createNewFile();   
 
         } catch (IOException e) {
             throw new IOException("Error file");
         }
+
+        file.setWritable(true);
+        file.setReadable(true);
+    }
+
+    /*
+     * Nouvelle instance de CircuitSaver
+     * 
+     * @param file  Fichier de sauvegarde
+     * 
+     * @ensures     file.exists()
+     * @ensures     file.canRead()
+     * @ensures     file.canWrite()
+     * 
+     * @throws NullPointerException Si le fichier est null
+     * @throws NullPointerException En cas de probleme d'IO
+     */
+    public CircuitSaver(File file) throws IOException, NullPointerException
+    {
+        if(file == null)
+            throw new NullPointerException("Null file");
+            
+        if(!file.exists()){
+            try {
+                file.createNewFile();
+            } catch (IOException ex) {
+                throw new IOException("IO Error");
+            } 
+        }  
 
         file.setWritable(true);
         file.setReadable(true);
@@ -63,7 +93,7 @@ public class CircuitSaver
      * @returns boolean     Renvoie toujours true
      * @throws IOException  Erreur au niveau de l'ecriture sur le fichier
      */
-    public boolean saveCircuit(List<GraphicElem> circuit) throws IOException
+    public boolean saveCircuit(Hashmap<Integer,GraphicElem> circuit) throws IOException
     {
         ObjectMapper mapper = new ObjectMapper();
         ArrayNode arrayNode = mapper.createArrayNode();
