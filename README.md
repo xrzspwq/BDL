@@ -20,3 +20,5 @@ Depuis le dossier /BDL faites :
 javac --module-path "window/dependencies/javafx-sdk-21.0.6/lib" --add-modules javafx.controls,javafx.fxml window/*.java
 
 java --module-path "window/dependencies/javafx-sdk-21.0.6/lib" --add-modules javafx.controls,javafx.fxml window.App
+
+Ou utiliser le Makefile avec la commande : make
