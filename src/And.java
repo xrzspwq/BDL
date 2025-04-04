@@ -2,6 +2,7 @@
 package src;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class And extends ElemLogique {
 
@@ -37,8 +38,24 @@ public class And extends ElemLogique {
             return Out;
         }
         int i;
+    
+        Iterator<ArrayList<EnumBool>> ite = In.iterator();
+        ArrayList<EnumBool> entry = null;
+        ArrayList<EnumBool> tmp;
+        while(ite.hasNext()){
+            tmp = ite.next();
+            if(!tmp.equals(new ArrayList<EnumBool>())){
+                entry=tmp;
+                break;
+            }
+        }
 
-        ArrayList<EnumBool> entry = In.get(0);
+        if(entry == null){
+            output.add(EnumBool.NOTHING);
+            Out.add(output);
+            return Out;
+        }
+
         ArrayList<EnumBool> result = new ArrayList<EnumBool>();
 
         for(int j=1; j<In.size();j++){
