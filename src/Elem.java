@@ -62,11 +62,6 @@ public abstract class Elem {
         return Out;
     }
 
-    
-
- 
- 
-
     /**
      * Clears all input connections of the element.
      *
@@ -114,7 +109,7 @@ public abstract class Elem {
         return NbBusIn;
     }
 
-       /**
+    /**
      * Retrieves the number of output connections for the element.
      *
      * @return An integer representing the number of output connections.

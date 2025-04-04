@@ -146,7 +146,7 @@ public class Wire extends Elem {
 
         this.exit = elem;
 
-        if (output.isEmpty() || output.equals(null)){
+        if (output.equals(null)){
             output = entry.getElem1().evaluate();
         }
 
@@ -157,15 +157,15 @@ public class Wire extends Elem {
     public boolean connect(Elem elem, int index) throws IndexOutOfBoundsException {
         this.exit = elem;
 
-        if (output.isEmpty() || output.equals(null)){
+        if (output == null){
             output = entry.getElem1().evaluate();
         }
 
-        if(elem.In.size()>=elem.getNbBusIn()){
+        if(entry.getElem1().Out.get(0).size()>=elem.getNbBusIn()){
             throw new IndexOutOfBoundsException("The element already has enough input ports");
         }
 
-        while (index > elem.In.size()) {
+        while (index >= elem.In.size()) {
             elem.In.add(new ArrayList<EnumBool>());
         }
         ArrayList<EnumBool> a = output.get(0);
@@ -174,7 +174,8 @@ public class Wire extends Elem {
         if (elem.In.get(index).isEmpty()) {
             elem.In.add(index, a);
         } else {
-            elem.In.set(index, a);
+            state=false;
+            throw new IndexOutOfBoundsException("The element already has a wire on this port");
         }
 
         return elem.In.contains(a);
