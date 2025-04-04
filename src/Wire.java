@@ -142,11 +142,11 @@ public class Wire extends Elem {
      * @param int1 The index at which to connect to the specified element.
      * @return True if the connection is successful, false otherwise.
      */
-    public boolean connect(Elem elem) {
+    public boolean connectExit(Elem elem) {
 
         this.exit = elem;
 
-        if (output.equals(null)){
+        if (output.equals(null)) {
             output = entry.getElem1().evaluate();
         }
 
@@ -154,14 +154,14 @@ public class Wire extends Elem {
         return elem.In.add(a);
     }
 
-    public boolean connect(Elem elem, int index) throws IndexOutOfBoundsException {
+    public boolean connectExit(Elem elem, int index) throws IndexOutOfBoundsException {
         this.exit = elem;
 
-        if (output == null){
+        if (output == null) {
             output = entry.getElem1().evaluate();
         }
 
-        if(entry.getElem1().Out.get(0).size()>=elem.getNbBusIn()){
+        if (entry.getElem1().Out.get(0).size() >= elem.getNbBusIn()) {
             throw new IndexOutOfBoundsException("The element already has enough input ports");
         }
 
@@ -170,14 +170,15 @@ public class Wire extends Elem {
         }
         ArrayList<EnumBool> a = output.get(0);
 
-
-        if (elem.In.get(index).isEmpty()) {
-            elem.In.add(index, a);
-        } else {
-            state=false;
-            throw new IndexOutOfBoundsException("The element already has a wire on this port");
+        try {
+            if (elem.In.get(index).isEmpty()) {
+                elem.In.add(index, a);
+            } else {
+                throw new IndexOutOfBoundsException("The element already has a wire on this port");
+            }
+        } catch (IndexOutOfBoundsException e) {
+            state = false;
         }
-
         return elem.In.contains(a);
     }
 
@@ -186,7 +187,7 @@ public class Wire extends Elem {
      * This method sets the exit element to null, effectively removing
      * any connection the wire has to an exit element.
      */
-    public void disconnect() {
+    public void disconnectExit() {
         exit.In.remove(output);
         exit = null;
     }
@@ -286,7 +287,7 @@ public class Wire extends Elem {
 
             /*
              * 
-             * //  (up, down, left, right)
+             * // (up, down, left, right)
              * int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
              * 
              * 
@@ -298,7 +299,7 @@ public class Wire extends Elem {
              * if (current.getX() == posEnd.getX() && current.getY() == posEnd.getY()) {
              * List<Point2D> path = new ArrayList<>();
              * while (current != null) {
-             * path.add(new Point2D.Double(current.getX(), current.getY())); 
+             * path.add(new Point2D.Double(current.getX(), current.getY()));
              * current = parent.get(current);
              * }
              * Collections.reverse(path);
@@ -312,8 +313,8 @@ public class Wire extends Elem {
              * {
              * if (M.get(neighborY).get(neighborX) == 0 && !visited.contains(new
              * Point2D.Double(neighborX, neighborY))) {
-             * visited.add(new Point2D.Double(neighborX, neighborY)); 
-             * queue.add(new Point2D.Double(neighborX, neighborY)); 
+             * visited.add(new Point2D.Double(neighborX, neighborY));
+             * queue.add(new Point2D.Double(neighborX, neighborY));
              * parent.put(new Point2D.Double(neighborX, neighborY), current);
              * }
              * }
