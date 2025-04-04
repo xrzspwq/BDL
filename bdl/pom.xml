@@ -44,7 +44,6 @@
         <artifactId>javafx-graphics</artifactId>
         <version>21</version>
     </dependency>
-    <!-- Optional: Add other JavaFX dependencies if needed -->
     <dependency>
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-base</artifactId>
