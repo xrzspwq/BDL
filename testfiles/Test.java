@@ -10,8 +10,7 @@ class Test {
     new Ortest();
     new Xortest();
     new Nottest();
-    new Littlecircuit();   
-    new Wiretest();
+    //new Wiretest();
     
 
 

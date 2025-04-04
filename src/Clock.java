@@ -39,7 +39,9 @@ public class Clock extends Elem {
         this.duration = Duration.ofMillis(tick*10);
     }
 
-    public Duration getDuration() 
+    public long getDuration(){
+        return duration.toMillis()/10;
+    }
 
     /**
      * Evaluates the clock's state based on the elapsed time since the last state change.

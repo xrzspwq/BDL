@@ -147,10 +147,14 @@ public class Wire extends Elem {
         return elem.In.add(a);
     }
 
-    public void connect(Elem elem, int index) {
+    public void connect(Elem elem, int index) throws IndexOutOfBoundsException {
         this.exit = elem;
         if (output == null) {
             output = entry.getElem1().evaluate();
+        }
+
+        if(elem.In.size()>=elem.getInputNb()){
+            throw new IndexOutOfBoundsException("The element already has enough input ports");
         }
 
         if (elem.In.get(index).isEmpty()) {
@@ -158,6 +162,7 @@ public class Wire extends Elem {
             ArrayList<EnumBool> a = i.next();
             elem.In.add(index, a);
         } else {
+            elem.In.get(index).clear();
             Iterator<ArrayList<EnumBool>> i = output.iterator();
             ArrayList<EnumBool> a = i.next();
             elem.In.add(a);
@@ -170,6 +175,7 @@ public class Wire extends Elem {
      * any connection the wire has to an exit element.
      */
     public void disconnect() {
+        exit.In.remove(output);
         exit = null;
     }
 
@@ -271,10 +277,6 @@ public class Wire extends Elem {
              * //  (up, down, left, right)
              * int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
              * 
-             * Queue<Point2D> queue = new LinkedList<>();
-             * queue.add(new Point2D.Double(posStart.getX(), posStart.getY())); 
-             * Set<Point2D> visited = new HashSet<>();
-             * visited.add(posStart);
              * 
              * Map<Point2D, Point2D> parent = new HashMap<>();
              * 

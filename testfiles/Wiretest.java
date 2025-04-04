@@ -24,7 +24,7 @@ public class Wiretest {
         table[2] = new String[] {lien1.getEntry()+""," <"+intest1+",1>"};
         
         table[3] = new String[] {"Test","connect\n"};
-        table[4] = new String[] {lien1.connect(nottest, 1) "","True"};
+        table[4] = new String[] {lien1.connect(nottest, 1)  "","True"};
         
         table[5] = new String[] {"Test","getExit\n"};
         table[6] = new String[] {lien1.getExit()+""," [[<"+nottest+",1>]]"};
