@@ -1,0 +1,84 @@
+.leftPanel
+{
+    -fx-background-color: white; 
+    -fx-border-color:red ;
+    -fx-border-width: 10 ; 
+    -fx-border-style: solid inside ;
+
+}
+
+.toolBar
+{  
+    -fx-background-color: rgb(31, 31, 31);
+    -fx-spacing: 35px;
+}
+
+.toolBarIcon
+{  
+    -fx-background-color: rgb(131, 134, 134);
+}
+
+.toolBarIcon:hover
+{  
+    -fx-background-color : rgb(215, 215, 215);
+}
+
+.whiteBoardElem
+{
+    -fx-fill: rgb(0, 0, 0);  
+    -fx-stroke: black;    
+    -fx-stroke-width: 3;  
+
+}
+
+.whiteBoardElem:hover
+{
+    -fx-fill: rgb(23, 87, 170);  
+    -fx-stroke:  rgb(23, 87, 170);
+    -fx-stroke-width: 3;  
+}
+
+.selectionSquare
+{
+    -fx-fill: rgba(144, 213, 255,0.5);  
+    -fx-stroke:  rgba(144, 213, 255,0.5);
+    -fx-stroke-width: 3; 
+    -fx-background-color: rgba(144, 213, 255,0.5);
+    
+}
+
+.recSelection
+{
+    -fx-fill: rgb(95, 169, 254);  
+    -fx-stroke:  rgb(95, 169, 254);
+    -fx-background-color: rgb(95, 169, 254);
+}
+
+.recSelectedElem
+{
+    -fx-fill: rgba(0,0,0,0);  
+    -fx-stroke:  rgb(2, 120, 255);
+    -fx-stroke-width: 3; 
+}
+
+.IOCircles
+{
+    -fx-fill: rgb(40,40, 255);  
+    -fx-stroke: rgb(40,40, 255);
+    -fx-stroke-width: 3;
+}
+
+
+.IOCircles:hover
+{
+    -fx-fill: green;  
+    -fx-stroke:  green;
+    -fx-stroke-width: 3;  
+}
+
+.whiteBoardBackgroundDot
+{
+    -fx-fill: rgb(119,119, 119);  
+    -fx-stroke: rgb(119,119, 119);
+    -fx-stroke-width: 3;
+}

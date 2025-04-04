@@ -1,0 +1,14 @@
+{
+    "Name" : "NOR",
+    "Type" : "Gate",
+    "Attributes" : [ 
+        {"Facing" : "East"},
+        {"Data bits" : 1 },
+        {"Gate Size" : "Medium"},
+        {"Number of inputs" : 5},
+        {"Output value" : "0/1"},
+        {"Label" : ""},
+        {"Label font" : ""}
+    ],
+    "Shape" : "window/rsc/img/NOR.svg"
+}
