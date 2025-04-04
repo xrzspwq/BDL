@@ -1,6 +1,7 @@
 package src;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Not extends ElemLogique {
 
@@ -36,7 +37,23 @@ public class Not extends ElemLogique {
         }
         int i;
 
-        for (i = 0; i < In.get(0).size(); i++) {
+         Iterator<ArrayList<EnumBool>> ite = In.iterator();
+        ArrayList<EnumBool> entry = null;
+        ArrayList<EnumBool> tmp;
+        while(ite.hasNext()){
+            tmp = ite.next();
+            if(!tmp.equals(new ArrayList<EnumBool>())){
+                entry=tmp;
+                break;
+            }
+        }
+
+        if(entry == null){
+            output.add(EnumBool.NOTHING);
+            Out.add(output);
+            return Out;
+        }
+        for (i = 0; i < entry.size(); i++) {
             if (In.get(0).get(i).equals(EnumBool.FALSE)) {
                 output.add(EnumBool.TRUE);
             } else if (In.get(0).get(i).equals(EnumBool.TRUE)) {
@@ -53,4 +70,5 @@ public class Not extends ElemLogique {
 
     }
 
-}
+    }
+

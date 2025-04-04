@@ -162,6 +162,7 @@ public class Wire extends Elem {
         }
 
         if (entry.getElem1().Out.get(0).size() >= elem.getNbBusIn()) {
+            this.exit=null;
             throw new IndexOutOfBoundsException("The element already has enough input ports");
         }
 
@@ -179,6 +180,7 @@ public class Wire extends Elem {
                 throw new IndexOutOfBoundsException("The element already has a wire on this port");
             }
         } catch (IndexOutOfBoundsException e) {
+            this.exit=null;
             state = false;
         }
         return elem.In.contains(a);

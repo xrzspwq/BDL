@@ -1,6 +1,7 @@
 package src;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Xor extends ElemLogique {
 
@@ -32,42 +33,54 @@ public class Xor extends ElemLogique {
         Out.clear();
 
         ArrayList<EnumBool> output = new ArrayList<EnumBool>();
-        if (In.size() > 2) {
-            output.add(EnumBool.ERR);
+        if (In.size() < 2) {
+            output.add(EnumBool.NOTHING);
             Out.add(output);
             return Out;
         }
         int i;
 
-        
+        Iterator<ArrayList<EnumBool>> ite = In.iterator();
+        ArrayList<EnumBool> entry = null;
+        ArrayList<EnumBool> tmp;
+        while (ite.hasNext()) {
+            tmp = ite.next();
+            if (!tmp.equals(new ArrayList<EnumBool>())) {
+                entry = tmp;
+                break;
+            }
+        }
 
-        ArrayList<EnumBool> entry = In.get(0);
+        if (entry == null) {
+            output.add(EnumBool.NOTHING);
+            Out.add(output);
+            return Out;
+        }
+
         ArrayList<EnumBool> result = new ArrayList<EnumBool>();
 
-        for(int j=1; j<In.size();j++){
-            for(i = 0 ; i<In.get(0).size(); i++){
+        for (int j = 1; j < In.size(); j++) {
+            for (i = 0; i < entry.size(); i++) {
                 result.clear();
-                if(entry.get(i) == EnumBool.ERR || In.get(j).get(i) == EnumBool.ERR ||entry.get(i) == EnumBool.NOTHING || In.get(j).get(i) == EnumBool.NOTHING){
+                if (entry.get(i) == EnumBool.ERR || In.get(j).get(i) == EnumBool.ERR || entry.get(i) == EnumBool.NOTHING
+                        || In.get(j).get(i) == EnumBool.NOTHING) {
                     result.add(EnumBool.ERR);
                 }
 
-                if(entry.get(i) == EnumBool.FALSE && In.get(j).get(i) == EnumBool.FALSE){
+                if (entry.get(i) == EnumBool.FALSE && In.get(j).get(i) == EnumBool.FALSE) {
                     result.add(EnumBool.FALSE);
-                }
-                else if(entry.get(i) == EnumBool.TRUE && In.get(j).get(i) == EnumBool.TRUE){
+                } else if (entry.get(i) == EnumBool.TRUE && In.get(j).get(i) == EnumBool.TRUE) {
                     result.add(EnumBool.FALSE);
-                }
-                else if(entry.get(i) == EnumBool.TRUE || In.get(j).get(i) == EnumBool.TRUE){
+                } else if (entry.get(i) == EnumBool.TRUE || In.get(j).get(i) == EnumBool.TRUE) {
                     result.add(EnumBool.TRUE);
-                }
-                else{
+                } else {
                     result.add(EnumBool.ERR);
                 }
-            }     
-            
+            }
+
             entry.clear();
             entry.addAll(result);
-        }   
+        }
         Out.add(entry);
         return Out;
     }

@@ -1,6 +1,7 @@
 package src;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Or extends ElemLogique {
 
@@ -33,15 +34,31 @@ public class Or extends ElemLogique {
         Out.clear();
 
         ArrayList<EnumBool> output = new ArrayList<EnumBool>();
-        if (In.size() > 2) {
-            output.add(EnumBool.ERR);
+        if (In.size() < 2) {
+            output.add(EnumBool.NOTHING);
             Out.add(output);
             return Out;
         }
         int i;
         
         
-        ArrayList<EnumBool> entry = In.get(0);
+        Iterator<ArrayList<EnumBool>> ite = In.iterator();
+        ArrayList<EnumBool> entry = null;
+        ArrayList<EnumBool> tmp;
+        while(ite.hasNext()){
+            tmp = ite.next();
+            if(!tmp.equals(new ArrayList<EnumBool>())){
+                entry=tmp;
+                break;
+            }
+        }
+
+        if(entry == null){
+            output.add(EnumBool.NOTHING);
+            Out.add(output);
+            return Out;
+        }
+        
         ArrayList<EnumBool> result = new ArrayList<EnumBool>();
         
 
