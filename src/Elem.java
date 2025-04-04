@@ -9,27 +9,20 @@ public abstract class Elem {
     protected Integer TailleBus;
     protected int NbBusIn;
     protected int NbBusOut;
-<<<<<<< Updated upstream
-    // protected ArrayList<Integer> TailleBusIn;
-    // protected ArrayList<Integer> TailleBusOut;
 
     /**
      * Constructs a new Elem object with default values.
      *
-     * This constructor initializes the input and output lists, sets the default tailleBus to 1,
+     * This constructor initializes the input and output lists, sets the default
+     * tailleBus to 1,
      * and initializes the name to null.
      *
      */
     public Elem() {
         this.In = new ArrayList<ArrayList<EnumBool>>();
         this.Out = new ArrayList<ArrayList<EnumBool>>();
-        // this.NbBusIn = NbFluxIn;
-        // this.NbBusOut = NbFluxOut;
-        // this.TailleBusIn = new ArrayList<Integer>(TailleBusIn);
-        // this.TailleBusOut = new ArrayList<Integer>(TailleBusOut);
         this.TailleBus = 1;
     }
-
 
     /**
      * Sets the name of the Elem.
@@ -39,15 +32,6 @@ public abstract class Elem {
     public void setName(String name) {
         this.name = name;
     }
-=======
-
-
-public Elem() {
-    this.In = new ArrayList<ArrayList<EnumBool>>();
-    this.Out = new ArrayList<ArrayList<EnumBool>>();
-    this.TailleBus=1;
-}
->>>>>>> Stashed changes
 
     /**
      * Retrieves the name of the Elem.
@@ -78,7 +62,6 @@ public Elem() {
         return Out;
     }
 
-<<<<<<< Updated upstream
     /**
      * Retrieves the number of input connections for the element.
      *
@@ -96,11 +79,8 @@ public Elem() {
     public int getOutputNb() {
         return NbBusOut;
     }
-=======
-public void clearIn(){In.clear();}
->>>>>>> Stashed changes
 
-     /**
+    /**
      * Clears all input connections of the element.
      *
      * This method removes all input connections from the element's input list.
@@ -111,7 +91,6 @@ public void clearIn(){In.clear();}
         In.clear();
     }
 
-<<<<<<< Updated upstream
     /**
      * Removes the input connection at the specified index from the element.
      *
@@ -139,25 +118,23 @@ public void clearIn(){In.clear();}
         Out.clear();
     }
 
-    // public int getNbBusIn(){return NbBusIn;}
+    public int getNbBusIn() {
+        return NbBusIn;
+    }
 
-    // public int getNbBusOut(){return NbBusOut;}
-=======
-public int getNbBusIn(){return NbBusIn;}
+    public int getNbBusOut() {
+        return NbBusOut;
+    }
 
-public int getNbBusOut(){return NbBusOut;}
+    public void setNbBusIn(int nbBusIn) {
+        this.NbBusIn = nbBusIn;
+    }
 
-public void setNbBusIn(int nbBusIn){this.NbBusIn=nbBusIn;}
+    public void setNbBusOut(int nbBusOut) {
+        this.NbBusOut = nbBusOut;
+    }
 
-public void setNbBusOut(int nbBusOut){this.NbBusOut=nbBusOut;}
-//public ArrayList<Integer> getTailleBusIn(){return TailleBusIn;}
->>>>>>> Stashed changes
-
-    // public ArrayList<Integer> getTailleBusIn(){return TailleBusIn;}
-
-    // public ArrayList<Integer> getTailleBusOut(){return TailleBusOut;}
-
-    // the evalute method that is inherited by the other classes 
+    // the evalute method that is inherited by the other classes
     public abstract ArrayList<ArrayList<EnumBool>> evaluate();
 
 }

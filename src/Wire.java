@@ -7,10 +7,9 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
-
 public class Wire extends Elem {
     private Pair<Elem, Integer> entry;
-    private Pair<Elem, Integer> exit;
+    private Elem exit;
     private ArrayList<ArrayList<EnumBool>> output;
     private Point2D posStart;
     private Point2D posEnd;
@@ -38,35 +37,24 @@ public class Wire extends Elem {
         super();
         name = "Wire";
         this.entry = new Pair<>(elem1, indexEntry);
-<<<<<<< Updated upstream
-        //this.exit = new ArrayList<>();
+        // this.exit = new ArrayList<>();
         this.posStart = start;
-=======
-        this.exit = new ArrayList<>();
->>>>>>> Stashed changes
         this.state = true;
-        // Si le point de départ du cable est un autre cable, il faut connecter le point
-        // de départ avec celui du cable déja en place.
-        if (elem1 instanceof Wire) {
-            Wire w = (Wire) elem1;
-            this.posStart=w.getPosStart();
-        }else {
-            this.posStart = start;
-        }
     }
 
-    public Wire(Point2D start) {//check
+    public Wire(Point2D start) {// check
         super();
         name = "Wire";
-        //this.entry = new Pair<>(elem1, indexEntry);
-        //this.exit = new ArrayList<>();
+        // this.entry = new Pair<>(elem1, indexEntry);
+        // this.exit = new ArrayList<>();
         this.posStart = start;
         this.state = true;
-        // Si le point de départ du cable est un autre cable, il faut connecter le point
-        // de départ avec celui du cable déja en place.
     }
 
-    public Point2D getPosStart(){
+    // une Classe public wire qui permettrait de se connecter par la l'entrée d'un
+    // elem plutot que par la sortie
+
+    public Point2D getPosStart() {
         return posStart;
     }
 
@@ -88,13 +76,11 @@ public class Wire extends Elem {
      * @return A list of pairs containing the logical elements and their output
      *         indices representing the exit points of the wire.
      */
-    public Pair<Elem, Integer> getExit() {
+    public Elem getExit() {
         return exit;
     }
 
-<<<<<<< Updated upstream
-    public void setExit(Pair<Elem,Integer> exit)
-    {
+    public void setExit(Elem exit) {
         this.exit = exit;
     }
 
@@ -123,23 +109,20 @@ public class Wire extends Elem {
      *                list before updating the entry point.
      */
     public void changeEntry(Elem e1, int indexIn) {
-        //exit.add(entry);
-=======
-    public void setEntry(Elem e1, int indexIn, Point2D start) {//check
-        /**
-         * Change the entry of the wire to a new logical element.
-         * The current entry is added to the exit list before updating.
-         *
-         * @param e1 the new logical element to set as the entry.
-         */
-        exit.add(entry);
->>>>>>> Stashed changes
-        this.entry = new Pair<>(e1, indexIn);
+        if (e1.equals(this.entry.getElem1())) {
+            exit = entry.getElem1();
+            exit.In.remove(this.evaluate());
 
-        output = e1.evaluate();
+            entry.setElem(e1);
+            entry.setElem2(indexIn);
+
+            output = e1.evaluate();
+        } else {
+            this.entry = new Pair<>(e1, indexIn);
+            output = e1.evaluate();
+        }
     }
 
-<<<<<<< Updated upstream
     /**
      * Connects the current wire to another logical element at the specified index.
      * If the output of the current wire's entry point is null, it evaluates the
@@ -151,14 +134,10 @@ public class Wire extends Elem {
      * @param int1 The index at which to connect to the specified element.
      * @return True if the connection is successful, false otherwise.
      */
-    public boolean connect(Elem elem, Integer indexExit) {
-        
-        this.exit = new Pair<>(elem, indexExit);
-        
-=======
-    public boolean addExit(Elem elem, Integer int1) {//check
-        exit.add(new Pair<>(elem, int1));
->>>>>>> Stashed changes
+    public boolean connect(Elem elem) {
+
+        this.exit = elem;
+
         if (output == null) {
             output = entry.getElem1().evaluate();
         }
@@ -168,41 +147,47 @@ public class Wire extends Elem {
         return elem.In.add(a);
     }
 
+    public void connect(Elem elem, int index) {
+        this.exit = elem;
+        if (output == null) {
+            output = entry.getElem1().evaluate();
+        }
+
+        if (elem.In.get(index).isEmpty()) {
+            Iterator<ArrayList<EnumBool>> i = output.iterator();
+            ArrayList<EnumBool> a = i.next();
+            elem.In.add(index, a);
+        } else {
+            Iterator<ArrayList<EnumBool>> i = output.iterator();
+            ArrayList<EnumBool> a = i.next();
+            elem.In.add(a);
+        }
+    }
+
     /**
-     * Disconnects the specified pair of logical element and its output index from
-     * the current wire.
-     *
-     * @param p A pair consisting of a logical element and its output index to
-     *          disconnect.
-     * @return True if the disconnection is successful, false otherwise.
+     * Disconnects the current wire from its exit element, if any.
+     * This method sets the exit element to null, effectively removing
+     * any connection the wire has to an exit element.
      */
-    public void disconnect() {//check
-        if (exit!=null) 
-            exit = null;
+    public void disconnect() {
+        exit = null;
     }
 
-<<<<<<< Updated upstream
-    /* 
-    public boolean disconnect(Pair<Elem, Integer> p) {
-        // p.getElem1().removeIn(p.getElem2());
-        return exit.remove(p);
-    }
-
-    /**
+    /*
+     * public boolean disconnect(Pair<Elem, Integer> p) {
+     * // p.getElem1().removeIn(p.getElem2());
+     * return exit.remove(p);
+     * }
+     * 
+     * /**
      * Sets the end position of the wire.
      *
      * @param pos The new end position of the wire. This parameter is a Point2D
-     *            object representing the coordinates of the end position.
-     *            The x-coordinate represents the horizontal position, and the
-     *            y-coordinate represents the vertical position.
+     * object representing the coordinates of the end position.
+     * The x-coordinate represents the horizontal position, and the
+     * y-coordinate represents the vertical position.
      *
      */
-=======
-    public Point2D getPosEnd() {return posEnd;}
-
-    public Point2D getPosStart() {return posStart;}
-    
->>>>>>> Stashed changes
     public void setPosEnd(Point2D pos) {
         this.posEnd = pos;
     }
@@ -220,7 +205,6 @@ public class Wire extends Elem {
         this.posStart = pos;
     }
 
-<<<<<<< Updated upstream
     /**
      * This function calculates the shortest path (Chemin Le Plus Court) from the
      * start position to the end position in a grid represented by a 2D list of
@@ -242,46 +226,34 @@ public class Wire extends Elem {
      * @throws AucunChemin If the end position is not reachable from the start
      *                     position.
      */
-=======
-
->>>>>>> Stashed changes
     public Stack<Point2D> CheminLPC(ArrayList<ArrayList<Integer>> M) throws AucunChemin {
+
+        if (M == null || M.isEmpty() || M.get(0).size() == 0) {
+            throw new AucunChemin();
+        }
 
         Stack<Point2D> c = new Stack<Point2D>();
         c.push(posStart);
         Queue<Point2D> F = new LinkedList<>(c);
-        ArrayList<Point2D> V = new ArrayList<>(F);
+        ArrayList<Point2D> V = new ArrayList<>();
 
-        if ( posEnd.getX() < 0 || posEnd.getX() >= M.size()  || posEnd.getY() < 0 || posEnd.getY() >= M.size() ) {
+        if (posEnd.getX() < 0 || posEnd.getX() >= M.size() || posEnd.getY() < 0 || posEnd.getY() >= M.size()) {
             throw new IllegalArgumentException();
-        }   
+        }
 
-
-        while (!F.isEmpty()) {
+        while (F.size() != 0) {
             Point2D Head = F.remove();
-<<<<<<< Updated upstream
             if (Head == posEnd)
                 return c;
-=======
-            if (Head.equals(posEnd)) return c;
->>>>>>> Stashed changes
 
             else {
                 if (Head.getX() < 0 || Head.getX() >= M.size() || Head.getY() < 0 || Head.getY() >= M.size()) {
                     Head.setLocation(F.peek().getX(), F.peek().getY());
-<<<<<<< Updated upstream
                 }
                 if (M.get((int) Head.getX()).get((int) Head.getY()) == 1)
                     if (V.contains(Head)) {
                         V.add(Head);
                         Stack<Point2D> c1 = c, c2 = c, c3 = c, c4 = c;
-=======
-              }
-                if ( M.get((int) Head.getX()).get((int) Head.getY()) == 0 ) 
-                  if( !V.contains(Head)){ 
-                    V.add(Head);  
-                    Stack<Point2D> c1 = c, c2=c, c3 =c , c4 = c; 
->>>>>>> Stashed changes
 
                         c1.push(new Point2D.Double(Head.getX() + 1, Head.getY()));
                         c2.push(new Point2D.Double(Head.getX() - 1, Head.getY()));
@@ -293,11 +265,50 @@ public class Wire extends Elem {
                         F.addAll(c4);
                     }
             }
+
+            /*
+             * 
+             * //  (up, down, left, right)
+             * int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+             * 
+             * Queue<Point2D> queue = new LinkedList<>();
+             * queue.add(new Point2D.Double(posStart.getX(), posStart.getY())); 
+             * Set<Point2D> visited = new HashSet<>();
+             * visited.add(posStart);
+             * 
+             * Map<Point2D, Point2D> parent = new HashMap<>();
+             * 
+             * while (!queue.isEmpty()) {
+             * Point2D current = queue.poll();
+             * 
+             * if (current.getX() == posEnd.getX() && current.getY() == posEnd.getY()) {
+             * List<Point2D> path = new ArrayList<>();
+             * while (current != null) {
+             * path.add(new Point2D.Double(current.getX(), current.getY())); 
+             * current = parent.get(current);
+             * }
+             * Collections.reverse(path);
+             * }
+             * 
+             * for (int[] direction : directions) {
+             * int neighborX = (int) current.getX() + direction[0];
+             * int neighborY = (int) current.getY() + direction[1];
+             * 
+             * if (neighborX >= 0 && neighborX < cols && neighborY >= 0 && neighborY < rows)
+             * {
+             * if (M.get(neighborY).get(neighborX) == 0 && !visited.contains(new
+             * Point2D.Double(neighborX, neighborY))) {
+             * visited.add(new Point2D.Double(neighborX, neighborY)); 
+             * queue.add(new Point2D.Double(neighborX, neighborY)); 
+             * parent.put(new Point2D.Double(neighborX, neighborY), current);
+             * }
+             * }
+             * 
+             * 
+             */
         }
         throw new AucunChemin(); // le point d'arrivée n'est pas trouvé
     }
-
-    
 
     @Override
     public ArrayList<ArrayList<EnumBool>> evaluate() {
@@ -312,18 +323,18 @@ public class Wire extends Elem {
                 state = false;
             }
         }
-        
-        if(entry.getElem1().TailleBus!=exit.getElem1().TailleBus){
-            state=false;
+
+        if (entry.getElem1().TailleBus != exit.TailleBus) {
+            state = false;
         }
 
-        /* 
-        for (int i = 0; i < exit.size(); i++) {
-            if (entry.getElem1().TailleBus != exit.get(i).getElem1().TailleBus) {
-                state = false;
-            }
-        }
-        */
+        /*
+         * for (int i = 0; i < exit.size(); i++) {
+         * if (entry.getElem1().TailleBus != exit.get(i).getElem1().TailleBus) {
+         * state = false;
+         * }
+         * }
+         */
 
         return output;
     }

@@ -17,12 +17,12 @@ public class Clock extends Elem {
      * The pulse is a single 'true' value followed by a single 'false' value.
      * The clock's state is then reset to 'true' and the cycle repeats.
      */
-    public Clock() {
+    public Clock(long tick) {
         name="clock";
         NbBusIn=1;
         NbBusOut=1;
         lastuse = Instant.now();
-        duration = Duration.ofMillis(100);
+        duration = Duration.ofMillis(tick*10);
     }
 
     /**
@@ -35,9 +35,11 @@ public class Clock extends Elem {
      *
      * @param duration the new duration for the clock to toggle its state.
      */
-    public void setDuration(Duration duration) {
-        this.duration = duration;
+    public void setDuration(long tick) {
+        this.duration = Duration.ofMillis(tick*10);
     }
+
+    public Duration getDuration() 
 
     /**
      * Evaluates the clock's state based on the elapsed time since the last state change.
@@ -49,6 +51,7 @@ public class Clock extends Elem {
      * @return a list containing a single element representing the current state of the clock.
      *         The element is an EnumBool value, which can be either TRUE or FALSE.
      */
+    @Override
     public ArrayList<ArrayList<EnumBool>> evaluate() {
         Instant inst = Instant.now();
         ArrayList<EnumBool> output = new ArrayList<EnumBool>();

@@ -3,7 +3,7 @@ package testfiles;
 import java.util.ArrayList;
 
 import src.EnumBool;
-import src.Input;
+import src.Constant;
 import src.Not;
 import src.Wire;
 
@@ -16,8 +16,8 @@ public class Nottest {
         Object[][] table = new String[5][]; 
         table[0] = new String[] {"Input","Output"};    
 
-        Input intest1 = new Input();
-        Input intest2 = new Input();
+        Constant intest1 = new Constant();
+        Constant intest2 = new Constant();
 
     
         Wire lien1 = new Wire(intest1, 1, null);

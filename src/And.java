@@ -6,8 +6,8 @@ import java.util.ArrayList;
 public class And extends ElemLogique {
 
     /**
-     * Constructs a new AND gate with 2 input buses and 1 output bus.
-     */
+      * Constructs a new AND gate with 2 input buses and 1 output bus.
+      */
     public And() {
         super();
         NbBusIn = 2;
@@ -15,18 +15,18 @@ public class And extends ElemLogique {
         name = "And Gate";
     }
 
-    /*
-     * Evaluates the AND operation on the input signals.
-     * This method performs a bitwise AND operation on the input signals
-     * and generates the corresponding output.
-     *
-     * @return An ArrayList of ArrayList of EnumBool representing the output
-     * signals.
-     * The outer ArrayList representing the output bus.
-     * The inner ArrayList contains the evaluated values for each bit of the output
-     * bus
-     * Returns ERR if there are fewer than 2 input signals.
-     */
+      /*
+      * Evaluates the AND operation on the input signals.
+      * This method performs a bitwise AND operation on the input signals
+      * and generates the corresponding output.
+      *
+      * @return An ArrayList of ArrayList of EnumBool representing the output
+      * signals.
+      * The outer ArrayList representing the output bus.
+      * The inner ArrayList contains the evaluated values for each bit of the output
+      * bus
+      * Returns ERR if there are fewer than 2 input signals.
+      */
     @Override
     public ArrayList<ArrayList<EnumBool>> evaluate() {
         ArrayList<EnumBool> output = new ArrayList<EnumBool>();
@@ -56,7 +56,8 @@ public class And extends ElemLogique {
                     result.add(EnumBool.ERR);
                 }
             }
-            entry=result;
+            entry.clear();
+            entry.addAll(result);
         }
         Out.add(entry);
         

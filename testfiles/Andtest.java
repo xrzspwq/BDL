@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import src.And;
 import src.EnumBool;
-import src.Input;
+import src.Constant;
 import src.Wire;
 
 public class Andtest {
@@ -17,8 +17,8 @@ public class Andtest {
 
         And andtest = new And();
 
-        Input intest1 = new Input();
-        Input intest2 = new Input();
+        Constant intest1 = new Constant();
+        Constant intest2 = new Constant();
 
         Wire lien1 = new Wire(intest1, 1, null);
         Wire lien2 = new Wire(intest2, 1, null);

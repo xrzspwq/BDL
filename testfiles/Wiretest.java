@@ -1,6 +1,6 @@
 package testfiles;
 
-import src.Input;
+import src.Constant;
 import src.Not;
 import src.Pair;
 import src.Wire;
@@ -9,8 +9,8 @@ import src.Elem;
 public class Wiretest {
     
     public Wiretest(){
-        Input intest1 = new Input();
-        Input intest2 = new Input();
+        Constant intest1 = new Constant();
+        Constant intest2 = new Constant();
         Not nottest = new Not(1, 1);
         Wire lien1 = new Wire(intest1, 1, null);
         
@@ -24,7 +24,7 @@ public class Wiretest {
         table[2] = new String[] {lien1.getEntry()+""," <"+intest1+",1>"};
         
         table[3] = new String[] {"Test","connect\n"};
-        table[4] = new String[] {lien1.connect(nottest, 1)+"","True"};
+        table[4] = new String[] {lien1.connect(nottest, 1) "","True"};
         
         table[5] = new String[] {"Test","getExit\n"};
         table[6] = new String[] {lien1.getExit()+""," [[<"+nottest+",1>]]"};
@@ -36,9 +36,8 @@ public class Wiretest {
         table[9] = new String[] {"Test getState","default state\n"};
         table[10] = new String[] {lien1.getState()+"","true"};
         
-        Pair<Elem,Integer> tmp = new Pair<>(lien1.getExit().get(0).getElem1(),lien1.getExit().get(0).getElem2());
+        Pair<Elem,Integer> tmp = new Pair<>(lien1.getExit().getElem1(),lien1.getExit().getElem2());
         table[11] = new String[] {"Test","disconnect\n"};
-        table[12] = new String[] {lien1.disconnect(lien1.getExit().get(0))+"","\t\ttrue\n\n\tExit contains: "+tmp+"?\n\n\t   "+lien1.getExit().contains(tmp)+"\tfalse"};
     
 
         System.out.println("\t\tWIRE TEST");

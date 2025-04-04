@@ -39,23 +39,6 @@ public class Or extends ElemLogique {
             return Out;
         }
         int i;
-<<<<<<< Updated upstream
-
-        for (i = 0; i < In.get(0).size(); i++) {
-            if (In.get(0).get(i) == EnumBool.ERR || In.get(1).get(i) == EnumBool.ERR
-                    || In.get(0).get(i) == EnumBool.NOTHING || In.get(1).get(i) == EnumBool.NOTHING) {
-                output.add(EnumBool.ERR);
-            }
-            if (In.get(0).get(i) == EnumBool.FALSE && In.get(1).get(i) == EnumBool.FALSE) {
-                output.add(EnumBool.FALSE);
-            } else if (In.get(0).get(i) == EnumBool.TRUE || In.get(1).get(i) == EnumBool.TRUE) {
-                output.add(EnumBool.TRUE);
-            } else {
-                output.add(EnumBool.ERR);
-            }
-        }
-        Out.add(output);
-=======
         
         
         ArrayList<EnumBool> entry = In.get(0);
@@ -77,10 +60,11 @@ public class Or extends ElemLogique {
                     result.add(EnumBool.ERR);
                 }
             }
-            entry=result;
+            
+            entry.clear();
+            entry.addAll(result);
         }
         Out.add(entry);
->>>>>>> Stashed changes
         output.clear();
         return Out;
 
