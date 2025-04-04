@@ -51,6 +51,14 @@ public class Wire extends Elem {
         this.state = true;
     }
 
+    public Wire(Elem elem1, Point2D start) {// check
+        super();
+        name = "Wire";
+        this.entry = new Pair<>(elem1, 0);
+        // this.exit = new ArrayList<>();
+        this.posStart = start;
+        this.state = true;
+    }
     // une Classe public wire qui permettrait de se connecter par la l'entrée d'un
     // elem plutot que par la sortie
 
@@ -138,34 +146,35 @@ public class Wire extends Elem {
 
         this.exit = elem;
 
-        if (output == null) {
+        if (output.isEmpty() || output.equals(null)){
             output = entry.getElem1().evaluate();
         }
 
-        Iterator<ArrayList<EnumBool>> i = output.iterator();
-        ArrayList<EnumBool> a = i.next();
+        ArrayList<EnumBool> a = output.get(0);
         return elem.In.add(a);
     }
 
     public boolean connect(Elem elem, int index) throws IndexOutOfBoundsException {
         this.exit = elem;
-        if (output == null) {
+
+        if (output.isEmpty() || output.equals(null)){
             output = entry.getElem1().evaluate();
         }
 
-        if(elem.In.size()>=elem.getInputNb()){
+        if(elem.In.size()>=elem.getNbBusIn()){
             throw new IndexOutOfBoundsException("The element already has enough input ports");
         }
 
-        
-        Iterator<ArrayList<EnumBool>> i = output.iterator();
-        ArrayList<EnumBool> a = i.next();
-        
+        while (index > elem.In.size()) {
+            elem.In.add(new ArrayList<EnumBool>());
+        }
+        ArrayList<EnumBool> a = output.get(0);
+
+
         if (elem.In.get(index).isEmpty()) {
             elem.In.add(index, a);
         } else {
-            elem.In.get(index).clear();
-            elem.In.add(a);
+            elem.In.set(index, a);
         }
 
         return elem.In.contains(a);

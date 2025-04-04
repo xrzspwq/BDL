@@ -62,23 +62,10 @@ public abstract class Elem {
         return Out;
     }
 
-    /**
-     * Retrieves the number of input connections for the element.
-     *
-     * @return An integer representing the number of input connections.
-     */
-    public int getInputNb() {
-        return NbBusIn;
-    }
+    
 
-    /**
-     * Retrieves the number of output connections for the element.
-     *
-     * @return An integer representing the number of output connections.
-     */
-    public int getOutputNb() {
-        return NbBusOut;
-    }
+ 
+ 
 
     /**
      * Clears all input connections of the element.
@@ -118,10 +105,20 @@ public abstract class Elem {
         Out.clear();
     }
 
+    /**
+     * Retrieves the number of input connections for the element.
+     *
+     * @return An integer representing the number of input connections.
+     */
     public int getNbBusIn() {
         return NbBusIn;
     }
 
+       /**
+     * Retrieves the number of output connections for the element.
+     *
+     * @return An integer representing the number of output connections.
+     */
     public int getNbBusOut() {
         return NbBusOut;
     }
