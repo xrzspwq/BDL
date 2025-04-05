@@ -146,7 +146,7 @@ public class Wire extends Elem {
 
         this.exit = elem;
 
-        if (output==null) {
+        if (output == null) {
             output = entry.getElem1().evaluate();
         }
 
@@ -161,9 +161,9 @@ public class Wire extends Elem {
             output = entry.getElem1().evaluate();
         }
 
-        if (entry.getElem1().Out.get(0).size() >= elem.getNbBusIn()) {
-            this.exit=null;
-            throw new IndexOutOfBoundsException("The element already has enough input ports");
+        if (entry.getElem1().Out.get(0).size() > elem.getNbBusIn()) {
+            this.exit = null;
+            throw new IndexOutOfBoundsException();
         }
 
         while (index >= elem.In.size()) {
@@ -175,12 +175,11 @@ public class Wire extends Elem {
         try {
             if (elem.In.get(index).isEmpty() || elem.In.get(index).equals(new ArrayList<EnumBool>())) {
                 elem.In.set(index, a);
-            }
-            else {
+            } else {
                 throw new IndexOutOfBoundsException("The element already has a wire on this port");
             }
         } catch (IndexOutOfBoundsException e) {
-            this.exit=null;
+            this.exit = null;
             state = false;
         }
         return elem.In.contains(a);
@@ -192,8 +191,10 @@ public class Wire extends Elem {
      * any connection the wire has to an exit element.
      */
     public void disconnectExit() {
-        exit.In.remove(output);
-        exit = null;
+        if (exit != null) {
+            exit.In.remove(output);
+            exit = null;
+        }
     }
 
     /*
@@ -332,9 +333,7 @@ public class Wire extends Elem {
     @Override
     public ArrayList<ArrayList<EnumBool>> evaluate() {
         state = true;
-        if (output != null) {
-            return output;
-        }
+        
         output = entry.getElem1().evaluate();
 
         for (int i = 0; i < output.size(); i++) {

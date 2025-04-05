@@ -6,9 +6,10 @@ import java.util.Iterator;
 public class Not extends ElemLogique {
 
     // inherit the constructor from the class ElemLogique
-    public Not(int NbBusIn, int TailleIn) {
+    public Not(int TailleIn) {
         super();
-
+        NbBusIn = 1;
+        TailleBus=TailleIn;
     }
 
     /**

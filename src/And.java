@@ -32,25 +32,27 @@ public class And extends ElemLogique {
     public ArrayList<ArrayList<EnumBool>> evaluate() {
         ArrayList<EnumBool> output = new ArrayList<EnumBool>();
         Out.clear();
-        if (In.size() < 2) {
+        
+        int i=0;
+    
+        Iterator<ArrayList<EnumBool>> ite = In.iterator();
+        ArrayList<EnumBool> tmp;
+        ArrayList<ArrayList<EnumBool>> Incopy = new ArrayList<ArrayList<EnumBool>>();
+        while(ite.hasNext()){
+            tmp = ite.next();
+            if(!tmp.equals(new ArrayList<EnumBool>())){
+                Incopy.add(tmp);
+            }
+        }
+
+
+        if(Incopy.equals(new ArrayList<ArrayList<EnumBool>>())){
             output.add(EnumBool.NOTHING);
             Out.add(output);
             return Out;
         }
-        int i;
-    
-        Iterator<ArrayList<EnumBool>> ite = In.iterator();
-        ArrayList<EnumBool> entry = null;
-        ArrayList<EnumBool> tmp;
-        while(ite.hasNext()){
-            tmp = ite.next();
-            if(!tmp.equals(new ArrayList<EnumBool>())){
-                entry=tmp;
-                break;
-            }
-        }
 
-        if(entry == null){
+        if (Incopy.size() < 2) {
             output.add(EnumBool.NOTHING);
             Out.add(output);
             return Out;
@@ -58,25 +60,26 @@ public class And extends ElemLogique {
 
         ArrayList<EnumBool> result = new ArrayList<EnumBool>();
 
-        for(int j=1; j<In.size();j++){
-            for (i = 0; i < entry.size(); i++) {
+
+        for(int j=1; j<Incopy.size();j++){
+            for ( i = 0 ; i < Incopy.get(0).size(); i++) {
                 result.clear();
-                if (entry.get(i) == EnumBool.ERR || In.get(j).get(i) == EnumBool.ERR
-                        || entry.get(i) == EnumBool.NOTHING || In.get(j).get(i) == EnumBool.NOTHING) {
+                if (Incopy.get(0).get(i) == EnumBool.ERR || In.get(j).get(i) == EnumBool.ERR
+                        || Incopy.get(0).get(i) == EnumBool.NOTHING || In.get(j).get(i) == EnumBool.NOTHING) {
                     result.add(EnumBool.ERR);
                 }
-                if (entry.get(i) == EnumBool.FALSE || In.get(j).get(i) == EnumBool.FALSE) {
+                if (Incopy.get(0).get(i) == EnumBool.FALSE || In.get(j).get(i) == EnumBool.FALSE) {
                     result.add(EnumBool.FALSE);
-                } else if (entry.get(i) == EnumBool.TRUE && In.get(j).get(i) == EnumBool.TRUE) {
+                } else if (Incopy.get(0).get(i) == EnumBool.TRUE && In.get(j).get(i) == EnumBool.TRUE) {
                     result.add(EnumBool.TRUE);
                 } else {
                     result.add(EnumBool.ERR);
                 }
             }
-            entry.clear();
-            entry.addAll(result);
+            Incopy.get(0).clear();
+            Incopy.get(0).addAll(result);
         }
-        Out.add(entry);
+        Out.add(Incopy.get(0));
         
         return Out;
 
