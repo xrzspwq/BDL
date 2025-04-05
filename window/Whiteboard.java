@@ -497,6 +497,10 @@ public class Whiteboard {
             if (elem.getInputs() != null && !elem.getInputs().isEmpty())
                 panel.getChildren().removeAll(elem.getInputs());
 
+
+            if (elem.getOutputs() != null && !elem.getOutputs().isEmpty())
+                panel.getChildren().removeAll(elem.getOutputs());
+
             if (elem.getInputsLine() != null)
                 panel.getChildren().removeAll(elem.getInputsLine());
 
@@ -618,6 +622,12 @@ public class Whiteboard {
             }
         }
 
+        if (selectionRec!=null) 
+        {
+            panel.getChildren().removeAll(selectionRec);
+            selectionRec = null;
+        }
+
         if (!cursorSelectionMode) {
             App.setCursor(Cursor.CLOSED_HAND);
             System.out.println("Initial mouseXPos: " + initMousePos[0]);
@@ -717,7 +727,7 @@ public class Whiteboard {
             }
 
             else {
-                if (initMousePos == null)
+                if (initMousePos == null || selectionRec==null )
                     return;
 
                 double xMin;
