@@ -60,8 +60,22 @@ public class ReaderSVGPath
 
     } 
     
+    /**
+     * This function returns the SVG path string read from the file.
+     * 
+     * @return The SVG path string.
+     * 
+     * @throws FileNotFoundException If the file specified by the filePath does not exist.
+     * @throws IllegalArgumentException If the file does not contain a valid SVG path.
+     * 
+     * The SVG path string is obtained by parsing the file and extracting the 'd' attribute value 
+     * from the first '<path>' element found in the file. If the file does not contain a '<path>' 
+     * element or if the 'd' attribute is not found within the '<path>' element, an 
+     * IllegalArgumentException is thrown.
+     */
     public String getPath() {
         return path;
-    } 
+    }
+
     
 }
