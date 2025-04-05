@@ -32,8 +32,8 @@ public class Xortest {
         intest1.toggle();
         intest2.toggle();
 
-        lien1.connect(xortest, 1);
-        lien2.connect(xortest, 2);
+        lien1.connectExit(xortest, 1);
+        lien2.connectExit(xortest, 2);
 
         out = xortest.evaluate();
 
@@ -48,8 +48,8 @@ public class Xortest {
         intest1.toggle();
         intest2.toggle();
 
-        lien1.connect(xortest, 1);
-        lien2.connect(xortest, 2);
+        lien1.connectExit(xortest, 1);
+        lien2.connectExit(xortest, 2);
 
         out = xortest.evaluate();
 
@@ -63,8 +63,8 @@ public class Xortest {
 
         intest2.toggle();
 
-        lien1.connect(xortest, 1);
-        lien2.connect(xortest, 2);
+        lien1.connectExit(xortest, 1);
+        lien2.connectExit(xortest, 2);
 
         out = xortest.evaluate();
 
@@ -79,8 +79,8 @@ public class Xortest {
         intest1.toggle();
         intest2.toggle();
 
-        lien1.connect(xortest, 1);
-        lien2.connect(xortest, 2);
+        lien1.connectExit(xortest, 1);
+        lien2.connectExit(xortest, 2);
 
         out = xortest.evaluate();
 
@@ -92,9 +92,9 @@ public class Xortest {
         ///////////////////
         /* Excesive input */
 
-        lien1.connect(xortest, 1);
-        lien2.connect(xortest, 2);
-        lien3.connect(xortest, 2);
+        lien1.connectExit(xortest, 1);
+        lien2.connectExit(xortest, 2);
+        lien3.connectExit(xortest, 2);
 
         out = xortest.evaluate();
 
@@ -103,8 +103,8 @@ public class Xortest {
         xortest.getIn().removeAll(xortest.getIn());
         xortest.getOut().removeAll(xortest.getOut());
 
-        lien1.connect(intest1, 1);
-        lien2.connect(intest2, 1);
+        lien1.connectExit(intest1, 1);
+        lien2.connectExit(intest2, 1);
 
         out = xortest.evaluate();
 

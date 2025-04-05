@@ -36,8 +36,8 @@ public class Ortest {
         intest1.toggle();
         intest2.toggle();
 
-        lien1.connect(ortest, 1);
-        lien2.connect(ortest, 2);
+        lien1.connectExit(ortest, 1);
+        lien2.connectExit(ortest, 2);
         out = ortest.evaluate();
 
         table[1] = new String[] { intest1.getOut() + " " + intest2.getOut(), "" + out };
@@ -51,8 +51,8 @@ public class Ortest {
         intest1.toggle();
         intest2.toggle();
 
-        lien1.connect(ortest, 1);
-        lien2.connect(ortest, 2);
+        lien1.connectExit(ortest, 1);
+        lien2.connectExit(ortest, 2);
 
         out = ortest.evaluate();
 
@@ -66,8 +66,8 @@ public class Ortest {
 
         intest2.toggle();
 
-        lien1.connect(ortest, 1);
-        lien2.connect(ortest, 2);
+        lien1.connectExit(ortest, 1);
+        lien2.connectExit(ortest, 2);
 
         out = ortest.evaluate();
 
@@ -82,8 +82,8 @@ public class Ortest {
         intest1.toggle();
         intest2.toggle();
 
-        lien1.connect(ortest, 1);
-        lien2.connect(ortest, 2);
+        lien1.connectExit(ortest, 1);
+        lien2.connectExit(ortest, 2);
 
         out = ortest.evaluate();
 
@@ -95,9 +95,9 @@ public class Ortest {
         ///////////////////
         /* Excesive input */
 
-        lien1.connect(ortest, 1);
-        lien2.connect(ortest, 2);
-        lien3.connect(ortest, 2);
+        lien1.connectExit(ortest, 1);
+        lien2.connectExit(ortest, 2);
+        lien3.connectExit(ortest, 2);
 
         out = ortest.evaluate();
 
@@ -106,8 +106,8 @@ public class Ortest {
         ortest.getIn().removeAll(ortest.getIn());
         ortest.getOut().removeAll(ortest.getOut());
 
-        lien1.connect(intest1, 1);
-        lien2.connect(intest2, 1);
+        lien1.connectExit(intest1, 1);
+        lien2.connectExit(intest2, 1);
 
         out = ortest.evaluate();
 

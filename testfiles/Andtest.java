@@ -31,8 +31,8 @@ public class Andtest {
         intest1.toggle();
         intest2.toggle();
 
-        lien1.connect(andtest, 1);
-        lien2.connect(andtest, 2);
+        lien1.connectExit(andtest, 0);
+        lien2.connectExit(andtest, 1);
         out = andtest.evaluate();
 
         table[1] = new String[] { intest1.getOut() + " " + intest2.getOut(), "" + out };
@@ -46,8 +46,8 @@ public class Andtest {
         intest1.toggle();
         intest2.toggle();
 
-        lien1.connect(andtest, 1);
-        lien2.connect(andtest, 2);
+        lien1.connectExit(andtest, 0);
+        lien2.connectExit(andtest, 1);
 
         out = andtest.evaluate();
 
@@ -61,8 +61,8 @@ public class Andtest {
 
         intest2.toggle();
 
-        lien1.connect(andtest, 1);
-        lien2.connect(andtest, 2);
+        lien1.connectExit(andtest, 1);
+        lien2.connectExit(andtest, 2);
 
         out = andtest.evaluate();
 
@@ -76,23 +76,23 @@ public class Andtest {
 
         intest1.toggle();
         intest2.toggle();
-
-        lien1.connect(andtest, 1);
-        lien2.connect(andtest, 2);
-
+        System.out.println("1-"+intest1.getOut()+" 2-"+intest2.getOut());
+        lien1.connectExit(andtest, 1);
+        lien2.connectExit(andtest, 2);
+        System.out.println("1-"+intest1.getOut()+" 2-"+intest2.getOut());
         out = andtest.evaluate();
-
+       
         table[4] = new String[] { intest1.getOut() + " " + intest2.getOut(), "" + out };
-
+        System.out.println("end");
         andtest.getIn().removeAll(andtest.getIn());
         andtest.getOut().removeAll(andtest.getOut());
 
         ///////////////////
         /* Excesive input */
 
-        lien1.connect(andtest, 1);
-        lien2.connect(andtest, 2);
-        lien3.connect(andtest, 2);
+        lien1.connectExit(andtest, 1);
+        lien2.connectExit(andtest, 2);
+        lien3.connectExit(andtest, 2);
 
         out = andtest.evaluate();
 
@@ -101,8 +101,8 @@ public class Andtest {
         andtest.getIn().removeAll(andtest.getIn());
         andtest.getOut().removeAll(andtest.getOut());
 
-        lien1.connect(intest1, 1);
-        lien2.connect(intest2, 1);
+        lien1.connectExit(andtest, 1);
+        lien2.connectExit(andtest, 1);
 
         out = andtest.evaluate();
 

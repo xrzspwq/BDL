@@ -10,7 +10,7 @@ import src.Wire;
 public class Nottest {
     
     public Nottest(){
-        Not nottest = new Not(1, 1);
+        Not nottest = new Not(1);
         ArrayList<ArrayList<EnumBool>> out = new ArrayList<ArrayList<EnumBool>>();
         
         Object[][] table = new String[5][]; 
@@ -31,7 +31,7 @@ public class Nottest {
 
         intest1.toggle();
 
-        lien1.connect(nottest, 1);
+        lien1.connectExit(nottest, 1);
         
         out = nottest.evaluate();
         
@@ -45,7 +45,7 @@ public class Nottest {
 
         intest1.toggle();
 
-        lien1.connect(nottest, 1);
+        lien1.connectExit(nottest, 1);
         
         out = nottest.evaluate();
         
@@ -57,8 +57,8 @@ public class Nottest {
         ///////////////////
         /*Excesive input*/
 
-        lien1.connect(nottest, 1);
-        lien2.connect(nottest, 2);   
+        lien1.connectExit(nottest, 1);
+        lien2.connectExit(nottest, 2);   
 
         out = nottest.evaluate();
         
@@ -67,8 +67,8 @@ public class Nottest {
         nottest.getIn().removeAll(nottest.getIn());
         nottest.getOut().removeAll(nottest.getOut());
 
-        lien1.connect(intest1, 1);
-        lien2.connect(intest2, 1);
+        lien1.connectExit(intest1, 1);
+        lien2.connectExit(intest2, 1);
 
         out = nottest.evaluate();
 

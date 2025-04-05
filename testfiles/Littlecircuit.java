@@ -11,7 +11,7 @@ import src.Xor;
 
 public class Littlecircuit {
     public Littlecircuit() {
-        Not nottest = new Not(1, 1);
+        Not nottest = new Not(1);
         And andtest = new And();
         Xor xortest = new Xor();
 
@@ -32,8 +32,8 @@ public class Littlecircuit {
         intest2.toggle();
         
 
-        lien1.connect(andtest, 1);
-        lien2.connect(andtest, 2);
+        lien1.connectExit(andtest, 1);
+        lien2.connectExit(andtest, 2);
         out = andtest.evaluate();
 
         System.out.println("input\t\tinput\n" + intest1.getOut() + "\t" + intest2.getOut());
@@ -41,18 +41,18 @@ public class Littlecircuit {
         System.out.println("\tAnd\n\t" + out + "");
         System.out.println("\t |");
 
-        lien1.changeEntry(andtest, 1);
-        lien1.connect(nottest, 1);
+        lien1.swapEntry(andtest, 1);
+        lien1.connectExit(nottest, 1);
         out = nottest.evaluate();
         intest1.toggle();
         System.out.println("\tNot\t\tinput\n\t" + out + "\t" + intest1.getOut() + "");
         System.out.println("\t   |\t\t   |\n\t    ---------------\n\t\t |");
 
-        lien1.changeEntry(nottest, 1);
-        lien2.changeEntry(intest1, 1);
+        lien1.swapEntry(nottest, 1);
+        lien2.swapEntry(intest1, 1);
 
-        lien1.connect(xortest, 1);
-        lien2.connect(xortest, 2);
+        lien1.connectExit(xortest, 1);
+        lien2.connectExit(xortest, 2);
         out = xortest.evaluate();
 
         System.out.println("\t\tXor\n\t\t" + out);
