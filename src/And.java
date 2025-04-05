@@ -64,13 +64,13 @@ public class And extends ElemLogique {
         for(int j=1; j<Incopy.size();j++){
             for ( i = 0 ; i < Incopy.get(0).size(); i++) {
                 result.clear();
-                if (Incopy.get(0).get(i) == EnumBool.ERR || In.get(j).get(i) == EnumBool.ERR
-                        || Incopy.get(0).get(i) == EnumBool.NOTHING || In.get(j).get(i) == EnumBool.NOTHING) {
+                if (Incopy.get(0).get(i) == EnumBool.ERR || Incopy.get(j).get(i) == EnumBool.ERR
+                        || Incopy.get(0).get(i) == EnumBool.NOTHING || Incopy.get(j).get(i) == EnumBool.NOTHING) {
                     result.add(EnumBool.ERR);
                 }
-                if (Incopy.get(0).get(i) == EnumBool.FALSE || In.get(j).get(i) == EnumBool.FALSE) {
+                if (Incopy.get(0).get(i) == EnumBool.FALSE || Incopy.get(j).get(i) == EnumBool.FALSE) {
                     result.add(EnumBool.FALSE);
-                } else if (Incopy.get(0).get(i) == EnumBool.TRUE && In.get(j).get(i) == EnumBool.TRUE) {
+                } else if (Incopy.get(0).get(i) == EnumBool.TRUE && Incopy.get(j).get(i) == EnumBool.TRUE) {
                     result.add(EnumBool.TRUE);
                 } else {
                     result.add(EnumBool.ERR);

@@ -9,7 +9,7 @@ import java.util.Stack;
 
 public class Wire extends Elem {
     private Pair<Elem, Integer> entry;
-    private Elem exit;
+    private Pair<Elem,Integer> exit;
     private ArrayList<ArrayList<EnumBool>> output;
     private Point2D posStart;
     private Point2D posEnd;
@@ -84,11 +84,11 @@ public class Wire extends Elem {
      * @return A list of pairs containing the logical elements and their output
      *         indices representing the exit points of the wire.
      */
-    public Elem getExit() {
+    public Pair<Elem,Integer> getExit() {
         return exit;
     }
 
-    public void setExit(Elem exit) {
+    public void setExit(Pair<Elem, Integer> exit) {
         this.exit = exit;
     }
 
@@ -116,10 +116,10 @@ public class Wire extends Elem {
      *                If the wire already has an exit point, it is added to the exit
      *                list before updating the entry point.
      */
-    public void changeEntry(Elem e1, int indexIn) {
+    public void swapEntry(Elem e1, int indexIn) {
         if (e1.equals(this.entry.getElem1())) {
-            exit = entry.getElem1();
-            exit.In.remove(this.evaluate());
+            exit = entry;
+            exit.getElem1().In.set(indexIn,this.evaluate().get(indexIn) );
 
             entry.setElem(e1);
             entry.setElem2(indexIn);
@@ -142,20 +142,9 @@ public class Wire extends Elem {
      * @param int1 The index at which to connect to the specified element.
      * @return True if the connection is successful, false otherwise.
      */
-    public boolean connectExit(Elem elem) {
-
-        this.exit = elem;
-
-        if (output == null) {
-            output = entry.getElem1().evaluate();
-        }
-
-        ArrayList<EnumBool> a = output.get(0);
-        return elem.In.add(a);
-    }
-
+    
     public boolean connectExit(Elem elem, int index) throws IndexOutOfBoundsException {
-        this.exit = elem;
+        this.exit = new Pair<Elem,Integer>(elem, index);
 
         if (output == null) {
             output = entry.getElem1().evaluate();
@@ -192,7 +181,7 @@ public class Wire extends Elem {
      */
     public void disconnectExit() {
         if (exit != null) {
-            exit.In.remove(output);
+            exit.getElem1().In.set(exit.getElem2(),new ArrayList<EnumBool>());
             exit = null;
         }
     }
@@ -342,7 +331,7 @@ public class Wire extends Elem {
             }
         }
 
-        if (entry.getElem1().TailleBus != exit.TailleBus) {
+        if (entry.getElem1().TailleBus != exit.getElem1().TailleBus) {
             state = false;
         }
 

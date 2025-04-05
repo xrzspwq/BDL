@@ -12,6 +12,11 @@ public class Not extends ElemLogique {
         TailleBus=TailleIn;
     }
 
+    public void setNbBusIn(int NbBusIn){
+        throw new IllegalStateException();
+    }
+
+
     /**
      * This method evaluates the logical NOT operation on the input bus.
      * 
