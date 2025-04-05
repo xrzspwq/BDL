@@ -49,8 +49,8 @@ public class GraphicElem
         this.elem = elem;
         attributes = GraphicElemInfo.getAttributes(elem);
         shape = GraphicElemInfo.getShape(elem);
-        inputs = new ArrayList<>(elem.getInputNb()); 
-        outputs = new ArrayList<>(elem.getOutputNb());
+        inputs = new ArrayList<>(elem.getNbBusIn()); 
+        outputs = new ArrayList<>(elem.getNbBusOut());
     }
     
     public GraphicElem(ElemLogique elem)
@@ -59,8 +59,8 @@ public class GraphicElem
         this.elem = elem;
         attributes = GraphicElemInfo.getAttributes(elem);
         shape = GraphicElemInfo.getShape(elem);
-        inputs = new ArrayList<>(elem.getInputNb()); 
-        outputs = new ArrayList<>(elem.getOutputNb());
+        inputs = new ArrayList<>(elem.getNbBusIn()); 
+        outputs = new ArrayList<>(elem.getNbBusOut());
     }
 
     public GraphicElem(ElemLogique elem,List<Object> attributes)
@@ -98,7 +98,7 @@ public class GraphicElem
 
     private void setInOrOut(boolean setIn)
     {
-        int inOutNb = setIn ? elem.getInputNb() : elem.getOutputNb();
+        int inOutNb = setIn ? elem.getNbBusIn() : elem.getNbBusOut();
         List<Circle> inOrOutInputs = setIn ? inputs : outputs;
         Line inOrOutInputLine = setIn ? inputsLine : outputsLine;
 
