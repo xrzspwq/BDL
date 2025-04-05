@@ -12,14 +12,18 @@ import src.Pair;
 import src.Wire;
 import src.Elem;
 import src.EnumBool;
+import src.AucunChemin;
 
 public class Wiretest {
     
-    public Wiretest(){
+    public Wiretest() throws AucunChemin{
         Constant intest1 = new Constant();
         Constant intest2 = new Constant();
         Not nottest = new Not(1);
-        Wire lien1 = new Wire(intest1, 1, null);
+        Point2D start = new Point2D.Double(0.0,0.0);
+        Point2D end = new Point2D.Double(5.0,3.0);
+
+        Wire lien1 = new Wire(intest1, 1, start);
         ArrayList<ArrayList<Integer>> M = new ArrayList<>();
         M.add(new ArrayList<>());
         M.add(new ArrayList<>());
@@ -29,6 +33,7 @@ public class Wiretest {
         M.get(1).addAll(Arrays.asList(0,0,0,0,0,0,0));
         M.get(2).addAll(Arrays.asList(0,0,0,0,0,0,0));
         M.get(3).addAll(Arrays.asList(0,0,0,0,0,1,0));
+        lien1.setPosEnd(end);
         Stack<Point2D> points = new Stack<>();
 
         Object[][] table = new String[15][]; 
