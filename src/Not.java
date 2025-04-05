@@ -6,10 +6,9 @@ import java.util.Iterator;
 public class Not extends ElemLogique {
 
     // inherit the constructor from the class ElemLogique
-    public Not(int TailleIn) {
+    public Not() {
         super();
         NbBusIn = 1;
-        TailleBus=TailleIn;
     }
 
     public void setNbBusIn(int NbBusIn){
@@ -43,12 +42,17 @@ public class Not extends ElemLogique {
         }
         int i;
 
-         Iterator<ArrayList<EnumBool>> ite = In.iterator();
+        for ( i = In.size() - 1; i >= 0; i--) {
+            if (In.get(i).isEmpty()) {
+                In.remove(i);
+            }
+        }
+        Iterator<ArrayList<EnumBool>> ite = In.iterator();
         ArrayList<EnumBool> entry = null;
         ArrayList<EnumBool> tmp;
         while(ite.hasNext()){
             tmp = ite.next();
-            if(!tmp.equals(new ArrayList<EnumBool>())){
+            if(!tmp.isEmpty()){
                 entry=tmp;
                 break;
             }
