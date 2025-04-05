@@ -2,7 +2,6 @@ package src;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
@@ -65,6 +64,8 @@ public class Wire extends Elem {
     public Point2D getPosStart() {
         return posStart;
     }
+
+    
 
     /**
      * Returns the entry point of the wire, which is a pair consisting of a logical
@@ -188,6 +189,12 @@ public class Wire extends Elem {
         }
         return elem.In.contains(a);
     }
+
+    public boolean connectExit(Elem elem, int index, Point2D posEnd){
+        this.posEnd = posEnd;
+        return connectExit(elem, index);
+    }
+
 
     /**
      * Disconnects the current wire from its exit element, if any.
