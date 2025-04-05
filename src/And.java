@@ -39,18 +39,12 @@ public class And extends ElemLogique {
         ArrayList<EnumBool> tmp;
         ArrayList<ArrayList<EnumBool>> Incopy = new ArrayList<ArrayList<EnumBool>>();
         while(ite.hasNext()){
-            tmp = ite.next();
-            if(!tmp.equals(new ArrayList<EnumBool>())){
-                Incopy.add(tmp);
+            tmp=ite.next();
+            if(!tmp.isEmpty()){
+                Incopy.add(new ArrayList<>(tmp));
             }
         }
 
-
-        if(Incopy.equals(new ArrayList<ArrayList<EnumBool>>())){
-            output.add(EnumBool.NOTHING);
-            Out.add(output);
-            return Out;
-        }
 
         if (Incopy.size() < 2) {
             output.add(EnumBool.NOTHING);
@@ -79,8 +73,9 @@ public class And extends ElemLogique {
             Incopy.get(0).clear();
             Incopy.get(0).addAll(result);
         }
+
+       
         Out.add(Incopy.get(0));
-        
         return Out;
 
     }
