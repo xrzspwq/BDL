@@ -9,13 +9,25 @@ public class Attribute<T>
         attribute = new Pair<>(name,val); 
     }
 
+    /**
+     * Returns the name of the attribute.
+     *
+     * @return the name of the attribute as a {@link String}
+     */
     public String getName() {
         return attribute.getKey();
     }
 
+
+    /**
+     * Returns the value of the attribute.
+     *
+     * @return the value of the attribute as a generic type {@link T}
+     */
     public T getValue() {
         return attribute.getValue();
     }
+
 
     /*
     public setValue(T value) {

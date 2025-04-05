@@ -79,6 +79,15 @@ public class GraphicElemPanel
         //panel.getChildren().addAll(circle);
     }
 
+    /**
+     * This function sets the directory elements in a TreeView format.
+     * It takes a list of {@link GraphicElem} objects as a parameter and returns a list of {@link TreeItem} objects.
+     * Each {@link TreeItem} represents a directory element and contains a label with the name of the element.
+     * The function also adds a mouse click event handler to each {@link TreeItem} to set the attributes panel with the corresponding {@link GraphicElem}.
+     *
+     * @param elems A list of {@link GraphicElem} objects representing directory elements.
+     * @return A list of {@link TreeItem} objects representing the directory elements in a TreeView format.
+     */
     private List<TreeItem<String>> setDirectoryElems(List<GraphicElem> elems)
     {
         ArrayList<TreeItem<String>> items = new ArrayList<>();
@@ -86,7 +95,7 @@ public class GraphicElemPanel
         for (GraphicElem elem : elems) 
         {
             TreeItem<String> item = new TreeItem("",new Label(elem.getElem().getName())); 
-            
+
             item.getGraphic().setOnMousePressed(new EventHandler<MouseEvent>() 
             {
                 @Override
@@ -100,11 +109,18 @@ public class GraphicElemPanel
         }
         return items;
     }
+
     
 
+    /**
+     * This function returns the VBox panel containing the graphical elements.
+     *
+     * @return A VBox panel containing the graphical elements.
+     */
     public VBox getPanel() {
         return panel;
     }
+
 
     public boolean setDirectories()
     {
