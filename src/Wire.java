@@ -9,7 +9,7 @@ import java.util.Stack;
 
 public class Wire extends Elem {
     private Pair<Elem, Integer> entry;
-    private Pair<Elem,Integer> exit;
+    private Pair<Elem, Integer> exit;
     private ArrayList<ArrayList<EnumBool>> output;
     private Point2D posStart;
     private Point2D posEnd;
@@ -84,7 +84,7 @@ public class Wire extends Elem {
      * @return A list of pairs containing the logical elements and their output
      *         indices representing the exit points of the wire.
      */
-    public Pair<Elem,Integer> getExit() {
+    public Pair<Elem, Integer> getExit() {
         return exit;
     }
 
@@ -119,7 +119,7 @@ public class Wire extends Elem {
     public void swapEntry(Elem e1, int indexIn) {
         if (e1.equals(this.entry.getElem1())) {
             exit = entry;
-            exit.getElem1().In.set(indexIn,this.evaluate().get(indexIn) );
+            exit.getElem1().In.set(indexIn, this.evaluate().get(indexIn));
 
             entry.setElem(e1);
             entry.setElem2(indexIn);
@@ -142,17 +142,25 @@ public class Wire extends Elem {
      * @param int1 The index at which to connect to the specified element.
      * @return True if the connection is successful, false otherwise.
      */
-    
+
     public boolean connectExit(Elem elem, int index) throws IndexOutOfBoundsException {
-        this.exit = new Pair<Elem,Integer>(elem, index);
+        this.exit = new Pair<Elem, Integer>(elem, index);
 
         if (output == null) {
             output = entry.getElem1().evaluate();
         }
 
-        if (entry.getElem1().Out.get(0).size() > elem.getNbBusIn()) {
-            this.exit = null;
-            throw new IndexOutOfBoundsException();
+        if(entry.getElem1() instanceof Wire){
+            
+        }
+        try {
+            if (entry.getElem1().Out.get(0).size() > elem.getNbBusIn()) {
+                this.exit = null;
+                throw new IndexOutOfBoundsException();
+            }
+        } catch (IndexOutOfBoundsException e) {
+            state = false;
+            return false;
         }
 
         while (index >= elem.In.size()) {
@@ -163,12 +171,19 @@ public class Wire extends Elem {
 
         try {
             if (elem.In.get(index).isEmpty() || elem.In.get(index).equals(new ArrayList<EnumBool>())) {
+                System.out.println("caca");
+
                 elem.In.set(index, a);
+                state=true;
             } else {
+                output.clear();
+                ArrayList<EnumBool> error = new ArrayList<EnumBool>();
+                error.add(EnumBool.ERR);
+                elem.In.set(index, error);
                 throw new IndexOutOfBoundsException("The element already has a wire on this port");
             }
         } catch (IndexOutOfBoundsException e) {
-            this.exit = null;
+            exit = null;
             state = false;
         }
         return elem.In.contains(a);
@@ -181,7 +196,7 @@ public class Wire extends Elem {
      */
     public void disconnectExit() {
         if (exit != null) {
-            exit.getElem1().In.set(exit.getElem2(),new ArrayList<EnumBool>());
+            exit.getElem1().In.set(exit.getElem2(), new ArrayList<EnumBool>());
             exit = null;
         }
     }
@@ -321,28 +336,34 @@ public class Wire extends Elem {
 
     @Override
     public ArrayList<ArrayList<EnumBool>> evaluate() {
-        state = true;
-        
+
         output = entry.getElem1().evaluate();
 
         for (int i = 0; i < output.size(); i++) {
             if (output.get(i).contains(EnumBool.ERR)) {
                 state = false;
+                output.clear();
+                ArrayList<EnumBool> error = new ArrayList<EnumBool>();
+                error.add(EnumBool.ERR);
+                output.add(error);
+                return output;
+            } else {
+                state = true;
             }
         }
 
         if (entry.getElem1().TailleBus != exit.getElem1().TailleBus) {
+            this.disconnectExit();
+            output.clear();
+            ArrayList<EnumBool> error = new ArrayList<EnumBool>();
+            error.add(EnumBool.ERR);
+            output.add(error);
             state = false;
+            return output;
         }
 
-        /*
-         * for (int i = 0; i < exit.size(); i++) {
-         * if (entry.getElem1().TailleBus != exit.get(i).getElem1().TailleBus) {
-         * state = false;
-         * }
-         * }
-         */
-
+        
+        state=true;
         return output;
     }
 

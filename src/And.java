@@ -60,7 +60,12 @@ public class And extends ElemLogique {
                 result.clear();
                 if (Incopy.get(0).get(i) == EnumBool.ERR || Incopy.get(j).get(i) == EnumBool.ERR
                         || Incopy.get(0).get(i) == EnumBool.NOTHING || Incopy.get(j).get(i) == EnumBool.NOTHING) {
+                    result.clear();
                     result.add(EnumBool.ERR);
+                    Incopy.get(0).clear();
+                    Incopy.get(0).addAll(result);
+                    Out.add(Incopy.get(0));
+                    return Out;
                 }
                 if (Incopy.get(0).get(i) == EnumBool.FALSE || Incopy.get(j).get(i) == EnumBool.FALSE) {
                     result.add(EnumBool.FALSE);
