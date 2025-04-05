@@ -45,18 +45,6 @@ public class ElemAttributesPanel
         panel.getChildren().addAll(name,attributesGrid);
     }   
     
-    /**
-     * Sets the panel with the element's name and attributes.
-     *
-     * This method populates the panel with the element's name and attributes based on the provided GraphicElem object.
-     * The element's name is set in the name Label, and the attributes are displayed in a GridPane.
-     * Each attribute is represented by a Label and a ChoiceBox. The ChoiceBox is populated with the options
-     * retrieved from the GraphicElemInfo class using the attribute.
-     *
-     * @param elem The GraphicElem object containing the element's name and attributes.
-     * @return void
-     * @since 1.0
-     */
     public void setPanel(GraphicElem elem)
     {
         name.setText(elem.getElem().getName());
@@ -68,7 +56,7 @@ public class ElemAttributesPanel
         {
             if (! (elemAttributes.get(i) instanceof Attribute<?>) )
                 System.err.println("throw un truc");
-
+           
             Attribute<?> attribute = (Attribute<?>) elemAttributes.get(i);
             ChoiceBox choiceBox = new ChoiceBox();
 
@@ -82,34 +70,12 @@ public class ElemAttributesPanel
         }
     }
 
-
-    /**
-     * Clears the panel by removing all its children.
-     *
-     * This method is used to reset the panel to its initial state,
-     * by removing all the graphical elements and attributes displayed.
-     *
-     * @return void
-     * @since 1.0
-     */
     public void clearPanel()
     {
         panel.getChildren().clear();
     }
 
-
-    /**
-     * Returns the VBox panel containing the element's name and attributes.
-     *
-     * This method retrieves the VBox panel that is used to display the element's name and attributes.
-     * The panel is created in the constructor of the ElemAttributesPanel class and is populated with
-     * the element's name and attributes based on the provided GraphicElem object.
-     *
-     * @return VBox The VBox panel containing the element's name and attributes.
-     * @since 1.0
-     */
     public VBox getPanel() {
         return panel;
     }
-
 }
