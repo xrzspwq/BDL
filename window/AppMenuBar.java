@@ -42,7 +42,7 @@ public class AppMenuBar
         {
             items[i] = new MenuItem( MenuBarElem.fileMenuItems.get(i));
         }
-        items[0].setOnAction(new Eventhandler<MouseEvent>(){
+        /*items[0].setOnAction(new Eventhandler<MouseEvent>(){
             @Override
             public final void handle(MouseEvent event){
                 MenuBarEvents.loadFile(currWindow);
@@ -66,7 +66,7 @@ public class AppMenuBar
             }
         });
 
-        items.add(importElem);
+        items.add(importElem); */
 
         // Return a new Menu object with the label "File", a VBox layout, and the created menu items
         return new Menu("File",new VBox(),items);

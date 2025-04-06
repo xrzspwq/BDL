@@ -18,7 +18,7 @@ import javafx.scene.control.ButtonType;
 public class MenuBarEvents 
 {
 
-    public static void openFile(Window window){
+   /* public static void openFile(Window window){
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open a file");
         fileChooser.setSelectedExtensionFilter(new ExtensionFilter("JSON files","*.json"));
@@ -31,15 +31,15 @@ public class MenuBarEvents
             ButtonType button = new ButtonType("Ok");
             Alert errAlert = new Alert(AlertType.ERROR, "Loading circuit has failed",button);
             errAlert.showAndWait();
-        }*/
-    } 
+        }
+    } */
 
-    public static void saveFile(Window window){
+    /*public static void saveFile(Window window){
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save file to");
         File file = fileChooser.showSaveDialog(window);
 
-        /*try {
+        try {
             CircuitSaver cirSaver = new CircuitSaver();
             cirSaver.saveCircuit(App.getHashMap());
         }
@@ -47,16 +47,16 @@ public class MenuBarEvents
             ButtonType button = new ButtonType("Ok");
             Alert errAlert = new Alert(AlertType.ERROR, "Saving circuit has failed",button);
             errAlert.showAndWait(); 
-        }*/
-    }
+        }
+    } */ 
 
-    public static void importElemFromFile(Window window){
+    /*public static void importElemFromFile(Window window){
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Import component from file");
         fileChooser.setSelectedExtensionFilter(new ExtensionFilter("JSON files","*.json"));
 
         File file = fileChooser.showSaveDialog(window);
-        /*try{
+        try{
             ImportElem impElem = new ImportElem(file);
             GraphicElem newElem = impElem.importElem();
             impElem().addToStdlib(newElem);
@@ -65,8 +65,8 @@ public class MenuBarEvents
             ButtonType button = new ButtonType("Ok");
             Alert errAlert = new Alert(AlertType.ERROR, "Importing new component has failed",button);
             errAlert.showAndWait();
-        }*/
-    }
+        }
+    }*/
     
      /*
     private void saveHandler()
