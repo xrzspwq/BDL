@@ -3,12 +3,12 @@ package src;
 import java.util.ArrayList;
 
 public abstract class Elem {
-    protected ArrayList<ArrayList<EnumBool>> In;
-    protected ArrayList<ArrayList<EnumBool>> Out;
+    protected ArrayList<ArrayList<EnumBool>> in;
+    protected ArrayList<ArrayList<EnumBool>> out;
     protected String name;
-    protected Integer TailleBus;
-    protected int NbBusIn;
-    protected int NbBusOut;
+    protected Integer tailleBus;
+    protected int nbBusIn;
+    protected int nbBusOut;
 
     /**
      * Constructs a new Elem object with default values.
@@ -19,9 +19,9 @@ public abstract class Elem {
      *
      */
     public Elem() {
-        this.In = new ArrayList<ArrayList<EnumBool>>();
-        this.Out = new ArrayList<ArrayList<EnumBool>>();
-        this.TailleBus = 1;
+        this.in = new ArrayList<ArrayList<EnumBool>>();
+        this.out = new ArrayList<ArrayList<EnumBool>>();
+        this.tailleBus = 1;
     }
 
     /**
@@ -49,7 +49,7 @@ public abstract class Elem {
      *         the input connections of the element.
      */
     public ArrayList<ArrayList<EnumBool>> getIn() {
-        return In;
+        return in;
     }
 
     /**
@@ -59,7 +59,7 @@ public abstract class Elem {
      *         the output connections of the element.
      */
     public ArrayList<ArrayList<EnumBool>> getOut() {
-        return Out;
+        return out;
     }
 
     /**
@@ -70,7 +70,7 @@ public abstract class Elem {
      *
      */
     public void clearIn() {
-        In.clear();
+        in.clear();
     }
 
     /**
@@ -86,7 +86,7 @@ public abstract class Elem {
      *
      */
     public void removeIn(int i) {
-        In.remove(i);
+        in.remove(i);
     }
 
     /**
@@ -97,7 +97,7 @@ public abstract class Elem {
      *
      */
     public void clearOut() {
-        Out.clear();
+        out.clear();
     }
 
     /**
@@ -106,7 +106,7 @@ public abstract class Elem {
      * @return An integer representing the number of input connections.
      */
     public int getNbBusIn() {
-        return NbBusIn;
+        return nbBusIn;
     }
 
     /**
@@ -115,15 +115,15 @@ public abstract class Elem {
      * @return An integer representing the number of output connections.
      */
     public int getNbBusOut() {
-        return NbBusOut;
+        return nbBusOut;
     }
 
     public void setNbBusIn(int nbBusIn) {
-        this.NbBusIn = nbBusIn;
+        this.nbBusIn = nbBusIn;
     }
 
     public void setNbBusOut(int nbBusOut) {
-        this.NbBusOut = nbBusOut;
+        this.nbBusOut = nbBusOut;
     }
 
     // the evalute method that is inherited by the other classes

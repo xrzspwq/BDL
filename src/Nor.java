@@ -8,23 +8,23 @@ public class Nor extends ElemLogique {
     
     public Nor() {
         super();
-        NbBusIn = 2;
-        NbBusOut = 1;
+        nbBusIn = 2;
+        nbBusOut = 1;
         name = "Nor Gate";
     }
 
       
     @Override
     public ArrayList<ArrayList<EnumBool>> evaluate() {
-        Out.clear();
+        out.clear();
         And andgate = new And();
         Not notgate = new Not();
-        andgate.In=this.In;
+        andgate.in=this.in;
         ArrayList<ArrayList<EnumBool>> res = andgate.evaluate();
-        notgate.In.set(0,res.get(0));
+        notgate.in.set(0,res.get(0));
         res=notgate.evaluate();
-        Out.add(new ArrayList<>(res.get(0)));        
-        return Out;
+        out.add(new ArrayList<>(res.get(0)));        
+        return out;
 
     }
 

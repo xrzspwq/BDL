@@ -20,9 +20,11 @@ public class Andtest {
         Constant intest1 = new Constant();
         Constant intest2 = new Constant();
 
-        Wire lien1 = new Wire(intest1, 1, null);
-        Wire lien2 = new Wire(intest2, 1, null);
-        Wire lien3 = new Wire(intest2, 1, null);
+        int[] start = {0,0};
+
+        Wire lien1 = new Wire(intest1, 1,start);
+        Wire lien2 = new Wire(intest2, 1, start);
+        Wire lien3 = new Wire(intest2, 1, start);
 
         /* AND TEST */
 

@@ -8,10 +8,10 @@ public class Not extends ElemLogique {
     // inherit the constructor from the class ElemLogique
     public Not() {
         super();
-        NbBusIn = 1;
+        nbBusIn = 1;
     }
 
-    public void setNbBusIn(int NbBusIn){
+    public void setNbBusIn(int nbBusIn){
         throw new IllegalStateException();
     }
 
@@ -32,22 +32,22 @@ public class Not extends ElemLogique {
      */
     @Override
     public ArrayList<ArrayList<EnumBool>> evaluate() {
-        Out.clear();
+        out.clear();
 
         ArrayList<EnumBool> output = new ArrayList<EnumBool>();
-        if (In.size() > 1) {
+        if (in.size() > 1) {
             output.add(EnumBool.ERR);
-            Out.add(output);
-            return Out;
+            out.add(output);
+            return out;
         }
         int i;
 
-        for ( i = In.size() - 1; i >= 0; i--) {
-            if (In.get(i).isEmpty()) {
-                In.remove(i);
+        for ( i = in.size() - 1; i >= 0; i--) {
+            if (in.get(i).isEmpty()) {
+                in.remove(i);
             }
         }
-        Iterator<ArrayList<EnumBool>> ite = In.iterator();
+        Iterator<ArrayList<EnumBool>> ite = in.iterator();
         ArrayList<EnumBool> entry = null;
         ArrayList<EnumBool> tmp;
         while(ite.hasNext()){
@@ -60,23 +60,23 @@ public class Not extends ElemLogique {
 
         if(entry == null){
             output.add(EnumBool.NOTHING);
-            Out.add(output);
-            return Out;
+            out.add(output);
+            return out;
         }
         for (i = 0; i < entry.size(); i++) {
-            if (In.get(0).get(i).equals(EnumBool.FALSE)) {
+            if (in.get(0).get(i).equals(EnumBool.FALSE)) {
                 output.add(EnumBool.TRUE);
-            } else if (In.get(0).get(i).equals(EnumBool.TRUE)) {
+            } else if (in.get(0).get(i).equals(EnumBool.TRUE)) {
                 output.add(EnumBool.FALSE);
             } else {
                 output.clear();
                 output.add(EnumBool.ERR);
-                Out.add(output);
-                return Out;
+                out.add(output);
+                return out;
             }
         }
-        Out.add(output);
-        return Out;
+        out.add(output);
+        return out;
 
     }
 

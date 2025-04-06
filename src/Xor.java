@@ -30,18 +30,18 @@ public class Xor extends ElemLogique {
      */
     @Override
     public ArrayList<ArrayList<EnumBool>> evaluate() {
-        Out.clear();
+        out.clear();
 
         int i=0;
 
         ArrayList<EnumBool> output = new ArrayList<EnumBool>();
-        if (In.size() < 2) {
+        if (in.size() < 2) {
             output.add(EnumBool.NOTHING);
-            Out.add(output);
-            return Out;
+            out.add(output);
+            return out;
         }
 
-        Iterator<ArrayList<EnumBool>> ite = In.iterator();
+        Iterator<ArrayList<EnumBool>> ite = in.iterator();
         ArrayList<EnumBool> tmp;
         ArrayList<ArrayList<EnumBool>> Incopy = new ArrayList<ArrayList<EnumBool>>();
         while(ite.hasNext()){
@@ -53,8 +53,8 @@ public class Xor extends ElemLogique {
 
         if (Incopy.size() < 2) {
             output.add(EnumBool.NOTHING);
-            Out.add(output);
-            return Out;
+            out.add(output);
+            return out;
         }
         ArrayList<EnumBool> result = new ArrayList<EnumBool>();
 
@@ -67,8 +67,8 @@ public class Xor extends ElemLogique {
                             result.add(EnumBool.ERR);
                             Incopy.get(0).clear();
                             Incopy.get(0).addAll(result);
-                            Out.add(Incopy.get(0));
-                            return Out;                }
+                            out.add(Incopy.get(0));
+                            return out;                }
 
                 if (Incopy.get(0).get(i) == EnumBool.FALSE && Incopy.get(j).get(i) == EnumBool.FALSE) {
                     result.add(EnumBool.FALSE);
@@ -84,8 +84,8 @@ public class Xor extends ElemLogique {
             Incopy.get(0).clear();
             Incopy.get(0).addAll(result);
         }
-        Out.add(Incopy.get(0));
-        return Out;
+        out.add(Incopy.get(0));
+        return out;
     }
 
 }

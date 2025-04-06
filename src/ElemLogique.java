@@ -6,8 +6,8 @@ public abstract class ElemLogique extends Elem {
     // inherit the constructor from the class Elem
     public ElemLogique() {
         super();
-        NbBusIn = 2;
-        NbBusOut = 1;
+        nbBusIn = 2;
+        nbBusOut = 1;
     }
 
     /**
@@ -20,6 +20,6 @@ public abstract class ElemLogique extends Elem {
      *
      */
     public ArrayList<ArrayList<EnumBool>> evaluate() {
-        return Out;
+        return out;
     }
 }

@@ -11,8 +11,8 @@ public class And extends ElemLogique {
       */
     public And() {
         super();
-        NbBusIn = 2;
-        NbBusOut = 1;
+        nbBusIn = 2;
+        nbBusOut = 1;
         name = "And Gate";
     }
 
@@ -31,11 +31,11 @@ public class And extends ElemLogique {
     @Override
     public ArrayList<ArrayList<EnumBool>> evaluate() {
         ArrayList<EnumBool> output = new ArrayList<EnumBool>();
-        Out.clear();
+        out.clear();
         
         int i=0;
     
-        Iterator<ArrayList<EnumBool>> ite = In.iterator();
+        Iterator<ArrayList<EnumBool>> ite = in.iterator();
         ArrayList<EnumBool> tmp;
         ArrayList<ArrayList<EnumBool>> Incopy = new ArrayList<ArrayList<EnumBool>>();
         while(ite.hasNext()){
@@ -48,8 +48,8 @@ public class And extends ElemLogique {
 
         if (Incopy.size() < 2) {
             output.add(EnumBool.NOTHING);
-            Out.add(output);
-            return Out;
+            out.add(output);
+            return out;
         }
 
         ArrayList<EnumBool> result = new ArrayList<EnumBool>();
@@ -64,8 +64,8 @@ public class And extends ElemLogique {
                     result.add(EnumBool.ERR);
                     Incopy.get(0).clear();
                     Incopy.get(0).addAll(result);
-                    Out.add(Incopy.get(0));
-                    return Out;
+                    out.add(Incopy.get(0));
+                    return out;
                 }
                 if (Incopy.get(0).get(i) == EnumBool.FALSE || Incopy.get(j).get(i) == EnumBool.FALSE) {
                     result.add(EnumBool.FALSE);
@@ -80,8 +80,8 @@ public class And extends ElemLogique {
         }
 
        
-        Out.add(Incopy.get(0));
-        return Out;
+        out.add(Incopy.get(0));
+        return out;
 
     }
 

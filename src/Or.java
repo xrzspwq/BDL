@@ -16,7 +16,7 @@ public class Or extends ElemLogique {
 
     /**
      * This function evaluates the logical OR operation on the inputs provided.
-     * It takes no parameters as the inputs are assumed to be stored in the 'In'
+     * It takes no parameters as the inputs are assumed to be stored in the 'in'
      * ArrayList.
      *
      * @return An ArrayList of ArrayLists of EnumBool. The outer ArrayList
@@ -31,19 +31,19 @@ public class Or extends ElemLogique {
      */
     @Override
     public ArrayList<ArrayList<EnumBool>> evaluate() {
-        Out.clear();
+        out.clear();
         ArrayList<EnumBool> output = new ArrayList<EnumBool>();
         
         int i=0;
         
-        if (In.size() < 2) {
+        if (in.size() < 2) {
             output.add(EnumBool.NOTHING);
-            Out.add(output);
-            return Out;
+            out.add(output);
+            return out;
         }
         
         
-        Iterator<ArrayList<EnumBool>> ite = In.iterator();
+        Iterator<ArrayList<EnumBool>> ite = in.iterator();
         ArrayList<EnumBool> tmp;
         ArrayList<ArrayList<EnumBool>> Incopy = new ArrayList<ArrayList<EnumBool>>();
         while(ite.hasNext()){
@@ -55,8 +55,8 @@ public class Or extends ElemLogique {
 
         if (Incopy.size() < 2) {
             output.add(EnumBool.NOTHING);
-            Out.add(output);
-            return Out;
+            out.add(output);
+            return out;
         }
         
         ArrayList<EnumBool> result = new ArrayList<EnumBool>();
@@ -71,8 +71,8 @@ public class Or extends ElemLogique {
                             result.add(EnumBool.ERR);
                             Incopy.get(0).clear();
                             Incopy.get(0).addAll(result);
-                            Out.add(Incopy.get(0));
-                            return Out;                }
+                            out.add(Incopy.get(0));
+                            return out;                }
                 if (Incopy.get(0).get(i) == EnumBool.FALSE && Incopy.get(j).get(i) == EnumBool.FALSE) {
                     result.add(EnumBool.FALSE);
                 } else if (Incopy.get(0).get(i) == EnumBool.TRUE || Incopy.get(j).get(i) == EnumBool.TRUE) {
@@ -85,9 +85,9 @@ public class Or extends ElemLogique {
             Incopy.get(0).clear();
             Incopy.get(0).addAll(result);
         }
-        Out.add(Incopy.get(0));
+        out.add(Incopy.get(0));
 
-        return Out;
+        return out;
 
     }
 

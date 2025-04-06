@@ -8,23 +8,23 @@ public class Nand extends ElemLogique {
     
     public Nand() {
         super();
-        NbBusIn = 2;
-        NbBusOut = 1;
+        nbBusIn = 2;
+        nbBusOut = 1;
         name = "Nand Gate";
     }
 
       
     @Override
     public ArrayList<ArrayList<EnumBool>> evaluate() {
-        Out.clear();
+        out.clear();
         Or orgate = new Or();
         Not notgate = new Not();
-        orgate.In=this.In;
+        orgate.in=this.in;
         ArrayList<ArrayList<EnumBool>> res = orgate.evaluate();
-        notgate.In.set(0,res.get(0));
+        notgate.in.set(0,res.get(0));
         res=notgate.evaluate();
-        Out.add(new ArrayList<>(res.get(0)));        
-        return Out;
+        out.add(new ArrayList<>(res.get(0)));        
+        return out;
 
     }
 

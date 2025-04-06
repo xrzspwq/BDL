@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Output extends ElemLogique {
     public Output() {
         super();
-        NbBusOut = 0;
+        nbBusOut = 0;
     }
 
     @Override
@@ -16,15 +16,15 @@ public class Output extends ElemLogique {
 
     @Override
     public ArrayList<ArrayList<EnumBool>> evaluate() {
-        Out.clear();
+        out.clear();
         ArrayList<EnumBool> output = new ArrayList<EnumBool>();
 
-        if (In.size() != 1) {
+        if (in.size() != 1) {
             output.add(EnumBool.ERR);
-            Out.add(output);
+            out.add(output);
         } else {
-            Out = In;
+            out = in;
         }
-        return Out;
+        return out;
     }
 }

@@ -41,14 +41,14 @@ public class Constant extends ElemLogique {
      *
      * The evaluate() method is responsible for determining the current state of the
      * input
-     * and updating the output accordingly. In this case, the input's boolean state
+     * and updating the output accordingly. in this case, the input's boolean state
      * is
      * represented by the EnumBool.
      *
-     * The evaluate() method clears the Out ArrayList, creates a new ArrayList of
+     * The evaluate() method clears the out ArrayList, creates a new ArrayList of
      * EnumBool
-     * with the current output value, adds it to the Out ArrayList, and then returns
-     * the Out ArrayList.
+     * with the current output value, adds it to the out ArrayList, and then returns
+     * the out ArrayList.
      *
      * @return An ArrayList of ArrayLists of EnumBool. TThe outer ArrayList representing the output bus.
      *         The inner ArrayList contains the evaluated values for each bit of the output bus.
@@ -56,13 +56,13 @@ public class Constant extends ElemLogique {
      */
     @Override
     public ArrayList<ArrayList<EnumBool>> evaluate() {
-        Out.clear();
+        out.clear();
 
         ArrayList<EnumBool> bus = new ArrayList<>();
         bus.add(output);
 
-        Out.add(bus);
-        return Out;
+        out.add(bus);
+        return out;
     }
 
 }

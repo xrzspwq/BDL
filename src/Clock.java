@@ -19,8 +19,8 @@ public class Clock extends Elem {
      */
     public Clock(long tick) {
         name="clock";
-        NbBusIn=1;
-        NbBusOut=1;
+        nbBusIn=1;
+        nbBusOut=1;
         lastuse = Instant.now();
         duration = Duration.ofMillis(tick*10);
     }
@@ -57,7 +57,7 @@ public class Clock extends Elem {
     public ArrayList<ArrayList<EnumBool>> evaluate() {
         Instant inst = Instant.now();
         ArrayList<EnumBool> output = new ArrayList<EnumBool>();
-
+        
         if (Duration.between(lastuse, inst).compareTo(duration) > 0) {
             lastuse = inst;
             if (EnumBool.TRUE.equals(state)) {
@@ -69,7 +69,7 @@ public class Clock extends Elem {
             output.add(state);
         }
 
-        Out.add(output);
-        return Out;
+        out.add(output);
+        return out;
     }
 }
