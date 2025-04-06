@@ -63,7 +63,7 @@ public class Whiteboard {
     private ArrayList<ArrayList<Integer>> grid; // 1 for something present, 0 otherwise
     private int gridLineNb = 0;
     private int gridColNb = 0;
-    private double gridRatio = 40.0; // double unit*gridRatio = height/width of a cell of the grid
+    private double gridRatio = 25.0; // double unit*gridRatio = height/width of a cell of the grid
     private boolean wireDragging = false;
     private boolean wireStartIsOutput = false;
     private final static double backgroundDotRadius = 0.05;
@@ -687,7 +687,7 @@ public class Whiteboard {
     private void mouseDraggedHandler(MouseEvent event) {
         if (wireDragging) {
             Point2D pos = new Point2D.Double(event.getX(), event.getY());
-            wireToAdd.setShape(pos, grid);
+            wireToAdd.setShape(pos, grid,gridRatio);
             panel.getChildren().removeAll(wireToAdd.getShape());
             panel.getChildren().addAll(wireToAdd.getShape());
             return;
