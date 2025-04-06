@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.lang.Class;
 
 import src.Elem;
 import window.GraphicElem;
@@ -16,7 +17,6 @@ import window.Attribute;
 public class CircuitLoader{
     
     private File file;
-
     /*
      * Nouvelle instance de CircuitLoader
      * 
@@ -112,7 +112,7 @@ public class CircuitLoader{
      * @requires    !source.isBlank()
      * @requires    source != null
      * 
-     * @throws IOException  Si l'element ne pas etre charge
+     * @throws IOException  Si l'element ne peut pas etre charge
      */
     public GraphicElem loadGraphicElem(String source) throws IOException
     {
@@ -123,8 +123,11 @@ public class CircuitLoader{
             Elem elem = loadElem(node.get("Elem").toString());
 
             List<Object> attributes = loadAllAttributes(node.get("Attributes"));
+            
+            GraphicElem res = new GraphicElem(elem,attributes);
+            res.setOrientation(node.get("Orientation").asText());
 
-            return new GraphicElem(elem,attributes);
+            return res;
 
         } catch (IOException e) {
             throw new IOException("Failed to load element" + e.getMessage());
@@ -141,7 +144,7 @@ public class CircuitLoader{
      * @requires    !source.isBlank()
      * @requires    source != null
      * 
-     * @throws IOException  Si l'element ne pas etre charge
+     * @throws IOException  Si l'element ne peut pas etre charge
      */
     public Elem loadElem(String source)
     {
@@ -151,7 +154,13 @@ public class CircuitLoader{
 
             JsonNode node = mapper.readTree(source).get("Elem");
 
-            JsonNode tailleBusInNode = node.get("TailleBusIn");
+            JsonNode name = node.get("Name");
+
+            Class gateClass = Class.forName(name.asText());
+            Elem res = gate.newInstance();
+            res.setName(node.get("Name").asText());
+
+            /*JsonNode tailleBusInNode = node.get("TailleBusIn");
             JsonNode tailleBusOutNode = node.get("TailleBusOut");
 
             ArrayList<Integer> tailleBusIn = new ArrayList<>();
@@ -164,10 +173,11 @@ public class CircuitLoader{
             for(JsonNode busOutNode : tailleBusOutNode)
             {
                 tailleBusOut.add(busOutNode.asInt());
-            }
-            Elem res = new Elem(node.get("NbFluxIn").asInt(),node.get("NbFluxOut").asInt(),tailleBusIn,tailleBusOut);
-            res.setName(node.get("Name").asText());
+            }*/
 
+            res.setNbBusIn(node.get("NbBusIn").asInt());
+            res.setNbBusOut(node.get("NbBusOut").asInt());
+            
             return res;
         }
         catch (IOException e) {

@@ -16,7 +16,6 @@ import src.Elem;
 public class CircuitSaver
 {
     private File file;
-
     /*
      * Nouvelle instance de CircuitSaver
      * 
@@ -101,6 +100,8 @@ public class CircuitSaver
 
         for(GraphicElem elem : circuit){
             JsonNode node = mapper.createObjectNode();
+            node.put("Orientation",elem.getOrientation().toString());
+
             node.put("Elem",elemToObjectNode(elem.getElem()));
             node.put("Attributes",allAttributesToObjectNode(elem.getAttributes()));
             arrayNode.add(node);
@@ -132,8 +133,8 @@ public class CircuitSaver
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode node = mapper.createObjectNode();
 
-        node.put("NbFluxIn",elem.getNbBusIn());
-        node.put("NbFluxOut",elem.getNbBusOut());
+        node.put("NbBusIn",elem.getNbBusIn());
+        node.put("NbBusOut",elem.getNbBusOut());
 
         ArrayNode arrayBusIn = mapper.createArrayNode();
         ArrayNode arrayBusOut = mapper.createArrayNode();
@@ -260,6 +261,7 @@ public class CircuitSaver
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.createObjectNode();
         node.put("Elem",elemToObjectNode(graphElem.getElem()));
+        node.put("Orientation",graphElem.getOrientation().toString());
         node.put("Attributes",allAttributesToObjectNode(graphElem.getAttributes()));
         
         return mapper.writeValueAsString(node);
