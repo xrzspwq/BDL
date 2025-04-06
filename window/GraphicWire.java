@@ -26,34 +26,49 @@ public class GraphicWire extends GraphicElem
             this.start = wire.getPosStart();
     }
 
-    public void setShape(Point2D endPos,ArrayList<ArrayList<Integer>>grid)
+    public void setShape(Point2D endPos,ArrayList<ArrayList<Integer>>grid,double ratio)
     {   
         Wire wire = (Wire) getElem();
         wire.setPosEnd(endPos);
-        ArrayList<Point2D> points = new ArrayList<>(); 
+        ArrayList<Point2D> points = new ArrayList<>() ;
         Path path = new Path();
 
+        
+        
         System.out.println("Point.size() : " + points.size());
-
+        System.out.println("!!!!!"+start+"???");
         try {
-            points = new ArrayList(wire.CheminLPC(grid));
-        } catch (Exception e) { System.err.println("ERREUR"); return;}
+            
+            points = new ArrayList<>(wire.CheminLPC(grid,ratio));
+            System.out.println(points+"====");
+        } catch (Exception e) { 
+            System.out.println("èèèè"+wire.getPosStart());
+            
+            System.err.println("ERREUR"); return;
+        }
 
-        System.out.println("Point.size() : " + points.size());
+        System.out.println(")Point.size() : " + points.size());
 
         MoveTo moveTo = new MoveTo(start.getX(),start.getY());
         path.getElements().add(moveTo);
 
-
-        for (int pointIndex = 1; pointIndex < points.size(); ++pointIndex) 
+        Point2D tmp = new Point2D.Double();
+        for (int pointIndex = 0; pointIndex < points.size(); ++pointIndex) 
         {
             Point2D point = points.get(pointIndex);
-            LineTo lineTo = new LineTo(point.getX(),point.getX());
-            MoveTo moveTo2 = new MoveTo(point.getX(),point.getX());
+            point.setLocation(points.get(pointIndex).getX()*ratio, points.get(pointIndex).getY()*ratio);
             
-            path.getElements().add(lineTo);
-            path.getElements().add(moveTo2);
+                LineTo lineTo = new LineTo(point.getX(),point.getY());
+                MoveTo moveTo2 = new MoveTo(point.getX(),point.getY());    
+                path.getElements().add(lineTo);
+                path.getElements().add(moveTo2);
+               
+            
 
+            
+            
+            
+            tmp.setLocation(point);
             System.out.println("["+point.getX()+"] [" + point.getY() +"]\n");
         }
 
