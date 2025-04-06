@@ -34,7 +34,7 @@ public class Circuittest {
         ArrayList<Wire> W  = new ArrayList<>();
         ArrayList<Elem> E  = new ArrayList<>();
 
-        EnumBool res;
+        ArrayList<ArrayList<EnumBool>> res;
         
         //GOOD CIRCUIT//
         W.addAll(Arrays.asList(new Wire(intest1, 1, null),new Wire(intest2, 1, null),
@@ -48,21 +48,23 @@ public class Circuittest {
         W.get(4).connectExit(xortest, 2);
         W.get(5).connectExit(out, 1);
 
-        E.addAll(Arrays.asList(nottest,andtest,xortest,intest1,intest2,intest3));
+
 
         Circuit circ = new Circuit("Circuit test");
         System.out.println("\t\tTEST CIRCUIT");
         System.out.println("Name of circuit: "+circ.getName());
 
+        circ.SetWires(W);
 
-        res  = circ.simuler(W);
+        res  = circ.evaluate();
         System.out.println("Good Manner\nGood Circuit ?  : "+res);
         System.out.println();
         //////////////////////////////////////////
         /* BAD CIRCUIT */
-        W.add(new Wire(intest4,1,null));
-        W.getLast().swapEntry(andtest, 2);
-        res = circ.simuler(W) ;
+        W.add(new Wire(intest3,1,null));
+        W.getLast().connectExit(andtest, 1);
+        circ.SetWires(W);
+        res = circ.evaluate() ;
         System.out.println("Bad Manner\nGood Circuit ?  : "+res);
 
         
