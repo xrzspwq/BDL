@@ -2,7 +2,6 @@ package src;
 
 import java.util.ArrayList;
 
-import src.EnumBool;
 
 
 
@@ -12,36 +11,32 @@ public class CustomElem extends ElemLogique{
 
     public CustomElem(String name, int NbBusIn, int NbBusOut, ArrayList<ArrayList<EnumBool>> truthTable) {
         super();
-        this.NbBusIn = NbBusIn;
-        this.NbBusOut = NbBusOut;
+        this.nbBusIn = NbBusIn;
+        this.nbBusOut = NbBusOut;
         this.name = name;
         this.truthTable = truthTable;
     }
 
     @Override
     public ArrayList<ArrayList<EnumBool>> evaluate() {
-        Out.clear();
+        out.clear();
         
         for(int i = 0; i < truthTable.size() ; i++)
         {
-            ArrayList<ArrayList<EnumBool>> tableVars = truthTable.get(i);
+            ArrayList<EnumBool> tableVars = truthTable.get(i);
             tableVars.remove(truthTable.size()-1);
 
-            if(In.equals(tableVars))
+            if(in.equals(tableVars))
             {
-                for(int j = 0; j < tableVars.size(); j++)
-                    Out.add(truthTable.get(i).get(j));
-                
-                return Out;
+                out.add(truthTable.get(i));
+                return out;
             }
         }
 
         ArrayList<EnumBool> nothing = new ArrayList<>();
         nothing.add(EnumBool.NOTHING);
-
-        for(int j= 0 ; j < NbBusOut; j++) 
-            Out.add(nothing.get(0));
+        out.add(nothing);
         
-        return Out;
+        return out;
     }
 }
