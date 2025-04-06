@@ -271,12 +271,16 @@ public class Wire extends Elem {
         ArrayList<int[]> V = new ArrayList<>();
         int[] Head = posStart.clone();
 
-        int[] tmp = { 0, 0 };
 
         V.add(Head);
 
-        if (posEnd[1] < 0 || posEnd[0] >= M.size() || posEnd[0] < 0
-                || posEnd[0] >= M.get((int) Math.round(posEnd[1])).size()) {
+        System.out.println(M.size());
+        System.out.println(M.get(posEnd[1]).size());
+        System.out.println(posEnd[0]);
+        System.out.println(posEnd[1]);
+
+        if (posEnd[1] < 0 || posEnd[1] >= M.size() || posEnd[0] < 0
+                || posEnd[0] >= M.get(posEnd[1]).size()) {
             throw new IllegalArgumentException("Point out of the matrice");
         }
 
@@ -312,19 +316,14 @@ public class Wire extends Elem {
 
                         while (last[0] < mx) {
                             last[0]++;
-                            tmp[0] = last[0];
-                            tmp[1] = last[1];
-                            int[] point = tmp.clone();
+                            int[] point = last.clone();
                             c.push(point);
                         }
                     } else if (last[0] > mx) {
 
                         while (last[0] > mx && last[0] != posEnd[0]) {
                             last[0]--;
-                            tmp[0] = last[0];
-                            tmp[1] = last[1];
-                            int[] point = tmp.clone();
-
+                            int[] point = last.clone();
                             c.push(point);
                         }
                     }
@@ -336,42 +335,29 @@ public class Wire extends Elem {
 
                             while (last[1] < posEnd[1] || last[1] != M.get(M.size() - 1).size()) {
                                 last[1]++;
-                                tmp[0] = last[0];
-                                tmp[1] = last[1];
-                                int[] point = tmp.clone();
-
+                                int[] point = last.clone();
                                 c.push(point);
                             }
                         } else {
                             while (last[1] < posEnd[1]) {
                                 last[1]++;
-                                tmp[0] = last[0];
-                                tmp[1] = last[1];
-                                int[] point = tmp.clone();
-
+                                int[] point = last.clone();
                                 c.push(point);
                             }
                         }
-                    }
-                } else if (last[1] > posEnd[1]) {
+                    } else if (last[1] > posEnd[1]) {
 
                     if (posEnd[1] == 0) {
                         while (last[1] > posEnd[1] || last[1] != 0) {
                             last[1]--;
-                            tmp[0] = last[0];
-                            tmp[1] = last[1];
-                            int[] point = tmp.clone();
-
+                            int[] point = last.clone();
                             c.push(point);
                         }
                     } else {
 
                         while (last[1] > posEnd[1]) {
-                            last[1]--;
-                            tmp[0] = last[0];
-                            tmp[1] = last[1];
-                            int[] point = tmp.clone();
-
+                            last[1]--;                        
+                            int[] point = last.clone();
                             c.push(point);
                         }
 
@@ -383,19 +369,14 @@ public class Wire extends Elem {
 
                     while (last[0] < posEnd[0]) {
                         last[0]++;
-                        tmp[0] = last[0];
-                        tmp[1] = last[1];
-                        int[] point = tmp.clone();
-
+                        int[] point = last.clone();
                         c.push(point);
                     }
                 } else if (last[0] > posEnd[0]) {
 
                     while (last[0] > posEnd[0]) {
                         last[0]--;
-                        tmp[0] = last[0];
-                        tmp[1] = last[1];
-                        int[] point = tmp.clone();
+                        int[] point = last.clone();
                         c.push(point);
                     }
                 }
@@ -406,7 +387,7 @@ public class Wire extends Elem {
             }
 
         }
-
+    }
         throw new AucunChemin(); // le point d'arrivée n'est pas trouvé
     }
 
