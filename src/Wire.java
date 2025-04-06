@@ -326,7 +326,7 @@ public class Wire extends Elem {
 
                     if (c.lastElement().getY() < posEnd.getY()) {
                         if (posEnd.getX() ==  M.get(size-1).size()) {
-                            while (c.lastElement().getY() < posEnd.getY() || c.lastElement().getY()!= M.getLast().size()) {
+                            while (c.lastElement().getY() < posEnd.getY() || c.lastElement().getY()!= M.get(size-1).size()) {
                                 System.out.println(c.lastElement()+";*");
                                 c.push(new Point2D.Double(c.lastElement().getX(), c.lastElement().getY() + 1));
                             }    
