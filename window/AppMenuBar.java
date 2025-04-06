@@ -4,18 +4,28 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
+import javafx.stage.Window;
+import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
 
 public class AppMenuBar 
 {
     private final MenuBar menuBar;
+    private final Window currWindow;
 
     public AppMenuBar()
     {
         menuBar = new MenuBar(consFileMenu(),consEditMenu(),consViewMenu());
         menuBar.setUseSystemMenuBar(true);
+        currWindow = new Window(null);
+    }
 
+    public AppMenuBar(Window window)
+    {
+        menuBar = new MenuBar(consFileMenu(),consEditMenu(),consViewMenu());
+        menuBar.setUseSystemMenuBar(true);
+        currWindow = window;
     }
 
     /**
@@ -28,10 +38,35 @@ public class AppMenuBar
     {
         // Create an array of MenuItem objects based on the fileMenuItems list
         MenuItem [] items = new MenuItem[ MenuBarElem.fileMenuItems.size()];
-        for(int i=0; i < MenuBarElem.fileMenuItems.size(); ++i )
+        for(int i=0; i < MenuBarElem.fileMenuItems.size()-1; ++i )
         {
             items[i] = new MenuItem( MenuBarElem.fileMenuItems.get(i));
         }
+        items[0].setOnAction(new Eventhandler<MouseEvent>(){
+            @Override
+            public final void handle(MouseEvent event){
+                MenuBarEvents.loadFile(currWindow);
+            }
+        });
+        items[1].setOnAction(new Eventhandler<MouseEvent>(){
+            @Override
+            public final void handle(MouseEvent event){
+                MenuBarEvents.saveFile(currWindow);
+            }
+        });
+
+        Menu importElem = new Menu(items.get(2).getName());
+        MenuItem importElemFromFile = new MenuItem();
+        importElem.getItems().add(importElemFromFile);
+
+        importElemFromFile.setOnAction(new Eventhandler<MouseEvent>(){
+            @Override
+            public final void handle(MouseEvent event){
+                MenuBarEvents.importElemFromFile(currWindow);
+            }
+        });
+
+        items.add(importElem);
 
         // Return a new Menu object with the label "File", a VBox layout, and the created menu items
         return new Menu("File",new VBox(),items);

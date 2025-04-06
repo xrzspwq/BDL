@@ -150,7 +150,7 @@ public class App extends Application
         primaryStage.setMinHeight(screenRes.height / 3);
         primaryStage.setMinWidth(screenRes.width / 3);
 
-        menubar = new AppMenuBar();
+        menubar = new AppMenuBar(primaryStage);
         toolbar = new AppToolBar(300);
         graphicElemPanel = new GraphicElemPanel(200);
         elemAttributesPanel = new ElemAttributesPanel(new GraphicElem(new And()),200);

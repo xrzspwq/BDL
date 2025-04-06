@@ -10,13 +10,15 @@ public class MenuBarElem
     {
         FILE,
         EDIT,
-        View,
+        VIEW,
     }
 
    public static final List<String> fileMenuItems = Collections.unmodifiableList(
     new ArrayList<String>() {{
-        add("open");
-        add("save");
+        add("Open file");
+        add("Save circuit");
+        add("Import component");
+        
     }});
 
 }
