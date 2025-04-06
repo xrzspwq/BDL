@@ -65,8 +65,6 @@ public class Wire extends Elem {
         return posStart;
     }
 
-    
-
     /**
      * Returns the entry point of the wire, which is a pair consisting of a logical
      * element and its input index.
@@ -151,8 +149,8 @@ public class Wire extends Elem {
             output = entry.getElem1().evaluate();
         }
 
-        if(entry.getElem1() instanceof Wire){
-            
+        if (entry.getElem1() instanceof Wire) {
+
         }
         try {
             if (entry.getElem1().Out.get(0).size() > elem.getNbBusIn()) {
@@ -172,10 +170,9 @@ public class Wire extends Elem {
 
         try {
             if (elem.In.get(index).isEmpty() || elem.In.get(index).equals(new ArrayList<EnumBool>())) {
-                System.out.println("caca");
 
                 elem.In.set(index, a);
-                state=true;
+                state = true;
             } else {
                 output.clear();
                 ArrayList<EnumBool> error = new ArrayList<EnumBool>();
@@ -190,11 +187,10 @@ public class Wire extends Elem {
         return elem.In.contains(a);
     }
 
-    public boolean connectExit(Elem elem, int index, Point2D posEnd){
+    public boolean connectExit(Elem elem, int index, Point2D posEnd) {
         this.posEnd = posEnd;
         return connectExit(elem, index);
     }
-
 
     /**
      * Disconnects the current wire from its exit element, if any.
@@ -266,77 +262,130 @@ public class Wire extends Elem {
         if (M == null || M.isEmpty() || M.get(0).size() == 0) {
             throw new AucunChemin();
         }
-
+        
         Stack<Point2D> c = new Stack<Point2D>();
         c.push(posStart);
         Queue<Point2D> F = new LinkedList<>(c);
         ArrayList<Point2D> V = new ArrayList<>();
+        Point2D Head = new Point2D.Double();
+        Head.setLocation(posStart);
+        V.add(Head);
 
-        if (posEnd.getX() < 0 || posEnd.getX() >= M.size() || posEnd.getY() < 0 || posEnd.getY() >= M.size()) {
-            throw new IllegalArgumentException();
+        if (posEnd.getY() < 0 || posEnd.getY() >= M.size() || posEnd.getX() < 0
+                || posEnd.getX() >= M.get((int) Math.round(posEnd.getY())).size()) {
+            System.out.println("X:" + posEnd.getX() + " Y:" + posEnd.getY());
+            throw new IllegalArgumentException("Point out of the matrice");
         }
 
+        if (M.get((int) Math.round(posEnd.getY())).get( (int) Math.round(posEnd.getX())) != 1) {
+            throw new IllegalArgumentException("No 1 found");
+        }
+
+        if (M.get((int) Math.round(Head.getY())).get( (int) Math.round(Head.getX())) != 1) {
+            throw new IllegalArgumentException("No 1 found");
+        }
+        
+        
+        long mx = Math.round(Math.abs(Head.getX() - posEnd.getX())) / 2;
         while (F.size() != 0) {
-            Point2D Head = F.remove();
-            if (Head == posEnd)
+
+            
+            if (Head.getX()==posEnd.getX() && Head.getY()==posEnd.getY()){
+                System.out.println(posEnd+"--");
                 return c;
+            } 
+
 
             else {
-                if (Head.getX() < 0 || Head.getX() >= M.size() || Head.getY() < 0 || Head.getY() >= M.size()) {
-                    Head.setLocation(F.peek().getX(), F.peek().getY());
-                }
-                if (M.get((int) Head.getX()).get((int) Head.getY()) == 1)
-                    if (V.contains(Head)) {
-                        V.add(Head);
-                        Stack<Point2D> c1 = c, c2 = c, c3 = c, c4 = c;
+                if (Head.getY() < 0 || Head.getY() >= M.size() || Head.getX() < 0
+                        || Head.getX() >= M.get((int) Math.round(Head.getY())).size()) {
+                    F.remove(Head);
 
-                        c1.push(new Point2D.Double(Head.getX() + 1, Head.getY()));
-                        c2.push(new Point2D.Double(Head.getX() - 1, Head.getY()));
-                        c3.push(new Point2D.Double(Head.getX(), Head.getY() + 1));
-                        c4.push(new Point2D.Double(Head.getX() + 1, Head.getY() - 1));
-                        F.addAll(c1);
-                        F.addAll(c2);
-                        F.addAll(c3);
-                        F.addAll(c4);
+                    
+                }
+
+               
+                    
+                if (V.contains(Head)) {
+                    
+                    
+                    if (c.lastElement().getX() < mx) {
+
+                        while (c.lastElement().getX() < mx) {
+                            c.push(new Point2D.Double(c.lastElement().getX() + 1, c.lastElement().getY()));
+                        }
+                    } else if (c.lastElement().getX() > mx) {
+                        
+                        while (c.lastElement().getX() > mx && c.lastElement().getX() != posEnd.getX()) {
+                            
+                            c.push(new Point2D.Double(c.lastElement().getX() - 1, c.lastElement().getY()));
+                            System.out.println(c.lastElement()+"ppo");
+                        }
                     }
+
+                    if (c.lastElement().getY() < posEnd.getY()) {
+                        if (posEnd.getX() ==  M.getLast().size()) {
+                            while (c.lastElement().getY() < posEnd.getY() || c.lastElement().getY()!= M.getLast().size()) {
+                                System.out.println(c.lastElement()+";*");
+                                c.push(new Point2D.Double(c.lastElement().getX(), c.lastElement().getY() + 1));
+                            }    
+                        }
+                        else{
+                            while (c.lastElement().getY() < posEnd.getY()) {
+                                c.push(new Point2D.Double(c.lastElement().getX(), c.lastElement().getY() + 1));
+                                System.out.println(c.lastElement()+";");
+                            }
+                        }
+                        
+                    } else if (c.lastElement().getY() > posEnd.getY()  ) {
+
+                        if (posEnd.getY()==0) {
+                            while (c.lastElement().getY() > posEnd.getY() || c.lastElement().getY()!=0) {
+                                System.out.println(c.lastElement()+"*");
+                                c.push(new Point2D.Double(c.lastElement().getX(), c.lastElement().getY() - 1));
+                                
+                            }             
+                        }
+                        else{
+                            
+                            while (c.lastElement().getY() > posEnd.getY() ) {
+                                System.out.println(c.lastElement()+"^");
+                                c.push(new Point2D.Double(c.lastElement().getX(), c.lastElement().getY() - 1));
+                            }
+                                
+                        }
+                        
+                        
+                    }
+                    
+
+                    if (c.lastElement().getX()  < posEnd.getX() ) {
+                        
+                        while (c.lastElement().getX() < posEnd.getX()) {
+                            c.push(new Point2D.Double(c.lastElement().getX()+1, c.lastElement().getY()));
+                            
+                        }
+                    } else if (c.lastElement().getX() > posEnd.getX()) {
+                       
+                        while (c.lastElement().getX()  > posEnd.getX()) {
+                            c.push(new Point2D.Double(c.lastElement().getX()-1, c.lastElement().getY()));
+                            
+                        }
+                    }
+                    
+                    
+                    if (c.lastElement().equals(posEnd)){
+                        return c;
+                    }
+                    
+
+                
+                   
+
+                }
+                
             }
 
-            /*
-             * 
-             * // (up, down, left, right)
-             * int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-             * 
-             * 
-             * Map<Point2D, Point2D> parent = new HashMap<>();
-             * 
-             * while (!queue.isEmpty()) {
-             * Point2D current = queue.poll();
-             * 
-             * if (current.getX() == posEnd.getX() && current.getY() == posEnd.getY()) {
-             * List<Point2D> path = new ArrayList<>();
-             * while (current != null) {
-             * path.add(new Point2D.Double(current.getX(), current.getY()));
-             * current = parent.get(current);
-             * }
-             * Collections.reverse(path);
-             * }
-             * 
-             * for (int[] direction : directions) {
-             * int neighborX = (int) current.getX() + direction[0];
-             * int neighborY = (int) current.getY() + direction[1];
-             * 
-             * if (neighborX >= 0 && neighborX < cols && neighborY >= 0 && neighborY < rows)
-             * {
-             * if (M.get(neighborY).get(neighborX) == 0 && !visited.contains(new
-             * Point2D.Double(neighborX, neighborY))) {
-             * visited.add(new Point2D.Double(neighborX, neighborY));
-             * queue.add(new Point2D.Double(neighborX, neighborY));
-             * parent.put(new Point2D.Double(neighborX, neighborY), current);
-             * }
-             * }
-             * 
-             * 
-             */
         }
         throw new AucunChemin(); // le point d'arrivée n'est pas trouvé
     }
@@ -369,8 +418,7 @@ public class Wire extends Elem {
             return output;
         }
 
-        
-        state=true;
+        state = true;
         return output;
     }
 
