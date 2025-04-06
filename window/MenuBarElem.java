@@ -17,7 +17,7 @@ public class MenuBarElem
     new ArrayList<String>() {{
         add("Open file");
         add("Save circuit");
-        add("Import component");
+        add("Import");
         
     }});
 

@@ -11,6 +11,8 @@ import javafx.event.*;
 
 import java.util.ArrayList;
 
+import org.w3c.dom.events.MouseEvent;
+
 public class AppMenuBar 
 {
     private final MenuBar menuBar;
@@ -39,32 +41,44 @@ public class AppMenuBar
     private Menu consFileMenu()
     {
         // Create an array of MenuItem objects based on the fileMenuItems list
-        MenuItem [] items = new MenuItem[ MenuBarElem.fileMenuItems.size()-1];
+        MenuItem [] items = new MenuItem[ MenuBarElem.fileMenuItems.size()];
         for(int i=0; i < MenuBarElem.fileMenuItems.size()-1; ++i )
         {
             items[i] = new MenuItem( MenuBarElem.fileMenuItems.get(i));
         }
-        /*items[0].setOnAction(new Eventhandler<ActionEvent>()){
-                MenuBarEvents.loadFile(currWindow);
-        };
-        items[1].setOnAction(new Eventhandler<ActionEvent>())({
-            @Override
-            public void handle(ActionEvent event){
-                MenuBarEvents.saveFile(currWindow);
+        items[0].setOnAction(new EventHandler<ActionEvent>() { 
+            public void handle(ActionEvent event) { 
+                MenuBarEvents.openFile(currWindow); 
+            } 
+        });
+
+        items[1].setOnAction(new EventHandler<ActionEvent>() { 
+            public void handle(ActionEvent event) { 
+                MenuBarEvents.saveFile(currWindow); 
+            } 
+        });
+
+        Menu importMenu = new Menu(MenuBarElem.fileMenuItems.get(2));
+        MenuItem importMenuElem = new MenuItem("Component from file");
+        MenuItem importMenuLib = new MenuItem("Library");
+        importMenu.getItems().add(importMenuElem);
+        importMenu.getItems().add(importMenuLib);
+
+        items[2] = importMenu;
+        
+        importMenuElem.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) 
+            { 
+                MenuBarEvents.importElemFromFile(currWindow);
             }
         });
 
-        items[2] = importElem; 
-
-        Menu importElem = new Menu(items[2].getName());
-        MenuItem importElemFromFile = new MenuItem();
-        importElem.getItems().add(importElemFromFile);
-
-        importElemFromFile.setOnAction(new Eventhandler<MouseEvent>(){
-            public final void handle(MouseEvent event){
-                MenuBarEvents.importElemFromFile(currWindow);
+        importMenuLib.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) 
+            { 
+                MenuBarEvents.importLib(currWindow);
             }
-        });*/
+        });
 
         
 
