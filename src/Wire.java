@@ -266,8 +266,11 @@ public class Wire extends Elem {
      * @throws AucunChemin If the end position is not reachable from the start
      *                     position.
      */
-    public Stack<ArrayList<Integer>> CheminLPC(ArrayList<ArrayList<Integer>> M) throws AucunChemin {
+    public Stack<ArrayList<Integer>> CheminLPC(ArrayList<ArrayList<Integer>> M,double ratio) throws AucunChemin {
 
+        if (ratio<=0) {
+            ratio = 1;
+        }
         if (M == null || M.isEmpty() || M.get(0).size() == 0) {
             throw new AucunChemin();
         }
