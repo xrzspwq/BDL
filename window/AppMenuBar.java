@@ -39,7 +39,7 @@ public class AppMenuBar
     private Menu consFileMenu()
     {
         // Create an array of MenuItem objects based on the fileMenuItems list
-        MenuItem [] items = new MenuItem[ MenuBarElem.fileMenuItems.size()];
+        MenuItem [] items = new MenuItem[ MenuBarElem.fileMenuItems.size()-1];
         for(int i=0; i < MenuBarElem.fileMenuItems.size()-1; ++i )
         {
             items[i] = new MenuItem( MenuBarElem.fileMenuItems.get(i));
