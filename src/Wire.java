@@ -1,6 +1,5 @@
 package src;
 
-import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -10,14 +9,14 @@ public class Wire extends Elem {
     private Pair<Elem, Integer> entry;
     private Pair<Elem, Integer> exit;
     private ArrayList<ArrayList<EnumBool>> output;
-    private Point2D posStart;
-    private Point2D posEnd;
+    private ArrayList<Integer> posStart;
+    private ArrayList<Integer> posEnd;
     private Boolean state;
 
     /**
      * Constructs a new instance of a Wire object.
      *
-     * @param elem1      The logical element at the entry of the wire.
+     * @param intest1    The logical element at the entry of the wire.
      * @param indexEntry The index of the input port on the entry element.
      * @param start      The starting position of the wire.
      *
@@ -32,16 +31,16 @@ public class Wire extends Elem {
      *                   connect the starting point of this wire with the existing
      *                   wire.
      */
-    public Wire(Elem elem1, int indexEntry, Point2D start) {
+    public Wire(Elem intest1, int indexEntry, ArrayList<Integer>  start) {
         super();
         name = "Wire";
-        this.entry = new Pair<>(elem1, indexEntry);
+        this.entry = new Pair<Elem, Integer>(intest1, indexEntry);
         // this.exit = new ArrayList<>();
         this.posStart = start;
         this.state = true;
     }
 
-    public Wire(Point2D start) {// check
+    public Wire(ArrayList<Integer> start) {// check
         super();
         name = "Wire";
         // this.entry = new Pair<>(elem1, indexEntry);
@@ -50,7 +49,7 @@ public class Wire extends Elem {
         this.state = true;
     }
 
-    public Wire(Elem elem1, Point2D start) {// check
+    public Wire(Elem elem1, ArrayList<Integer> start) {// check
         super();
         name = "Wire";
         this.entry = new Pair<>(elem1, 0);
@@ -61,7 +60,7 @@ public class Wire extends Elem {
     // une Classe public wire qui permettrait de se connecter par la l'entrée d'un
     // elem plutot que par la sortie
 
-    public Point2D getPosStart() {
+    public ArrayList<Integer> getPosStart() {
         return posStart;
     }
 
@@ -123,6 +122,16 @@ public class Wire extends Elem {
             entry.setElem(e1);
             entry.setElem2(indexIn);
 
+            ArrayList<Integer> tmp = posEnd;
+            
+            posEnd.clear();
+            posEnd.add(0,posStart.get(0));
+            posEnd.add(1,posStart.get(1));
+
+            posStart.clear();
+            posStart.add(0,tmp.get(0));
+            posStart.add(1, tmp.get(1));
+
             output = e1.evaluate();
         } else {
             this.entry = new Pair<>(e1, indexIn);
@@ -149,9 +158,7 @@ public class Wire extends Elem {
             output = entry.getElem1().evaluate();
         }
 
-        if (entry.getElem1() instanceof Wire) {
-
-        }
+        
         try {
             if (entry.getElem1().Out.get(0).size() > elem.getNbBusIn()) {
                 this.exit = null;
@@ -187,8 +194,9 @@ public class Wire extends Elem {
         return elem.In.contains(a);
     }
 
-    public boolean connectExit(Elem elem, int index, Point2D posEnd) {
-        this.posEnd = posEnd;
+    public boolean connectExit(Elem elem, int index, ArrayList<Integer> posEnd) {
+        this.posEnd.clear();
+        this.posEnd.addAll(posEnd);
         return connectExit(elem, index);
     }
 
@@ -219,8 +227,9 @@ public class Wire extends Elem {
      * y-coordinate represents the vertical position.
      *
      */
-    public void setPosEnd(Point2D pos) {
-        this.posEnd = pos;
+    public void setPosEnd(ArrayList<Integer> pos) {
+        this.posEnd.clear();
+        this.posEnd.addAll(pos);
     }
 
     /**
@@ -232,9 +241,9 @@ public class Wire extends Elem {
      *            y-coordinate represents the vertical position.
      *
      */
-    public void setPosStart(Point2D pos) {
-        this.posStart = pos;
-    }
+    public void setPosStart(ArrayList<Integer> pos) {
+        this.posStart.clear();
+        this.posStart.addAll(pos);    }
 
     /**
      * This function calculates the shortest path (Chemin Le Plus Court) from the
@@ -257,102 +266,129 @@ public class Wire extends Elem {
      * @throws AucunChemin If the end position is not reachable from the start
      *                     position.
      */
-    public Stack<Point2D> CheminLPC(ArrayList<ArrayList<Integer>> M) throws AucunChemin {
+    public Stack<ArrayList<Integer>> CheminLPC(ArrayList<ArrayList<Integer>> M) throws AucunChemin {
 
         if (M == null || M.isEmpty() || M.get(0).size() == 0) {
             throw new AucunChemin();
         }
         
         int size = M.size();
-        Stack<Point2D> c = new Stack<Point2D>();
+        Stack<ArrayList<Integer>> c = new Stack<ArrayList<Integer>>();
         c.push(posStart);
-        Queue<Point2D> F = new LinkedList<>(c);
-        ArrayList<Point2D> V = new ArrayList<>();
-        Point2D Head = new Point2D.Double();
-        Head.setLocation(posStart);
+        Queue<ArrayList<Integer>> F = new LinkedList<>(c);
+        ArrayList<ArrayList<Integer>> V = new ArrayList<>();
+        ArrayList<Integer> Head = new ArrayList<Integer>();
+
+        ArrayList<Integer> tmp = new ArrayList<Integer>();
+
+        Head.addAll(posStart);
         V.add(Head);
 
-        if (posEnd.getY() < 0 || posEnd.getY() >= M.size() || posEnd.getX() < 0
-                || posEnd.getX() >= M.get((int) Math.round(posEnd.getY())).size()) {
-            System.out.println("X:" + posEnd.getX() + " Y:" + posEnd.getY());
+        if (posEnd.get(1) < 0 || posEnd.get(0) >= M.size() || posEnd.get(0) < 0
+                || posEnd.get(0) >= M.get((int) Math.round(posEnd.get(1))).size()) {
+            System.out.println("X:" + posEnd.get(0) + " Y:" + posEnd.get(1));
             throw new IllegalArgumentException("Point out of the matrice");
         }
 
-        if (M.get((int) Math.round(posEnd.getY())).get( (int) Math.round(posEnd.getX())) != 1) {
+        if (M.get((int) Math.round(posEnd.get(1))).get( (int) Math.round(posEnd.get(0))) != 1) {
             throw new IllegalArgumentException("No 1 found");
         }
 
-        if (M.get((int) Math.round(Head.getY())).get( (int) Math.round(Head.getX())) != 1) {
+        if (M.get((int) Math.round(Head.get(1))).get( (int) Math.round(Head.get(0))) != 1) {
             throw new IllegalArgumentException("No 1 found");
         }
         
         
-        long mx = Math.round(Math.abs(Head.getX() - posEnd.getX())) / 2;
+        long mx = Math.round(Math.abs(Head.get(0) - posEnd.get(0))) / 2;
         while (F.size() != 0) {
 
             
-            if (Head.getX()==posEnd.getX() && Head.getY()==posEnd.getY()){
+            if (Head.get(0)==posEnd.get(0) && Head.get(1)==posEnd.get(1)){
                 System.out.println(posEnd+"--");
                 return c;
             } 
 
 
-            else {
-                if (Head.getY() < 0 || Head.getY() >= M.size() || Head.getX() < 0
-                        || Head.getX() >= M.get((int) Math.round(Head.getY())).size()) {
+            else{
+                if (Head.get(1) < 0 || Head.get(1) >= M.size() || Head.get(0) < 0
+                        || Head.get(0) >= M.get((int) Math.round(Head.get(1))).size()) {
                     F.remove(Head);
-
-                    
                 }
 
+            
+           
+                if (Head.get(0) < 0 || Head.get(0) >= M.get(0).size() || Head.get(1) < 0 || Head.get(1) >= M.size())
+                continue;
+
                
-                    
+
+                
                 if (V.contains(Head)) {
                     
                     
-                    if (c.lastElement().getX() < mx) {
+                    if (c.lastElement().get(0) < mx) {
 
-                        while (c.lastElement().getX() < mx) {
-                            c.push(new Point2D.Double(c.lastElement().getX() + 1, c.lastElement().getY()));
+                        while (c.lastElement().get(0) < mx) { 
+                            tmp.clear();
+                            tmp.add(c.lastElement().get(0)+1);
+                            tmp.add(c.lastElement().get(1));
+                            c.push(tmp);
                         }
-                    } else if (c.lastElement().getX() > mx) {
+                    } else if (c.lastElement().get(0) > mx) {
                         
-                        while (c.lastElement().getX() > mx && c.lastElement().getX() != posEnd.getX()) {
+                        while (c.lastElement().get(0) > mx && c.lastElement().get(0) != posEnd.get(0)) {
                             
-                            c.push(new Point2D.Double(c.lastElement().getX() - 1, c.lastElement().getY()));
+                            tmp.clear();
+                            tmp.add(c.lastElement().get(0)+1);
+                            tmp.add(c.lastElement().get(1));
+                            c.push(tmp);
                             System.out.println(c.lastElement()+"ppo");
                         }
                     }
 
-                    if (c.lastElement().getY() < posEnd.getY()) {
-                        if (posEnd.getX() ==  M.get(size-1).size()) {
-                            while (c.lastElement().getY() < posEnd.getY() || c.lastElement().getY()!= M.get(size-1).size()) {
+                    if (c.lastElement().get(1) < posEnd.get(1)) {
+                        System.out.println(M.get(M.size()-1).size());
+
+
+                        if (posEnd.get(0) ==  M.get(M.size()-1).size()) {
+
+                            while (c.lastElement().get(1) < posEnd.get(1) || c.lastElement().get(1)!= M.get(M.size()-1).size()) {
                                 System.out.println(c.lastElement()+";*");
-                                c.push(new Point2D.Double(c.lastElement().getX(), c.lastElement().getY() + 1));
-                            }    
+                                tmp.clear();
+                                tmp.add(c.lastElement().get(0));
+                                tmp.add(c.lastElement().get(1)+1);
+                                c.push(tmp);                            }    
                         }
                         else{
-                            while (c.lastElement().getY() < posEnd.getY()) {
-                                c.push(new Point2D.Double(c.lastElement().getX(), c.lastElement().getY() + 1));
+                            while (c.lastElement().get(1) < posEnd.get(1)) {
+                                tmp.clear();
+
+                                tmp.add(c.lastElement().get(0));
+                                tmp.add(c.lastElement().get(1)+1);
+                                c.push(tmp);
                                 System.out.println(c.lastElement()+";");
                             }
                         }
-                        
-                    } else if (c.lastElement().getY() > posEnd.getY()  ) {
+                    }
+                 } else if (c.lastElement().get(1) > posEnd.get(1)  ) {
 
-                        if (posEnd.getY()==0) {
-                            while (c.lastElement().getY() > posEnd.getY() || c.lastElement().getY()!=0) {
+                        if (posEnd.get(1)==0) {
+                            while (c.lastElement().get(1) > posEnd.get(1) || c.lastElement().get(1)!=0) {
                                 System.out.println(c.lastElement()+"*");
-                                c.push(new Point2D.Double(c.lastElement().getX(), c.lastElement().getY() - 1));
-                                
+                                tmp.clear();
+                                tmp.add(c.lastElement().get(0));
+                                tmp.add(c.lastElement().get(1)-1);
+                                c.push(tmp);                                
                             }             
                         }
                         else{
                             
-                            while (c.lastElement().getY() > posEnd.getY() ) {
+                            while (c.lastElement().get(1) > posEnd.get(1) ) {
                                 System.out.println(c.lastElement()+"^");
-                                c.push(new Point2D.Double(c.lastElement().getX(), c.lastElement().getY() - 1));
-                            }
+                                tmp.clear();
+                                tmp.add(c.lastElement().get(0));
+                                tmp.add(c.lastElement().get(1)-1);
+                                c.push(tmp);                              }
                                 
                         }
                         
@@ -360,17 +396,19 @@ public class Wire extends Elem {
                     }
                     
 
-                    if (c.lastElement().getX()  < posEnd.getX() ) {
+                    if (c.lastElement().get(0)  < posEnd.get(0) ) {
                         
-                        while (c.lastElement().getX() < posEnd.getX()) {
-                            c.push(new Point2D.Double(c.lastElement().getX()+1, c.lastElement().getY()));
-                            
+                        while (c.lastElement().get(0) < posEnd.get(0)) {
+                            tmp.clear();
+                            tmp.add(c.lastElement().get(0)+1);
+                            tmp.add(c.lastElement().get(1));                            
                         }
-                    } else if (c.lastElement().getX() > posEnd.getX()) {
+                    } else if (c.lastElement().get(0) > posEnd.get(0)) {
                        
-                        while (c.lastElement().getX()  > posEnd.getX()) {
-                            c.push(new Point2D.Double(c.lastElement().getX()-1, c.lastElement().getY()));
-                            
+                        while (c.lastElement().get(0)  > posEnd.get(0)) {
+                            tmp.clear();
+                            tmp.add(c.lastElement().get(0)-1);
+                            tmp.add(c.lastElement().get(1));                            
                         }
                     }
                     
@@ -378,16 +416,11 @@ public class Wire extends Elem {
                     if (c.lastElement().equals(posEnd)){
                         return c;
                     }
-                    
-
-                
-                   
-
                 }
                 
             }
 
-        }
+        
         throw new AucunChemin(); // le point d'arrivée n'est pas trouvé
     }
 
