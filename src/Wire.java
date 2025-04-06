@@ -274,10 +274,6 @@ public class Wire extends Elem {
 
         V.add(Head);
 
-        System.out.println(M.size());
-        System.out.println(M.get(posEnd[1]).size());
-        System.out.println(posEnd[0]);
-        System.out.println(posEnd[1]);
 
         if (posEnd[1] < 0 || posEnd[1] >= M.size() || posEnd[0] < 0
                 || posEnd[0] >= M.get(posEnd[1]).size()) {

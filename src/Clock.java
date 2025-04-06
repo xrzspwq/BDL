@@ -10,6 +10,16 @@ public class Clock extends Elem {
 
     EnumBool state = EnumBool.TRUE;
 
+
+    public Clock() {
+        name="clock";
+        nbBusIn=1;
+        nbBusOut=1;
+        lastuse = Instant.now();
+        duration = Duration.ofMillis(10*10);
+    }
+
+
     /**
      * Constructs a new instance of Clock with default duration of 100 milliseconds.
      * The clock starts in the 'true' state and generates a pulse every time the
@@ -55,6 +65,13 @@ public class Clock extends Elem {
      */
     @Override
     public ArrayList<ArrayList<EnumBool>> evaluate() {
+        out.clear();
+        
+        try {
+            Thread.sleep(duration.toMillis());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Instant inst = Instant.now();
         ArrayList<EnumBool> output = new ArrayList<EnumBool>();
         
