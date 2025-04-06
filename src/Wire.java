@@ -277,12 +277,9 @@ public class Wire extends Elem {
 
         if (posEnd[1] < 0 || posEnd[0] >= M.size() || posEnd[0] < 0
                 || posEnd[0] >= M.get((int) Math.round(posEnd[1])).size()) {
-            System.out.println("X:" + posEnd[0] + " Y:" + posEnd[1]);
             throw new IllegalArgumentException("Point out of the matrice");
         }
 
-        System.out.println(M.get(posEnd[1]).get(posEnd[0]));
-        System.out.println(posEnd[1]);
         if (M.get(posEnd[1]).get(posEnd[0]) != 1) {
             throw new IllegalArgumentException("No 1 found");
         }
@@ -295,7 +292,6 @@ public class Wire extends Elem {
         while (F.size() != 0) {
 
             if (Head[0] == posEnd[0] && Head[1] == posEnd[1]) {
-                System.out.println(posEnd[0] + posEnd[1] + "--");
                 return c;
             }
 
@@ -310,7 +306,6 @@ public class Wire extends Elem {
 
                 int[] last = c.lastElement().clone();
 
-                
                 if (V.contains(Head)) {
 
                     if (last[0] < mx) {
@@ -319,7 +314,8 @@ public class Wire extends Elem {
                             last[0]++;
                             tmp[0] = last[0];
                             tmp[1] = last[1];
-                            c.push(tmp);
+                            int[] point = tmp.clone();
+                            c.push(point);
                         }
                     } else if (last[0] > mx) {
 
@@ -327,7 +323,9 @@ public class Wire extends Elem {
                             last[0]--;
                             tmp[0] = last[0];
                             tmp[1] = last[1];
-                            c.push(tmp);
+                            int[] point = tmp.clone();
+
+                            c.push(point);
                         }
                     }
 
@@ -340,14 +338,18 @@ public class Wire extends Elem {
                                 last[1]++;
                                 tmp[0] = last[0];
                                 tmp[1] = last[1];
-                                c.push(tmp);
+                                int[] point = tmp.clone();
+
+                                c.push(point);
                             }
                         } else {
                             while (last[1] < posEnd[1]) {
                                 last[1]++;
                                 tmp[0] = last[0];
                                 tmp[1] = last[1];
-                                c.push(tmp);
+                                int[] point = tmp.clone();
+
+                                c.push(point);
                             }
                         }
                     }
@@ -358,7 +360,9 @@ public class Wire extends Elem {
                             last[1]--;
                             tmp[0] = last[0];
                             tmp[1] = last[1];
-                            c.push(tmp);
+                            int[] point = tmp.clone();
+
+                            c.push(point);
                         }
                     } else {
 
@@ -366,7 +370,9 @@ public class Wire extends Elem {
                             last[1]--;
                             tmp[0] = last[0];
                             tmp[1] = last[1];
-                            c.push(tmp);
+                            int[] point = tmp.clone();
+
+                            c.push(point);
                         }
 
                     }
@@ -379,7 +385,9 @@ public class Wire extends Elem {
                         last[0]++;
                         tmp[0] = last[0];
                         tmp[1] = last[1];
-                        c.push(tmp);
+                        int[] point = tmp.clone();
+
+                        c.push(point);
                     }
                 } else if (last[0] > posEnd[0]) {
 
@@ -387,11 +395,12 @@ public class Wire extends Elem {
                         last[0]--;
                         tmp[0] = last[0];
                         tmp[1] = last[1];
-                        c.push(tmp);
+                        int[] point = tmp.clone();
+                        c.push(point);
                     }
                 }
 
-                if (last[0]==posEnd[0] && last[1]==posEnd[1]) {
+                if (last[0] == posEnd[0] && last[1] == posEnd[1]) {
                     return c;
                 }
             }
