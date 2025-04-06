@@ -263,6 +263,7 @@ public class Wire extends Elem {
             throw new AucunChemin();
         }
         
+        int size = M.size();
         Stack<Point2D> c = new Stack<Point2D>();
         c.push(posStart);
         Queue<Point2D> F = new LinkedList<>(c);
@@ -324,8 +325,8 @@ public class Wire extends Elem {
                     }
 
                     if (c.lastElement().getY() < posEnd.getY()) {
-                        if (posEnd.getX() ==  M.getLast().size()) {
-                            while (c.lastElement().getY() < posEnd.getY() || c.lastElement().getY()!= M.getLast().size()) {
+                        if (posEnd.getX() ==  M.get(size-1).size()) {
+                            while (c.lastElement().getY() < posEnd.getY() || c.lastElement().getY()!= M.get(size-1).size()) {
                                 System.out.println(c.lastElement()+";*");
                                 c.push(new Point2D.Double(c.lastElement().getX(), c.lastElement().getY() + 1));
                             }    
