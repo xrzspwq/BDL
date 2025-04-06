@@ -1,7 +1,6 @@
 package testfiles;
 
 import java.awt.geom.Point2D;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
@@ -11,7 +10,6 @@ import src.Not;
 import src.Pair;
 import src.Wire;
 import src.Elem;
-import src.EnumBool;
 import src.AucunChemin;
 
 public class Wiretest {
@@ -20,8 +18,8 @@ public class Wiretest {
         Constant intest1 = new Constant();
         Constant intest2 = new Constant();
         Not nottest = new Not(1);
-        Point2D start = new Point2D.Double(0.0,0.0);
-        Point2D end = new Point2D.Double(5.0,3.0);
+        Point2D start = new Point2D.Double(6.0,0.0);
+        Point2D end = new Point2D.Double(0.0,3.0);
 
         Wire lien1 = new Wire(intest1, 1, start);
         ArrayList<ArrayList<Integer>> M = new ArrayList<>();
@@ -29,10 +27,10 @@ public class Wiretest {
         M.add(new ArrayList<>());
         M.add(new ArrayList<>());
         M.add(new ArrayList<>());
-        M.get(0).addAll(Arrays.asList(1,0,0,0,0,0,0));
-        M.get(1).addAll(Arrays.asList(0,0,0,0,0,0,0));
-        M.get(2).addAll(Arrays.asList(0,0,0,0,0,0,0));
-        M.get(3).addAll(Arrays.asList(0,0,0,0,0,1,0));
+        M.get(0).addAll(Arrays.asList(1,0,0,0,0,0,1));
+        M.get(1).addAll(Arrays.asList(0,1,0,0,0,0,0));
+        M.get(2).addAll(Arrays.asList(0,0,0,1,0,0,0));
+        M.get(3).addAll(Arrays.asList(1,0,0,0,0,1,1));
         lien1.setPosEnd(end);
         Stack<Point2D> points = new Stack<>();
 
@@ -63,16 +61,18 @@ public class Wiretest {
         table[11] = new String[] {"Test","disconnect\n"};
         table[12] = new String[] {"Result: "+lien1.getExit() +"","old entry: "+tmp};
     
-
+        
         points = lien1.CheminLPC(M);
         table[13] = new String[] {"Test","cheminLPC\n"};
         table[14] = new String[] {points+"",""};
+        
+    
 
 
         System.out.println("\t\tWIRE TEST");
        
         for(Object[] row : table){
-            if (i == 13) {
+            if (i == 15) {
                 break;
             }
             System.out.format("%15s%15s%n", row);

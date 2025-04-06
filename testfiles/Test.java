@@ -10,10 +10,10 @@ class Test {
     new Ortest();
     new Xortest();
     new Nottest();
-    //new Wiretest();
+    new Wiretest();
     new Littlecircuit();
-    new Circuittest();
-
+   // new Circuittest();
+    new Clocktest();
 
 }
     

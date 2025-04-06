@@ -3,7 +3,7 @@ package testfiles;
 import java.util.ArrayList;
 
 import src.EnumBool;
-import src.Input;
+import src.Constant;
 import src.Wire;
 import src.Xor;
 
@@ -15,8 +15,8 @@ public class Xortest {
         Object[][] table = new String[7][];
         table[0] = new String[] { "Input", "Output" };
 
-        Input intest1 = new Input();
-        Input intest2 = new Input();
+        Constant intest1 = new Constant();
+        Constant intest2 = new Constant();
 
         Wire lien1 = new Wire(intest1, 1, null);
         Wire lien2 = new Wire(intest2, 1, null);
@@ -98,7 +98,7 @@ public class Xortest {
 
         out = xortest.evaluate();
 
-        table[5] = new String[] { "1*input(1) 2*Input(2)", "" + out };
+        table[5] = new String[] { "1*Input(1) 2*Input(2)", "" + out };
 
         xortest.getIn().removeAll(xortest.getIn());
         xortest.getOut().removeAll(xortest.getOut());
