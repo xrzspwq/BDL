@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
+import java.awt.geom.Point2D;
 
 public class Wire extends Elem {
     private Pair<Elem, Integer> entry;
     private Pair<Elem, Integer> exit;
     private ArrayList<ArrayList<EnumBool>> output;
-    private int[] posStart;
-    private int[] posEnd;
+    private Point2D posStart;
+    private Point2D posEnd;
     private Boolean state;
 
     /**
@@ -31,36 +32,36 @@ public class Wire extends Elem {
      *                   connect the starting point of this wire with the existing
      *                   wire.
      */
-    public Wire(Elem intest1, int indexEntry, int[] start) {
+    public Wire(Elem intest1, int indexEntry, Point2D start) {
         super();
         name = "Wire";
         this.entry = new Pair<Elem, Integer>(intest1, indexEntry);
         // this.exit = new ArrayList<>();
-        this.posStart = start.clone();
+        this.posStart = start;
         this.state = true;
     }
 
-    public Wire(int[] start) {// check
+    public Wire(Point2D start) {// check
         super();
         name = "Wire";
         // this.entry = new Pair<>(elem1, indexEntry);
         // this.exit = new ArrayList<>();
-        this.posStart = start.clone();
+        this.posStart = start;
         this.state = true;
     }
 
-    public Wire(Elem elem1, int[] start) {// check
+    public Wire(Elem elem1, Point2D start) {// check
         super();
         name = "Wire";
         this.entry = new Pair<>(elem1, 0);
         // this.exit = new ArrayList<>();
-        this.posStart = start.clone();
+        this.posStart = start;
         this.state = true;
     }
     // une Classe public wire qui permettrait de se connecter par la l'entrée d'un
     // elem plutot que par la sortie
 
-    public int[] getPosStart() {
+    public Point2D getPosStart() {
         return posStart;
     }
 
@@ -122,11 +123,10 @@ public class Wire extends Elem {
             entry.setElem(e1);
             entry.setElem2(indexIn);
 
-            posEnd[0] = posStart[0];
-            posEnd[1] = posStart[1];
-
-            posStart[0] = posEnd[0];
-            posStart[1] = posEnd[1];
+            Point2D tmp = (Point2D)posEnd.clone();
+            
+            posEnd.setLocation(posStart);
+            posStart.setLocation(tmp);
 
             output = e1.evaluate();
         } else {
@@ -189,8 +189,8 @@ public class Wire extends Elem {
         return elem.in.contains(a);
     }
 
-    public boolean connectExit(Elem elem, int index, int[] posEnd) {
-        this.posEnd = posEnd.clone();
+    public boolean connectExit(Elem elem, int index, Point2D posEnd) {
+        this.posEnd = posEnd;
         return connectExit(elem, index);
     }
 
@@ -221,8 +221,8 @@ public class Wire extends Elem {
      * y-coordinate represents the vertical position.
      *
      */
-    public void setPosEnd(int[] pos) {
-        this.posEnd = pos.clone();
+    public void setPosEnd(Point2D pos) {
+        this.posEnd = (Point2D) pos.clone();
     }
 
     /**
@@ -234,8 +234,8 @@ public class Wire extends Elem {
      *            y-coordinate represents the vertical position.
      *
      */
-    public void setPosStart(int[] pos) {
-        this.posStart = pos.clone();
+    public void setPosStart(Point2D pos) {
+        this.posStart = (Point2D) pos.clone();
     }
 
     /**
@@ -259,101 +259,95 @@ public class Wire extends Elem {
      * @throws AucunChemin If the end position is not reachable from the start
      *                     position.
      */
-    public Stack<int[]> CheminLPC(ArrayList<ArrayList<Integer>> M) throws AucunChemin {
+    public Stack<Point2D> CheminLPC(ArrayList<ArrayList<Integer>> M) throws AucunChemin {
 
         if (M == null || M.isEmpty() || M.get(0).size() == 0) {
             throw new AucunChemin();
         }
 
-        Stack<int[]> c = new Stack<int[]>();
+        Stack<Point2D> c = new Stack<Point2D>();
         c.push(posStart);
-        Queue<int[]> F = new LinkedList<>(c);
-        ArrayList<int[]> V = new ArrayList<>();
-        int[] Head = posStart.clone();
+        Queue<Point2D> F = new LinkedList<>(c);
+        ArrayList<Point2D> V = new ArrayList<>();
+        Point2D Head =(Point2D) posStart.clone();
 
 
         V.add(Head);
 
 
-        if (posEnd[1] < 0 || posEnd[1] >= M.size() || posEnd[0] < 0
-                || posEnd[0] >= M.get(posEnd[1]).size()) {
+        if (posEnd.getY() < 0 || posEnd.getY() >= M.size() || posEnd.getX() < 0
+                || posEnd.getX() >= M.get((int) posEnd.getY()).size()) {
             throw new IllegalArgumentException("Point out of the matrice");
         }
 
-        if (M.get(posEnd[1]).get(posEnd[0]) != 1) {
+        if (M.get((int) posEnd.getY()).get((int) posEnd.getX()) != 1) {
             throw new IllegalArgumentException("No 1 found");
         }
 
-        if (M.get((int) Math.round(Head[1])).get((int) Math.round(Head[0])) != 1) {
+        if (M.get((int) Math.round(Head.getY())).get((int) Math.round(Head.getX())) != 1) {
             throw new IllegalArgumentException("No 1 found");
         }
 
-        long mx = Math.round(Math.abs(Head[0] - posEnd[0])) / 2;
+        long mx = Math.round(Math.abs(Head.getX() - posEnd.getX())) / 2;
         while (F.size() != 0) {
 
-            if (Head[0] == posEnd[0] && Head[1] == posEnd[1]) {
+            if (Head.getX() == posEnd.getX() && Head.getY() == posEnd.getY()) {
                 return c;
             }
 
             else {
-                if (Head[1] < 0 || Head[1] >= M.size() || Head[0] < 0
-                        || Head[0] >= M.get(Head[1]).size()) {
+                if (Head.getY() < 0 || Head.getY() >= M.size() || Head.getX() < 0
+                        || Head.getX() >= M.get((int) Head.getY()).size()) {
                     F.remove(Head);
                 }
 
-                if (Head[0] < 0 || Head[0] >= M.get(0).size() || Head[1] < 0 || Head[1] >= M.size())
+                if (Head.getX() < 0 || Head.getX() >= M.get(0).size() || Head.getY() < 0 || Head.getY() >= M.size())
                     continue;
 
-                int[] last = c.lastElement().clone();
+                Point2D last = (Point2D) c.lastElement().clone();
 
                 if (V.contains(Head)) {
 
-                    if (last[0] < mx) {
+                    if (last.getX() < mx) {
 
-                        while (last[0] < mx) {
-                            last[0]++;
-                            int[] point = last.clone();
+                        while (last.getX() < mx) {
+                            Point2D point = new Point2D.Double(last.getX()+1,last.getY());
                             c.push(point);
                         }
-                    } else if (last[0] > mx) {
+                    } else if (last.getX() > mx) {
 
-                        while (last[0] > mx && last[0] != posEnd[0]) {
-                            last[0]--;
-                            int[] point = last.clone();
+                        while (last.getX() > mx && last.getX() != posEnd.getX()) {
+                            Point2D point = new Point2D.Double(last.getX()+1,last.getY());
                             c.push(point);
                         }
                     }
 
-                    if (last[1] < posEnd[1]) {
+                    if (last.getY() < posEnd.getY()) {
                         System.out.println(M.get(M.size() - 1).size());
 
-                        if (posEnd[0] == M.get(M.size() - 1).size()) {
+                        if (posEnd.getX() == M.get(M.size() - 1).size()) {
 
-                            while (last[1] < posEnd[1] || last[1] != M.get(M.size() - 1).size()) {
-                                last[1]++;
-                                int[] point = last.clone();
+                            while (last.getY() < posEnd.getY() || last.getY() != M.get(M.size() - 1).size()) {
+                                Point2D point = new Point2D.Double(last.getX(),last.getY()+1);
                                 c.push(point);
                             }
                         } else {
-                            while (last[1] < posEnd[1]) {
-                                last[1]++;
-                                int[] point = last.clone();
+                            while (last.getY() < posEnd.getY()) {
+                                Point2D point = new Point2D.Double(last.getX(),last.getY()+1);
                                 c.push(point);
                             }
                         }
-                    } else if (last[1] > posEnd[1]) {
+                    } else if (last.getY() > posEnd.getY()) {
 
-                    if (posEnd[1] == 0) {
-                        while (last[1] > posEnd[1] || last[1] != 0) {
-                            last[1]--;
-                            int[] point = last.clone();
+                    if (posEnd.getY() == 0) {
+                        while (last.getY() > posEnd.getY() || last.getY() != 0) {
+                            Point2D point = new Point2D.Double(last.getX(),last.getY()-1);
                             c.push(point);
                         }
                     } else {
 
-                        while (last[1] > posEnd[1]) {
-                            last[1]--;                        
-                            int[] point = last.clone();
+                        while (last.getY() > posEnd.getY()) {
+                            Point2D point = new Point2D.Double(last.getX(),last.getY()-1);
                             c.push(point);
                         }
 
@@ -361,23 +355,21 @@ public class Wire extends Elem {
 
                 }
 
-                if (last[0] < posEnd[0]) {
+                if (last.getX() < posEnd.getX()) {
 
-                    while (last[0] < posEnd[0]) {
-                        last[0]++;
-                        int[] point = last.clone();
+                    while (last.getX() < posEnd.getX()) {
+                        Point2D point = new Point2D.Double(last.getX()+1,last.getY());
                         c.push(point);
                     }
-                } else if (last[0] > posEnd[0]) {
+                } else if (last.getX() > posEnd.getX()) {
 
-                    while (last[0] > posEnd[0]) {
-                        last[0]--;
-                        int[] point = last.clone();
+                    while (last.getX() > posEnd.getX()) {
+                        Point2D point = new Point2D.Double(last.getX()-1,last.getY());
                         c.push(point);
                     }
                 }
 
-                if (last[0] == posEnd[0] && last[1] == posEnd[1]) {
+                if (last.getX() == posEnd.getX() && last.getY() == posEnd.getY()) {
                     return c;
                 }
             }
